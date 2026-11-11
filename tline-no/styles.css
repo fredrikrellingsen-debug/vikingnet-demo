@@ -619,3 +619,124 @@
 .footer__inner p {
   margin: 0;
 }
+
+/* EXTRA_SINGLE_CSS */
+
+html, body { overflow-x: hidden; }
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #141A23 !important;
+  color: #F8FAFC !important;
+  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+}
+.header .brand, .header .nav a {
+  color: #F8FAFC !important;
+}
+.header .nav-toggle span {
+  background-color: #F8FAFC !important;
+}
+.kort-rutenett {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.kort {
+  background: var(--surface, #FFFFFF);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+.kort__bilde {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.kort__bilde img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.kort__nr {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.86);
+  color: #FFFFFF;
+}
+.kort__innhold {
+  padding: 1.45rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.kort__innhold h3 {
+  font-size: 1.22rem;
+  margin-bottom: 0.5rem;
+}
+.kort__innhold p {
+  color: var(--muted, #475569);
+  margin-bottom: 1.15rem;
+  flex-grow: 1;
+}
+.kort__lenke {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--primary, #B45309);
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  padding-top: 0.75rem;
+}
+.verdier {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.35rem;
+  margin-top: 2rem;
+}
+.verdi {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+.verdi h3 { color: #FFFFFF; margin-bottom: 0.45rem; font-size: 1.15rem; }
+.verdi p { color: #CBD5E1; font-size: 0.94rem; }
+.seksjon-mork {
+  background-color: #141A23;
+  color: #F8FAFC;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+.seksjon-mork h2 { color: #FFFFFF; }
+.seksjon-mork .seksjonshode p { color: #CBD5E1; }
+.kontakt__skjema select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.75rem 0.95rem;
+  font-size: 16px;
+  font-family: inherit;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  background: #FFFFFF;
+  color: #0F172A;
+  margin-top: 0.35rem;
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .kort-rutenett, .verdier { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1025px) {
+  .kort-rutenett, .verdier { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 1920px) {
+  .wrap { max-width: 1540px !important; margin: 0 auto; }
+}

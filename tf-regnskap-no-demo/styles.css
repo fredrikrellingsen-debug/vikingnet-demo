@@ -1211,3 +1211,7 @@ img.kort__bilde {
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* 4K_SAFE */
+html, body { overflow-x: hidden; }
+@media (min-width: 1920px) { .seksjon, .topp__indre, .bunn__indre, .drom__indre { max-width: 1540px; margin-left: auto; margin-right: auto; } }
