@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Vindusvask AS – Gurskøy</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --bakgrunn: #F8FAFC;
+      --bakgrunn-alt: #EFF4F8;
+      --kort-bg: #FFFFFF;
+      --blekk: #0F172A;
+      --dempet: #475569;
+      --aksent: #0369A1;
+      --aksent-myk: #E0F2FE;
+      --topp-bg: #0F172A;
+      --topp-blekk: #F8FAFC;
+      --font-overskrift: 'Playfair Display', serif;
+      --font-brodtekst: 'Plus Jakarta Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background-color: var(--bakgrunn);
+      color: var(--blekk);
+      font-family: var(--font-brodtekst);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    :focus-visible {
+      outline: 3px solid var(--aksent);
+      outline-offset: 3px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+    /* Header (.topp) med garantert kontrast >= 70 */
+    .topp {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--topp-bg);
+      color: var(--topp-blekk);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 0.9rem 0;
+    }
+    .topp__indre {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .merke {
+      font-family: var(--font-overskrift);
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      font-weight: 700;
+      color: var(--topp-blekk);
+      letter-spacing: -0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 44px;
+    }
+    .merke__ikon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--aksent);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-desktop a {
+      color: var(--topp-blekk);
+      font-weight: 500;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 0.4rem;
+    }
+    .nav-desktop a:hover { color: var(--aksent); }
+    .knapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      min-width: 46px;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      background-color: var(--aksent);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    .knapp:hover { opacity: 0.94; transform: translateY(-1px); }
+    .knapp--sekundar {
+      background-color: transparent;
+      color: var(--blekk);
+      border: 1.5px solid var(--aksent);
+    }
+    .mobil-meny-knapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: transparent;
+      color: var(--topp-blekk);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .mobil-meny {
+      display: none;
+      background-color: var(--topp-bg);
+      color: var(--topp-blekk);
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .mobil-meny.aapen { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mobil-meny a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      color: var(--topp-blekk);
+      font-weight: 500;
+    }
+    /* Hero */
+    .hero {
+      padding: clamp(2.5rem, 6vw, 5.5rem) 0;
+      background-color: var(--bakgrunn-alt);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+      align-items: center;
+    }
+    .merkelapp {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background-color: var(--aksent);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: var(--font-overskrift);
+      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      line-height: 1.12;
+      margin-bottom: 1.1rem;
+      color: var(--blekk);
+    }
+    h2 {
+      font-family: var(--font-overskrift);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+      color: var(--blekk);
+    }
+    h3 {
+      font-family: var(--font-overskrift);
+      font-size: clamp(1.2rem, 2vw, 1.45rem);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      color: var(--blekk);
+    }
+    .ingress {
+      font-size: clamp(1.05rem, 1.4vw, 1.22rem);
+      color: var(--dempet);
+      margin-bottom: 1.6rem;
+      max-width: 62ch;
+    }
+    .hero__knapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+    .hero__bilde {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+      aspect-ratio: 16 / 10;
+    }
+    .hero__bilde img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Nøkkeltall / tillitslinje */
+    .fakta-stripe {
+      padding: 1.75rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .fakta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .fakta-boks {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      background-color: var(--kort-bg);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .fakta-boks strong {
+      display: block;
+      font-size: 1.25rem;
+      color: var(--blekk);
+    }
+    .fakta-boks span {
+      font-size: 0.92rem;
+      color: var(--dempet);
+    }
+    /* Seksjoner & 4 tjenestekort */
+    .seksjon {
+      padding: clamp(3rem, 6vw, 5.5rem) 0;
+    }
+    .seksjon--alt {
+      background-color: var(--bakgrunn-alt);
+    }
+    .kort-rutenett {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .kort {
+      background-color: var(--kort-bg);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .kort__bilde {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+    .kort__bilde img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .kort__innhold {
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .kort__nr {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--aksent);
+      margin-bottom: 0.35rem;
+    }
+    .kort__innhold p {
+      color: var(--dempet);
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+    .kort__lenke {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-weight: 600;
+      color: var(--aksent);
+    }
+    /* 4 distinkte verdier (.verdier) */
+    .verdier {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .verdi {
+      background-color: var(--kort-bg);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .verdi p { color: var(--dempet); }
+    /* Interaktiv pris-/prosjektvelger inspirert av fredrikrellingsen-debug */
+    .kalkulator {
+      background-color: var(--kort-bg);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      margin-top: 2rem;
+    }
+    .kalkulator__valg {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin: 1.25rem 0;
+    }
+    .kalk-knapp {
+      text-align: left;
+      padding: 1rem 1.2rem;
+      min-height: 48px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(148, 163, 184, 0.3);
+      background: var(--bakgrunn-alt);
+      color: var(--blekk);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .kalk-knapp.aktiv {
+      border-color: var(--aksent);
+      background-color: var(--aksent);
+      color: #ffffff;
+    }
+    .kalk-resultat {
+      padding: 1.1rem 1.25rem;
+      border-radius: 10px;
+      background-color: var(--bakgrunn-alt);
+      font-weight: 600;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    /* Kontaktskjema (min 16px på inputs for iOS Safari) */
+    .skjema-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .skjema {
+      background-color: var(--kort-bg);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      display: grid;
+      gap: 1.1rem;
+    }
+    .skjema label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .skjema input, .skjema select, .skjema textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.75rem 0.95rem;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--blekk);
+      background-color: var(--bakgrunn);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-radius: 8px;
+    }
+    .bunn {
+      padding: 3rem 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      background-color: var(--bakgrunn-alt);
+      font-size: 0.95rem;
+      color: var(--dempet);
+    }
+    .bunn__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .bunn a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--blekk);
+      font-weight: 500;
+    }
+
+    /* 1. Mobil (320px - 640px) */
+    @media (max-width: 640px) {
+      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg {
+        grid-template-columns: 1fr;
+      }
+      .nav-desktop { display: none; }
+    }
+
+    /* 2. Nettbrett / Pad (641px - 1024px) */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .container { padding: 0 1.75rem; }
+      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .bunn__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* 3. PC / Laptop (1025px - 1920px) */
+    @media (min-width: 1025px) {
+      .nav-desktop { display: flex; }
+      .mobil-meny-knapp { display: none; }
+      .hero__grid { grid-template-columns: 1.1fr 0.9fr; }
+      .fakta-grid { grid-template-columns: repeat(4, 1fr); }
+      .kort-rutenett { grid-template-columns: repeat(4, 1fr); }
+      .verdier { grid-template-columns: repeat(4, 1fr); }
+      .kalkulator__valg { grid-template-columns: repeat(2, 1fr); }
+      .skjema-grid { grid-template-columns: 1fr 1.2fr; }
+      .bunn__grid { grid-template-columns: 1.4fr 1fr 1fr; }
+    }
+
+    /* 4. TV / 4K / Storskjerm (1920px+) */
+    @media (min-width: 1920px) {
+      .container {
+        max-width: 1540px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+      body { font-size: clamp(1.05rem, 1.1vw, 1.25rem); }
+    }
+    </style>
+</head>
+<body>
+  
+        <header class="topp">
+          <div class="container topp__indre">
+            <a href="index.html" class="merke" aria-label="Vindusvask AS">
+              <span class="merke__ikon">V</span>
+              <span>Vindusvask AS</span>
+            </a>
+            <nav class="nav-desktop" aria-label="Hovedmeny">
+              <a href="index.html">Forside</a>
+              <a href="tjenester.html">Tjenester</a>
+              <a href="om-oss.html">Om bedriften</a>
+              <a href="kontakt.html">Kontakt</a>
+              <a href="kontakt.html#skjema" class="knapp">Be om befaring</a>
+            </nav>
+            <button type="button" class="mobil-meny-knapp" onclick="document.getElementById('mobilMeny').classList.toggle('aapen')" aria-label="Åpne meny">
+              Meny
+            </button>
+          </div>
+          <nav id="mobilMeny" class="mobil-meny" aria-label="Mobilmeny">
+            <a href="index.html">Forside</a>
+            <a href="tjenester.html">Tjenester</a>
+            <a href="om-oss.html">Om bedriften</a>
+            <a href="kontakt.html">Kontakt</a>
+            <a href="personvern.html">Personvern</a>
+          </nav>
+        </header>
+        
+  <main>
+    <section class="seksjon">
+      <div class="container hero__grid">
+        <div>
+          <span class="merkelapp">Etablert 1998 i Gurskøy</span>
+          <h1>Om Vindusvask AS</h1>
+          <p class="ingress">
+            Vindusvask AS (org.nr. 980482626) holder til i C/O Peter Lillenes, 6080 Gurskøy og teller i dag 7 ansatte.
+            Selskapet ledes av Peter Lee Lillenes (Daglig leder).
+          </p>
+          <p style="color: var(--dempet); margin-bottom: 1.5rem;">
+            Vi kombinerer lokal tilstedeværelse i Herøy med fagmessig utførelse og ryddig kommunikasjon fra første befaring til ferdigstilt arbeid.
+          </p>
+          <a href="kontakt.html#skjema" class="knapp">Ta kontakt med oss →</a>
+        </div>
+        <div class="hero__bilde">
+          <img src="../assets/webp/3c22a6ea617e.webp" alt="Vindusvask AS i Gurskøy">
+        </div>
+      </div>
+    </section>
+    <section class="seksjon seksjon--alt">
+      <div class="container">
+        <h2>Våre 4 grunnverdier</h2>
+        <div class="verdier">
+          
+                <div class="verdi">
+                  <h3>Skånsomme metoder som sparer underlaget</h3>
+                  <p>Vi tilpasser trykk, temperatur og kjemi slik at maling, treverk og fuger ikke skades.</p>
+                </div>
+                
+
+                <div class="verdi">
+                  <h3>Økt levetid på tak og fasade</h3>
+                  <p>Regelmessig vask hindrer fuktopptak, frostsprengning og tidlig nedbrytning.</p>
+                </div>
+                
+
+                <div class="verdi">
+                  <h3>Sikker utførelse i høyden</h3>
+                  <p>Sertifiserte operatører med godkjent lift- og sikringsutstyr.</p>
+                </div>
+                
+
+                <div class="verdi">
+                  <h3>Fastpris før oppstart</h3>
+                  <p>Tydelig tilbud basert på befaring eller areal slik at du har full kostnadskontroll.</p>
+                </div>
+                
+        </div>
+      </div>
+    </section>
+  </main>
+  
+        <footer class="bunn">
+          <div class="container bunn__grid">
+            <div>
+              <strong style="color: var(--blekk); font-size: 1.1rem;">Vindusvask AS</strong>
+              <p style="margin-top: 0.4rem;">Fasadevask, takvask &amp; utvendig renhold i Gurskøy og Herøy.</p>
+              <p style="margin-top: 0.4rem;">Org.nr: 980482626 · Etablert 1998 · 7 ansatte</p>
+            </div>
+            <div>
+              <strong style="color: var(--blekk);">Kontaktinformasjon</strong>
+              <p style="margin-top: 0.4rem;">Adresse: C/O Peter Lillenes, 6080 Gurskøy</p>
+              <p>E-post: <a href="mailto:vindusvask@hotmail.no">vindusvask@hotmail.no</a></p>
+              <p>Daglig leder: Peter Lee Lillenes</p>
+            </div>
+            <div>
+              <strong style="color: var(--blekk);">Sider</strong><br>
+              <a href="index.html">Forside</a> ·
+              <a href="tjenester.html">Tjenester</a> ·
+              <a href="om-oss.html">Om oss</a> ·
+              <a href="kontakt.html">Kontakt</a> ·
+              <a href="personvern.html">Personvern</a>
+            </div>
+          </div>
+        </footer>
+        
+</body>
+</html>
