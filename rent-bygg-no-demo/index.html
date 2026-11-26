@@ -1,1025 +1,495 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rent Bygg AS – Godkjent renholdsbedrift &amp; eiendomsrenhold i Langhus</title>
+  <title>Rent Bygg AS – Bygg &amp; Håndverk i Langhus</title>
   <meta name="description" content="Rent Bygg AS leverer fagmessig arbeid innen renhold i Langhus og Nordre Follo. Bestill befaring eller be om pristilbud direkte.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap">
   <style>
-    :root {
-      --bakgrunn: #F4F9F8;
-      --bakgrunn-alt: #E5F2F0;
-      --kort-bg: #FFFFFF;
-      --blekk: #0F2926;
-      --dempet: #3D5A56;
-      --aksent: #0D9488;
-      --aksent-mork: #0F766E;
-      --aksent-myk: #CCFBF1;
-      --topp-bg: #0D2422;
-      --topp-blekk: #F4F9F8;
-      --seksjon-mork: #0D2422;
-      --font-overskrift: 'Outfit', sans-serif;
-      --font-brodtekst: 'Plus Jakarta Sans', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
-    body {
-      background-color: var(--bakgrunn);
-      color: var(--blekk);
-      font-family: var(--font-brodtekst);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    :focus-visible {
-      outline: 3px solid var(--aksent);
-      outline-offset: 3px;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-    .container {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-    /* Top utility bar */
-    .topbar {
-      background-color: #090D14;
-      color: #CBD5E1;
-      font-size: 0.82rem;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .topbar__indre {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-    .topbar__venstre, .topbar__hoyre {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1.1rem;
-    }
-    .topbar__punkt {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.01em;
-    }
-    .topbar__prikk {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: #22C55E;
-      box-shadow: 0 0 8px #22C55E;
-    }
-    /* Sticky Header (.topp) with guaranteed contrast >= 70 */
-    .topp {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background-color: var(--topp-bg);
-      color: var(--topp-blekk);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 0.85rem 0;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
-    }
-    .topp__indre {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .merke {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.08rem, 1.8vw, 1.35rem);
-      font-weight: 700;
-      color: var(--topp-blekk);
-      letter-spacing: -0.02em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      min-height: 44px;
-    }
-    .merke__ikon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--aksent), var(--aksent-mork));
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.92rem;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-    .merke__tekst {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-    }
-    .merke__under {
-      font-family: var(--font-brodtekst);
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: #94A3B8;
-      letter-spacing: 0.02em;
-      margin-top: 2px;
-    }
-    .nav-desktop {
-      display: none;
-      align-items: center;
-      gap: 1.35rem;
-    }
-    .nav-desktop a:not(.knapp) {
-      color: var(--topp-blekk);
-      font-weight: 500;
-      font-size: 0.95rem;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.35rem;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-    }
-    .nav-desktop a:not(.knapp):hover, .nav-desktop a[aria-current="page"] {
-      color: #FFFFFF;
-      border-bottom-color: var(--aksent);
-    }
-    .knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      min-height: 46px;
-      min-width: 46px;
-      padding: 0.78rem 1.45rem;
-      border-radius: 10px;
-      background-color: var(--aksent);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 0.98rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-      transition: transform 0.15s ease, background-color 0.15s ease;
-    }
-    .knapp:hover { background-color: var(--aksent-mork); transform: translateY(-1px); }
-    .knapp--sekundar {
-      background-color: var(--kort-bg);
-      color: var(--blekk);
-      border: 1.5px solid rgba(15, 23, 42, 0.22);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-    .knapp--sekundar:hover {
-      background-color: var(--bakgrunn-alt);
-      border-color: var(--aksent);
-    }
-    .mobil-meny-knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 44px;
-      min-height: 44px;
-      padding: 0.5rem 0.9rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--topp-blekk);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .mobil-meny {
-      display: none;
-      background-color: var(--topp-bg);
-      color: var(--topp-blekk);
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .mobil-meny.aapen { display: flex; flex-direction: column; gap: 0.45rem; }
-    .mobil-meny a {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      color: var(--topp-blekk);
-      font-weight: 500;
-    }
-    /* Hero */
-    .hero {
-      padding: clamp(2.5rem, 5.5vw, 5rem) 0;
-      background: radial-gradient(circle at 85% 15%, var(--aksent-myk) 0%, transparent 45%), linear-gradient(180deg, var(--bakgrunn-alt) 0%, var(--bakgrunn) 100%);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.09);
-    }
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-    .merkelapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.38rem 0.9rem;
-      border-radius: 999px;
-      background-color: var(--aksent);
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 1.1rem;
-    }
-    h1 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(2rem, 4vw, 3.35rem);
-      line-height: 1.12;
-      letter-spacing: -0.025em;
-      text-wrap: balance;
-      margin-bottom: 1.15rem;
-      color: var(--blekk);
-    }
-    h2 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      line-height: 1.18;
-      letter-spacing: -0.02em;
-      text-wrap: balance;
-      margin-bottom: 0.85rem;
-      color: var(--blekk);
-    }
-    h3 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.15rem, 1.7vw, 1.35rem);
-      line-height: 1.28;
-      margin-bottom: 0.5rem;
-      color: var(--blekk);
-    }
-    .seksjon-etikett {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--aksent);
-      margin-bottom: 0.5rem;
-    }
-    .ingress {
-      font-size: clamp(1.02rem, 1.3vw, 1.18rem);
-      color: var(--dempet);
-      margin-bottom: 1.65rem;
-      max-width: 62ch;
-    }
-    .hero__knapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      margin-bottom: 1.65rem;
-    }
-    .hero__tillit {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem 1.35rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(15, 23, 42, 0.1);
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--blekk);
-    }
-    .hero__tillit li {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-    .hero__tillit svg {
-      width: 18px;
-      height: 18px;
-      color: var(--aksent);
-      flex-shrink: 0;
-    }
-    .hero__ramme {
-      position: relative;
-    }
-    .hero__bilde {
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
-      border: 4px solid var(--kort-bg);
-      aspect-ratio: 16 / 11;
-      background-color: var(--bakgrunn-alt);
-    }
-    .hero__bilde img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero__flyt {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-      color: #F8FAFC;
-      padding: 0.85rem 1.1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      font-size: 0.86rem;
-    }
-    .hero__flyt strong {
-      display: block;
-      font-size: 0.95rem;
-      color: #FFFFFF;
-    }
-    .hero__flyt-kode {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      background: var(--aksent);
-      color: #FFFFFF;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    /* Fakta-stripe */
-    .fakta-stripe {
-      padding: 1.85rem 0;
-      background-color: var(--kort-bg);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .fakta-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    .fakta-boks {
-      padding: 1.15rem 1.35rem;
-      border-radius: 14px;
-      background-color: var(--bakgrunn);
-      border: 1px solid rgba(15, 23, 42, 0.09);
-      border-top: 3px solid var(--aksent);
-    }
-    .fakta-boks__etikett {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--aksent);
-      margin-bottom: 0.25rem;
-      display: block;
-    }
-    .fakta-boks strong {
-      display: block;
-      font-family: var(--font-overskrift);
-      font-size: 1.25rem;
-      color: var(--blekk);
-      margin-bottom: 0.15rem;
-    }
-    .fakta-boks span {
-      font-size: 0.88rem;
-      color: var(--dempet);
-    }
-    /* Seksjoner & 4 tjenestekort */
-    .seksjon {
-      padding: clamp(3.2rem, 6vw, 5.5rem) 0;
-    }
-    .seksjon--alt {
-      background-color: var(--bakgrunn-alt);
-      border-top: 1px solid rgba(15, 23, 42, 0.07);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.07);
-    }
-    .seksjon--mork {
-      background-color: var(--seksjon-mork);
-      color: #F8FAFC;
-    }
-    .seksjon--mork h2, .seksjon--mork h3 {
-      color: #FFFFFF;
-    }
-    .seksjon--mork .ingress {
-      color: #CBD5E1;
-    }
-    .kort-rutenett {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .kort:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.11);
-    }
-    .kort__bilde {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background-color: var(--bakgrunn-alt);
-    }
-    .kort__bilde img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-    .kort:hover .kort__bilde img {
-      transform: scale(1.04);
-    }
-    .kort__nr {
-      position: absolute;
-      top: 0.85rem;
-      left: 0.85rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.3rem 0.65rem;
-      border-radius: 8px;
-      background-color: rgba(15, 23, 42, 0.86);
-      color: #FFFFFF;
-      backdrop-filter: blur(6px);
-    }
-    .kort__innhold {
-      padding: 1.45rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .kort__innhold p {
-      color: var(--dempet);
-      font-size: 0.95rem;
-      margin-bottom: 1.25rem;
-      flex-grow: 1;
-      max-width: 60ch;
-    }
-    .kort__lenke {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      min-height: 44px;
-      font-weight: 700;
-      font-size: 0.93rem;
-      color: var(--aksent);
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      padding-top: 0.75rem;
-    }
-    /* 4 distinkte verdier (.verdier) i mørk kontrastseksjon */
-    .verdier {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-      margin-top: 2rem;
-    }
-    .verdi {
-      background-color: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 16px;
-      padding: 1.55rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-    .verdi__ikon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background-color: var(--aksent);
-      color: #FFFFFF;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.88rem;
-      margin-bottom: 0.35rem;
-    }
-    .seksjon--mork .verdi p { color: #CBD5E1; font-size: 0.94rem; }
-    .verdi p { color: var(--dempet); font-size: 0.94rem; }
-    /* Prosess-seksjon (3 steg) */
-    .prosess-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-      margin-top: 2rem;
-    }
-    .prosess-kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      padding: 1.55rem;
-      position: relative;
-    }
-    .prosess-kort__steg {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--aksent);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.4rem;
-      display: block;
-    }
-    /* Interaktiv pris-/prosjektvelger */
-    .kalkulator {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
-      margin-top: 1.75rem;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
-    }
-    .kalkulator__valg {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.85rem;
-      margin: 1.25rem 0;
-    }
-    .kalk-knapp {
-      text-align: left;
-      padding: 1rem 1.25rem;
-      min-height: 50px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(15, 23, 42, 0.15);
-      background: var(--bakgrunn);
-      color: var(--blekk);
-      font-weight: 600;
-      font-size: 0.98rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .kalk-knapp:hover {
-      border-color: var(--aksent);
-    }
-    .kalk-knapp.aktiv {
-      border-color: var(--aksent);
-      background-color: var(--aksent);
-      color: #ffffff;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
-    }
-    .kalk-resultat {
-      padding: 1.2rem 1.4rem;
-      border-radius: 12px;
-      background-color: var(--bakgrunn-alt);
-      border-left: 4px solid var(--aksent);
-      font-weight: 600;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    /* Kontaktskjema */
-    .skjema-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.25rem;
-      margin-top: 1.5rem;
-      align-items: start;
-    }
-    .kontakt-kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-top: 1.25rem;
-      display: grid;
-      gap: 0.85rem;
-    }
-    .kontakt-kort__rad {
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .kontakt-kort__rad:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .kontakt-kort__etikett {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      color: var(--aksent);
-      display: block;
-    }
-    .skjema {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.35rem);
-      display: grid;
-      gap: 1.1rem;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
-    }
-    .skjema label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.93rem;
-      margin-bottom: 0.35rem;
-    }
-    .skjema input, .skjema select, .skjema textarea {
-      width: 100%;
-      min-height: 46px;
-      padding: 0.78rem 0.95rem;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--blekk);
-      background-color: var(--bakgrunn);
-      border: 1.5px solid rgba(15, 23, 42, 0.18);
-      border-radius: 10px;
-    }
-    .skjema input:focus, .skjema select:focus, .skjema textarea:focus {
-      border-color: var(--aksent);
-      outline: none;
-    }
-    .bunn {
-      padding: 3.5rem 0 2.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      background-color: var(--topp-bg);
-      color: #CBD5E1;
-      font-size: 0.94rem;
-    }
-    .bunn__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .bunn strong {
-      color: #FFFFFF;
-    }
-    .bunn a {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      color: #E2E8F0;
-      font-weight: 500;
-    }
-    .bunn a:hover { color: #FFFFFF; text-decoration: underline; }
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
 
-    /* 1. Mobil (320px - 640px) */
-    @media (max-width: 640px) {
-      .topbar { display: none; }
-      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg, .prosess-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-desktop { display: none; }
-      .hero__flyt { position: static; margin-top: 0.75rem; }
-    }
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
 
-    /* 2. Nettbrett / Pad (641px - 1024px) */
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .container { padding: 0 1.75rem; }
-      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .prosess-grid { grid-template-columns: repeat(3, 1fr); }
-      .bunn__grid { grid-template-columns: repeat(2, 1fr); }
-    }
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
 
-    /* 3. PC / Laptop (1025px - 1920px) */
-    @media (min-width: 1025px) {
-      .nav-desktop { display: flex; }
-      .mobil-meny-knapp { display: none; }
-      .hero__grid { grid-template-columns: 1.08fr 0.92fr; }
-      .fakta-grid { grid-template-columns: repeat(4, 1fr); }
-      .kort-rutenett { grid-template-columns: repeat(4, 1fr); }
-      .verdier { grid-template-columns: repeat(4, 1fr); }
-      .prosess-grid { grid-template-columns: repeat(3, 1fr); }
-      .kalkulator__valg { grid-template-columns: repeat(2, 1fr); }
-      .skjema-grid { grid-template-columns: 1fr 1.15fr; }
-      .bunn__grid { grid-template-columns: 1.4fr 1fr 1fr; }
-    }
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
 
-    /* 4. TV / 4K / Storskjerm (1920px+) */
-    @media (min-width: 1920px) {
-      .container {
-        max-width: 1540px;
-        margin: 0 auto;
-        padding: 0 2.5rem;
-      }
-      body { font-size: clamp(1.05rem, 1.1vw, 1.22rem); }
-    }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --vvs-deep: #060D17;
+  --vvs-navy: #0B192C;
+  --vvs-fjord: #13263E;
+  --vvs-copper: #F59E0B;
+  --vvs-copper-dark: #B45309;
+  --accent: #0B192C;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #D97706;
+  --strip-bg: #060D17;
+  --strip-fg: #CBD5E1;
+  --strip-link: #FBBF24;
+  --hero-bg: #0B192C;
+  --hero-ink: #FFFFFF;
+  --hero-muted: #CBD5E1;
+  --surface-card: #FFFFFF;
+  --ink: #0B192C;
+  --muted: #334E68;
+  --border: #D9E2EC;
+  --border-strong: #9FB3C8;
+  --tint: #F0F4F8;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-vvs {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #FFFFFF;
+  color: var(--ink);
+}
+.tpl-vvs h1, .tpl-vvs h2, .tpl-vvs h3 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.vvs-wrap { width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.vvs-header {
+  position: sticky; top: 0; z-index: 60;
+  background: #060D17; color: #FFFFFF;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.vvs-header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+.vvs-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.08rem; }
+.vvs-badge-icon { width: 38px; height: 38px; border-radius: 50%; background: #13263E; border: 2px solid #F59E0B; color: #F59E0B; display: inline-flex; align-items: center; justify-content: center; font-size: 0.88rem; font-weight: 800; }
+.vvs-nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.94rem; font-weight: 500; }
+.vvs-nav a { display: inline-flex; align-items: center; color: #E2E9F2; }
+.vvs-nav a:hover, .vvs-nav a.active { color: #FBBF24; }
+.vvs-btn-copper {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: #F59E0B; color: #060D17; font-weight: 700; padding: 0.82rem 1.45rem;
+  border-radius: 10px; border: 2px solid #F59E0B;
+}
+.vvs-btn-copper:hover { background: #FBBF24; }
+.vvs-btn-glass {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.08); color: #FFFFFF; font-weight: 600;
+  padding: 0.82rem 1.45rem; border-radius: 10px; border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.vvs-hero {
+  background: linear-gradient(155deg, #060D17 0%, #0B192C 55%, #13263E 100%);
+  color: #FFFFFF; padding: clamp(3rem, 6vw, 5.25rem) 0;
+}
+.vvs-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+.vvs-kicker { display: inline-block; background: rgba(245, 158, 11, 0.16); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.4); font-size: 0.8rem; font-weight: 700; padding: 0.34rem 0.85rem; border-radius: 999px; margin-bottom: 1rem; }
+.vvs-hero h1 { font-size: clamp(2.1rem, 4.1vw, 3.35rem); margin-bottom: 1rem; }
+.vvs-hero-lead { color: #CBD5E1; font-size: clamp(1rem, 1.4vw, 1.14rem); max-width: 56ch; margin-bottom: 1.75rem; }
+.vvs-hero-cta { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+.vvs-hero-img { border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4); }
+.vvs-hero-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.vvs-trust-line { background: #F0F4F8; border-bottom: 1px solid #D9E2EC; padding: 1.15rem 0; }
+.vvs-trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.vvs-trust-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; font-weight: 600; color: #0B192C; }
+.vvs-trust-dot { width: 10px; height: 10px; border-radius: 50%; background: #B45309; flex-shrink: 0; }
+
+.vvs-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.vvs-section-tint { background: #F0F4F8; }
+.vvs-head { max-width: 720px; margin-bottom: 2.25rem; }
+.vvs-eyebrow { display: block; color: #B45309; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.45rem; }
+.vvs-head h2 { font-size: clamp(1.7rem, 3vw, 2.45rem); }
+.vvs-head p { color: var(--muted); }
+
+/* Rene hvite tjenestekort med tydelig blå venstrekant */
+.vvs-cards-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.45rem; }
+.vvs-card {
+  background: #FFFFFF; border: 1px solid #D9E2EC; border-left: 5px solid #0B192C;
+  border-radius: 12px; padding: 1.7rem; box-shadow: 0 8px 24px rgba(11, 25, 44, 0.05);
+}
+.vvs-card h3 { font-size: 1.22rem; color: #0B192C; }
+.vvs-card p { color: var(--muted); font-size: 0.95rem; }
+.vvs-card ul { display: grid; gap: 0.35rem; margin-top: 0.85rem; font-size: 0.9rem; color: #1E3A5F; }
+.vvs-card li::before { content: "→ "; color: #B45309; font-weight: 700; }
+
+/* 3-stegs prosess med unike bilder */
+.vvs-steps-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.vvs-step { background: #FFFFFF; border: 1px solid #D9E2EC; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.vvs-step img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.vvs-step-body { padding: 1.45rem; }
+.vvs-step-num { display: inline-block; background: #0B192C; color: #FCD34D; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 6px; margin-bottom: 0.65rem; }
+.vvs-step-body h3 { font-size: 1.15rem; }
+.vvs-step-body p { color: var(--muted); font-size: 0.92rem; margin: 0; }
+
+.vvs-navy-band { background: #0B192C; color: #FFFFFF; padding: clamp(2.75rem, 5vw, 4.25rem) 0; }
+.vvs-why-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; margin-bottom: 2.25rem; }
+.vvs-why-box { background: #13263E; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; padding: 1.35rem; }
+.vvs-why-box h3 { color: #FFFFFF; font-size: 1.06rem; }
+.vvs-why-box p { color: #CBD5E1; font-size: 0.9rem; margin: 0; }
+.vvs-cta-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; padding-top: 1.75rem; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.vvs-cta-strip p { color: #CBD5E1; margin: 0; }
+
+.vvs-footer { background: #060D17; color: #CBD5E1; padding: 3rem 0 2rem; }
+.vvs-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.vvs-footer h3 { color: #FFFFFF; font-size: 1rem; margin-bottom: 0.8rem; }
+.vvs-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.vvs-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.vvs-footer-links a:hover { color: #FBBF24; }
+.vvs-footer-end { border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-vvs .mobile-nav { background: #060D17; color: #FFFFFF; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+
+@media (max-width: 1080px) {
+  .vvs-hero-grid { grid-template-columns: 1fr; }
+  .vvs-trust-grid, .vvs-why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vvs-steps-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .vvs-trust-grid, .vvs-cards-grid, .vvs-steps-3, .vvs-why-grid, .vvs-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
 </head>
-<body>
-  
-        <div class="topbar">
-          <div class="container topbar__indre">
-            <div class="topbar__venstre">
-              <span class="topbar__punkt"><span class="topbar__prikk"></span> OFFENTLIG GODKJENT RENHOLDSBEDRIFT</span>
-              <span class="topbar__punkt">ORG.NR 878 640 152</span>
-            </div>
-            <div class="topbar__hoyre">
-              <span class="topbar__punkt">📍 C/O Raim Memisi, 1405 Langhus</span>
-              <a href="mailto:mirijeta_memisi@hotmail.com" class="topbar__punkt">✉️ mirijeta_memisi@hotmail.com</a>
-            </div>
-          </div>
-        </div>
-        <header class="topp">
-          <div class="container topp__indre">
-            <a href="index.html" class="merke" aria-label="Rent Bygg AS">
-              <span class="merke__ikon">RB</span><span class="merke__tekst"><span>Rent Bygg AS</span><span class="merke__under">Langhus · Org.nr 878 640 152</span></span>
-            </a>
-            <nav class="nav-desktop" aria-label="Hovedmeny">
-              <a href="index.html">Forside</a>
-              <a href="tjenester.html">Tjenester</a>
-              <a href="om-oss.html">Om bedriften</a>
-              <a href="kontakt.html">Kontakt</a>
-              <a href="kontakt.html#skjema" class="knapp">Be om befaring</a>
-            </nav>
-            <button type="button" class="mobil-meny-knapp" onclick="document.getElementById('mobilMeny').classList.toggle('aapen')" aria-label="Åpne meny">
-              Meny
-            </button>
-          </div>
-          <nav id="mobilMeny" class="mobil-meny" aria-label="Mobilmeny">
-            <a href="index.html">Forside</a>
-            <a href="tjenester.html">Tjenester</a>
-            <a href="om-oss.html">Om bedriften</a>
-            <a href="kontakt.html">Kontakt</a>
-            <a href="personvern.html">Personvern</a>
-          </nav>
-        </header>
-        
-  <main>
-    <section class="hero">
-      <div class="container hero__grid">
-        <div>
-          <span class="merkelapp">Godkjent renholdsbedrift &amp; eiendomsrenhold · Langhus</span>
-          <h1>Pålitelig fagpartner innen renhold i Langhus</h1>
-          <p class="ingress">Rent Bygg AS utfører oppdrag for boligeiere, borettslag og næringskunder i Langhus og Nordre Follo. Med 11 ansatte og base i C/O Raim Memisi leverer vi arbeid til avtalt tid og pris.</p>
-          <div class="hero__knapper">
-            <a href="kontakt.html#skjema" class="knapp">Bestill uforpliktende befaring →</a>
-            <a href="tjenester.html" class="knapp knapp--sekundar">Utforsk våre tjenester</a>
-          </div>
-          <ul class="hero__tillit">
-            <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg> Fast kontakt: Raim Memisi</li>
-            <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg> Skriftlig pristilbud på forhånd</li>
-            <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg> Lokalkjent i Langhus</li>
-          </ul>
-        </div>
-        <div class="hero__ramme">
-          <div class="hero__bilde">
-            <img src="../assets/webp/3eec8fd9901c.webp" alt="Rent Bygg AS – Godkjent renholdsbedrift &amp; eiendomsrenhold · Langhus" width="1200" height="825" loading="eager">
-          </div>
-          <div class="hero__flyt">
-            <div>
-              <strong>Rent Bygg AS</strong>
-              <span>Etablert 1997 · 11 fagfolk · Langhus</span>
-            </div>
-            <span class="hero__flyt-kode">VERIFISERT AS</span>
-          </div>
+<body class="tpl-vvs" data-template="vvs">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Rent Bygg AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="vvs-header">
+  <div class="vvs-wrap vvs-header-row">
+    <a href="index.html" class="vvs-brand"><span class="vvs-badge-icon" aria-hidden="true">RB</span><span>Rent Bygg AS</span></a>
+    <nav class="vvs-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link active" aria-current="page">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn vvs-btn-copper">Ta kontakt</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html" aria-current="page">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="vvs-hero">
+    <div class="vvs-wrap vvs-hero-grid">
+      <div>
+        <span class="vvs-kicker">Tømrer, oppussing og byggetjenester</span>
+        <h1>Solid håndverk for bolig og prosjekter i Langhus</h1>
+        <p class="vvs-hero-lead">Rent Bygg AS leverer fagmessig arbeid innen renhold i Langhus og Nordre Follo. Bestill befaring eller be om pristilbud direkte.</p>
+        <div class="vvs-hero-cta">
+          <a href="kontakt.html" class="btn vvs-btn-copper">Be om pristilbud</a>
+          <a href="tjenester.html" class="btn vvs-btn-glass">Oversikt over tjenester</a>
         </div>
       </div>
-    </section>
+      <div class="vvs-hero-img"><img src="../assets/curated/bygg/08-arkitekttegnet-tilbygg.webp" alt="Moderne bolig med stort glassparti og kveldssatt fasade" width="1200" height="800" loading="eager" fetchpriority="high" decoding="sync"></div>
+    </div>
+  </section>
+  <div class="vvs-trust-line">
+    <div class="vvs-wrap vvs-trust-grid"><div class="vvs-trust-item"><span class="vvs-trust-dot" aria-hidden="true"></span><span>Grundig befaring og realistisk fremdriftsplan</span></div><div class="vvs-trust-item"><span class="vvs-trust-dot" aria-hidden="true"></span><span>Skikkelige materialer tilpasset norsk klima</span></div><div class="vvs-trust-item"><span class="vvs-trust-dot" aria-hidden="true"></span><span>Fast kontaktperson under hele prosjektet</span></div><div class="vvs-trust-item"><span class="vvs-trust-dot" aria-hidden="true"></span><span>Ryddig byggeplass og gjennomgang ved slutt</span></div></div>
+  </div>
+  <section class="vvs-section">
+    <div class="vvs-wrap">
+      <div class="vvs-head"><span class="vvs-eyebrow">Tjenester</span><h2>Faglig bredde og tydelige rammer</h2><p>Vi leverer ryddige og driftssikre løsninger tilpasset ditt behov.</p></div>
+      <div class="vvs-cards-grid"><article class="vvs-card"><h3>Tilbygg og ombygging</h3><p>Utvidelse av bolig, ny planløsning og bærende endringer utført etter gjeldende krav.</p><ul><li>God koordinering i byggefasen</li><li>Sømløs overgang mot eksisterende bygg</li><li>Tett oppfølging av fremdrift</li></ul></article><article class="vvs-card"><h3>Innvendig rehabilitering</h3><p>Oppgradering av kjøkken, gulv, vegger, himlinger og dører med helhetlig finish.</p><ul><li>Presis montering og overflater</li><li>Praktiske løsninger i hverdagen</li><li>Ryddig avfallshåndtering</li></ul></article><article class="vvs-card"><h3>Tak, kledning og vinduer</h3><p>Utskifting av tak, etterisolering, ny kledning og energieffektive vinduer og dører.</p><ul><li>Værbestandige løsninger</li><li>Bedre bokomfort og isolasjon</li><li>Forlenget levetid på boligen</li></ul></article><article class="vvs-card"><h3>Terrasse og uterom</h3><p>Skreddersydde terrasser, levegger, pergola og boder som utnytter tomten godt.</p><ul><li>Solide fundamenter</li><li>Materialvalg etter vedlikeholdsønske</li><li>Varige og pene detaljer</li></ul></article></div>
+    </div>
+  </section>
+  <section class="vvs-section vvs-section-tint">
+    <div class="vvs-wrap">
+      <div class="vvs-head"><span class="vvs-eyebrow">3-stegs prosess</span><h2>Slik jobber vi fra start til mål</h2></div>
+      <div class="vvs-steps-3"><article class="vvs-step"><img src="../assets/curated/bygg/01-takkonstruksjon-snekker.webp" alt="Tømrere på stillas under oppføring av ny takkonstruksjon ved sjøen" width="1200" height="896" loading="lazy" decoding="async"><div class="vvs-step-body"><span class="vvs-step-num">STEG 01</span><h3>Befaring på stedet</h3><p>Vi ser på bygget, lytter til ønskene dine og vurderer tekniske løsninger.</p></div></article><article class="vvs-step"><img src="../assets/curated/bygg/02-nybygg-enebolig-nordisk.webp" alt="Nyoppført nordisk enebolig med trekledning og opparbeidet innkjørsel" width="1200" height="896" loading="lazy" decoding="async"><div class="vvs-step-body"><span class="vvs-step-num">STEG 02</span><h3>Tilbud og tidsplan</h3><p>Du får et oversiktlig tilbud med tydelig beskrivelse av arbeid og materialer.</p></div></article><article class="vvs-step"><img src="../assets/curated/bygg/03-moderne-trehytte-kyst.webp" alt="Moderne trebolig med store vindusflater og solid håndverk" width="1200" height="669" loading="lazy" decoding="async"><div class="vvs-step-body"><span class="vvs-step-num">STEG 03</span><h3>Utførelse og overtakelse</h3><p>Vi bygger strukturert, holder deg oppdatert og går gjennom resultatet sammen.</p></div></article></div>
+    </div>
+  </section>
+  <section class="vvs-navy-band">
+    <div class="vvs-wrap">
+      <div class="vvs-why-grid"><div class="vvs-why-box"><h3>Håndverk som varer</h3><p>Vi gjør grunnarbeidet skikkelig slik at resultatet holder seg pent i mange år.</p></div><div class="vvs-why-box"><h3>Én tydelig kontakt</h3><p>Du vet alltid hvem du skal snakke med og hva som skjer på byggeplassen.</p></div><div class="vvs-why-box"><h3>Realistiske avtaler</h3><p>Ærlige råd om løsninger, kostnader og tidsbruk før spikeren slås inn.</p></div><div class="vvs-why-box"><h3>Ryddig gjennomføring</h3><p>Orden på materialer, trygge rutiner og skikkelig opprydding ved avsluttet jobb.</p></div></div>
+      <div class="vvs-cta-strip">
+        <div><h2>Planlegger du oppussing eller tilbygg?</h2><p>Ta kontakt med Rent Bygg AS for en hyggelig prat og uforpliktende befaring.</p></div>
+        <a href="kontakt.html" class="btn vvs-btn-copper">Send henvendelse</a>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="vvs-footer">
+  <div class="vvs-wrap">
+    <div class="vvs-footer-grid">
+      <div>
+        <h3>Rent Bygg AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Tømrer, oppussing og byggetjenester i Langhus.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="vvs-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="vvs-footer-links">
+          <span>Langhus</span>
+          <a href="mailto:mirijeta_memisi@hotmail.com">mirijeta_memisi@hotmail.com</a>
+          <span>Org.nr. 878 640 152</span>
+        </div>
+      </div>
+    </div>
+    <div class="vvs-footer-end">
+      <span>© Rent Bygg AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
 
-    <section class="fakta-stripe" aria-label="Nøkkelfakta om bedriften">
-      <div class="container fakta-grid">
-<div class="fakta-boks">
-          <span class="fakta-boks__etikett">SELSKAPSFAKTA</span>
-          <strong>Etablert 1997</strong>
-          <span>Registrert norsk aksjeselskap (878640152)</span>
-        </div>
-<div class="fakta-boks">
-          <span class="fakta-boks__etikett">BEMANNEDE RESSURSER</span>
-          <strong>11 fagfolk</strong>
-          <span>Kapasitet til både små og større oppdrag</span>
-        </div>
-<div class="fakta-boks">
-          <span class="fakta-boks__etikett">LOKAL TILSTEDEVÆRELSE</span>
-          <strong>Langhus</strong>
-          <span>Lokalkjent i Nordre Follo og omegn</span>
-        </div>
-<div class="fakta-boks">
-          <span class="fakta-boks__etikett">ANSVARLIG LEDELSE</span>
-          <strong>Fast kontakt</strong>
-          <span>Daglig leder Raim Memisi</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="seksjon" id="tjenester">
-      <div class="container">
-        <h2>Våre tjenester i Langhus</h2>
-        <p class="ingress">Vi leverer komplett utførelse innen renhold med dokumentert kvalitet.</p>
-        <div class="kort-rutenett">
-<article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/76c601c189e6.webp" alt="Fast bedrifts- &amp; kontorrenhold – Rent Bygg AS" width="800" height="500" loading="lazy">
-                    <span class="kort__nr">01</span>
-                  </div>
-                  <div class="kort__innhold">
-                    <h3>Fast bedrifts- &amp; kontorrenhold</h3>
-                    <p>Skreddersydd renholdsplan for kontorer, butikker og næringslokaler med faste renholdere.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-<article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/1f4cb1c5f406.webp" alt="Trappevask for borettslag &amp; sameier – Rent Bygg AS" width="800" height="500" loading="lazy">
-                    <span class="kort__nr">02</span>
-                  </div>
-                  <div class="kort__innhold">
-                    <h3>Trappevask for borettslag &amp; sameier</h3>
-                    <p>Regelmessig renhold av oppganger, inngangspartier, heiser og fellesarealer året rundt.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-<article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/847e84d2e672.webp" alt="Byggrenhold &amp; flyttevask – Rent Bygg AS" width="800" height="500" loading="lazy">
-                    <span class="kort__nr">03</span>
-                  </div>
-                  <div class="kort__innhold">
-                    <h3>Byggrenhold &amp; flyttevask</h3>
-                    <p>Grundig sluttrenhold etter nybygg og oppussing samt flyttevask med fornøydgaranti.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-<article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/433c4dcd4176.webp" alt="Gulvpleie, skuring &amp; boning – Rent Bygg AS" width="800" height="500" loading="lazy">
-                    <span class="kort__nr">04</span>
-                  </div>
-                  <div class="kort__innhold">
-                    <h3>Gulvpleie, skuring &amp; boning</h3>
-                    <p>Maskinell dyprens, polering og vedlikehold av linoleum, vinyl, stein og harde gulvflater.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="seksjon seksjon--alt" id="kalkulator">
-      <div class="container">
-        <h2>Velg renholdsoppdrag for pristilbud</h2>
-        <p class="ingress">Velg oppdragstype nedenfor for veiledende ramme før vi gir et konkret tilbud for din adresse i Langhus.</p>
-        <div class="kalkulator">
-          <div class="kalkulator__valg">
-            <button type="button" class="kalk-knapp aktiv" onclick="document.querySelectorAll('.kalk-knapp').forEach(b=>b.classList.remove('aktiv')); this.classList.add('aktiv'); document.getElementById('kalkTekst').textContent='Fast kontor-/bedriftsrenhold: Gratis befaring og fast månedspris';">Fast kontor-/bedriftsrenhold</button>
-<button type="button" class="kalk-knapp " onclick="document.querySelectorAll('.kalk-knapp').forEach(b=>b.classList.remove('aktiv')); this.classList.add('aktiv'); document.getElementById('kalkTekst').textContent='Trappevask borettslag / sameie: Tilbud etter antall etasjer og frekvens';">Trappevask borettslag / sameie</button>
-<button type="button" class="kalk-knapp " onclick="document.querySelectorAll('.kalk-knapp').forEach(b=>b.classList.remove('aktiv')); this.classList.add('aktiv'); document.getElementById('kalkTekst').textContent='Byggrenhold / utvask etter oppussing: Pris pr. m² ferdig klargjort';">Byggrenhold / utvask etter oppussing</button>
-<button type="button" class="kalk-knapp " onclick="document.querySelectorAll('.kalk-knapp').forEach(b=>b.classList.remove('aktiv')); this.classList.add('aktiv'); document.getElementById('kalkTekst').textContent='Flyttevask med garanti: Fastpris etter boligens areal';">Flyttevask med garanti</button>
-          </div>
-          <div class="kalk-resultat">
-            <span id="kalkTekst">Fast kontor-/bedriftsrenhold: Gratis befaring og fast månedspris</span>
-            <a href="kontakt.html#skjema" class="knapp">Be om eksakt pris →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="seksjon seksjon--mork" id="verdier">
-      <div class="container">
-        <span class="seksjon-etikett" style="color: #FDE68A;">Kvalitetsløfte</span>
-        <h2>Derfor velger kunder Rent Bygg AS</h2>
-        <p class="ingress">Fire faste prinsipper som gjelder på hvert eneste oppdrag vi tar på oss i Langhus og omegn.</p>
-        <div class="verdier">
-          <div class="verdi">
-                  <span class="verdi__ikon">01</span>
-                  <h3>Offentlig godkjent renholdsbedrift</h3>
-                  <p>Vi oppfyller alle krav fra Arbeidstilsynet medHMS-kort og ryddige arbeidsforhold.</p>
-                </div><div class="verdi">
-                  <span class="verdi__ikon">02</span>
-                  <h3>Faste renholdere som kjenner bygget</h3>
-                  <p>Kontinuitet og faste ansatte gir jevn og høy kvalitet fra uke til uke.</p>
-                </div><div class="verdi">
-                  <span class="verdi__ikon">03</span>
-                  <h3>Skånsomme og effektive midler</h3>
-                  <p>Moderne mikrofibersystemer og miljøvennlige renholdsprodukter for godt inneklima.</p>
-                </div><div class="verdi">
-                  <span class="verdi__ikon">04</span>
-                  <h3>Rask befaring og fast månedspris</h3>
-                  <p>Vi går gjennom lokalene sammen og gir et forutsigbart pristilbud uten skjulte tillegg.</p>
-                </div>
-        </div>
-      </div>
-    </section>
-    <section class="seksjon" id="prosess">
-      <div class="container">
-        <span class="seksjon-etikett">Arbeidsmetodikk</span>
-        <h2>Slik jobber vi – fra befaring til ferdig leveranse</h2>
-        <p class="ingress">En ryddig og forutsigbar prosess sikrer at oppdraget leveres til avtalt tid, pris og faglig standard.</p>
-        <div class="prosess-grid">
-          <div class="prosess-kort">
-            <span class="prosess-kort__steg">Steg 01 · Kartlegging</span>
-            <h3>Uforpliktende befaring i Langhus</h3>
-            <p>Vi kommer ut til deg, går gjennom oppdragets omfang og gir konkrete faglige anbefalinger på stedet.</p>
-          </div>
-          <div class="prosess-kort">
-            <span class="prosess-kort__steg">Steg 02 · Forutsigbarhet</span>
-            <h3>Skriftlig tilbud &amp; fremdriftsplan</h3>
-            <p>Du mottar et oversiktlig pristilbud med tydelig spesifikasjon av materiell, tidsbruk og oppstartsdato.</p>
-          </div>
-          <div class="prosess-kort">
-            <span class="prosess-kort__steg">Steg 03 · Kvalitetssikring</span>
-            <h3>Fagmessig utførelse &amp; garanti</h3>
-            <p>Arbeidet utføres av våre egne fagfolk i Rent Bygg AS, avsluttet med felles gjennomgang og dokumentasjon.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="seksjon seksjon--alt" id="kontakt">
-      <div class="container skjema-grid">
-        <div>
-          <h2>Send forespørsel eller bestill befaring</h2>
-          <p class="ingress">
-            Fyll ut skjemaet, så tar Raim Memisi eller en av våre fagfolk i Rent Bygg AS kontakt for en hyggelig og uforpliktende prat.
-          </p>
-          <p><strong>Adresse:</strong> C/O Raim Memisi, 1405 Langhus</p>
-          <p><strong>E-post:</strong> <a href="mailto:mirijeta_memisi@hotmail.com">mirijeta_memisi@hotmail.com</a></p>
-          <p><strong>Organisasjonsnummer:</strong> 878640152</p>
-        </div>
-        
-        <form class="skjema" action="kontakt.html" method="get" onsubmit="event.preventDefault(); this.querySelector('.skjema-bekreftelse').style.display='block';">
-          <div>
-            <label for="navn">Navn eller bedrift</label>
-            <input id="navn" name="navn" type="text" required placeholder="Ditt navn">
-          </div>
-          <div>
-            <label for="telefon">Telefonnummer</label>
-            <input id="telefon" name="telefon" type="tel" required placeholder="Mobilnummer for rask avklaring">
-          </div>
-          <div>
-            <label for="epost">E-postadresse</label>
-            <input id="epost" name="epost" type="email" required placeholder="din@epost.no">
-          </div>
-          <div>
-            <label for="type">Hva gjelder henvendelsen?</label>
-            <select name="type" id="type" required>
-              <option value="Fast bedrifts- &amp; kontorrenhold">Fast bedrifts- &amp; kontorrenhold</option>
-<option value="Trappevask for borettslag &amp; sameier">Trappevask for borettslag &amp; sameier</option>
-<option value="Byggrenhold &amp; flyttevask">Byggrenhold &amp; flyttevask</option>
-<option value="Gulvpleie, skuring &amp; boning">Gulvpleie, skuring &amp; boning</option>
-              <option value="Annet">Annet</option>
-            </select>
-          </div>
-          <div>
-            <label for="melding">Kort beskrivelse av oppdraget i Langhus</label>
-            <textarea id="melding" name="melding" rows="4" placeholder="Beskriv kort ønsket arbeid, adresse og tidspunkt..."></textarea>
-          </div>
-          <button type="submit" class="knapp">Send forespørsel →</button>
-          <p class="skjema-bekreftelse" style="display:none; color: var(--aksent); font-weight: 600;">
-            Takk! Forespørselen din er klar til Rent Bygg AS (mirijeta_memisi@hotmail.com).
-          </p>
-        </form>
-        
-      </div>
-    </section>
-  </main>
-  
-        <footer class="bunn">
-          <div class="container bunn__grid">
-            <div>
-              <strong style="color: var(--blekk); font-size: 1.1rem;">Rent Bygg AS</strong>
-              <p style="margin-top: 0.4rem;">Godkjent renholdsbedrift &amp; eiendomsrenhold i Langhus og Nordre Follo.</p>
-              <p style="margin-top: 0.4rem;">Org.nr: 878640152 · Etablert 1997 · 11 ansatte</p>
-            </div>
-            <div>
-              <strong style="color: var(--blekk);">Kontaktinformasjon</strong>
-              <p style="margin-top: 0.4rem;">Adresse: C/O Raim Memisi, 1405 Langhus</p>
-              <p>E-post: <a href="mailto:mirijeta_memisi@hotmail.com">mirijeta_memisi@hotmail.com</a></p>
-              <p>Daglig leder: Raim Memisi</p>
-            </div>
-            <div>
-              <strong style="color: var(--blekk);">Sider</strong><br>
-              <a href="index.html">Forside</a> ·
-              <a href="tjenester.html">Tjenester</a> ·
-              <a href="om-oss.html">Om oss</a> ·
-              <a href="kontakt.html">Kontakt</a> ·
-              <a href="personvern.html">Personvern</a>
-            </div>
-          </div>
-        </footer>
-        
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
 </body>
 </html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt – Bauta Regnskap AS</title>
+  <meta name="description" content="Ta kontakt med Bauta Regnskap AS i Sandefjord for en uforpliktende prat.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --ct-burgundy: #6B1D2F;
+  --ct-wine: #380E18;
+  --ct-gold: #8A5B14;
+  --ct-gold-soft: #E9C27A;
+  --ct-cream: #FDFBF7;
+  --ct-sand: #F6F0E6;
+  --accent: #6B1D2F;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #6B1D2F;
+  --strip-bg: #380E18;
+  --strip-fg: #F6F0E6;
+  --strip-link: #E9C27A;
+  --hero-bg: #FDFBF7;
+  --hero-ink: #380E18;
+  --hero-muted: #5C2A35;
+  --surface-card: #FFFFFF;
+  --ink: #380E18;
+  --muted: #5C2A35;
+  --border: #E8DEC8;
+  --border-strong: #D4C3A3;
+  --tint: #F6F0E6;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-catering {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--ct-cream);
+  color: var(--ink);
+}
+.tpl-catering h1, .tpl-catering h2, .tpl-catering h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+.ct-wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.ct-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(253, 251, 247, 0.97); color: #380E18;
+  border-bottom: 2px solid #E8DEC8;
+}
+.ct-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px; }
+.ct-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.38rem; font-weight: 700; color: #6B1D2F; }
+.ct-nav { display: flex; align-items: center; gap: 1.6rem; font-size: 0.93rem; font-weight: 600; }
+.ct-nav a { display: inline-flex; align-items: center; color: #380E18; }
+.ct-nav a:hover, .ct-nav a.active { color: #6B1D2F; }
+.ct-btn-wine {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #6B1D2F; color: #FFFFFF; font-weight: 600; padding: 0.84rem 1.55rem;
+  border-radius: 6px; border: 2px solid #6B1D2F;
+}
+.ct-btn-wine:hover { background: #4F1422; border-color: #4F1422; }
+.ct-btn-cream {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #F6F0E6; color: #380E18; font-weight: 600; padding: 0.84rem 1.55rem;
+  border-radius: 6px; border: 1.5px solid #D4C3A3;
+}
+
+/* Klassisk innrammet magasin-hero */
+.ct-hero { padding: clamp(2.5rem, 5vw, 4.5rem) 0; }
+.ct-magazine-frame {
+  border: 2px solid #D4C3A3; padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: #F6F0E6; border-radius: 12px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.75rem, 4vw, 3rem); align-items: center;
+}
+.ct-issue { display: inline-block; color: #8A5B14; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 0.9rem; }
+.ct-magazine-frame h1 { font-size: clamp(2.1rem, 4vw, 3.3rem); color: #380E18; margin-bottom: 1rem; }
+.ct-magazine-frame p { color: var(--muted); font-size: 1.04rem; margin-bottom: 1.65rem; }
+.ct-hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.ct-hero-photo { border: 6px solid #FFFFFF; border-radius: 8px; overflow: hidden; box-shadow: 0 18px 42px rgba(56, 14, 24, 0.14); }
+.ct-hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* 2-spalters tjenestemeny */
+.ct-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.ct-section-sand { background: #F6F0E6; border-top: 1px solid #E8DEC8; border-bottom: 1px solid #E8DEC8; }
+.ct-head { text-align: center; max-width: 680px; margin: 0 auto 2.5rem; }
+.ct-head h2 { font-size: clamp(1.85rem, 3.2vw, 2.6rem); }
+.ct-head p { color: var(--muted); }
+
+.ct-menu-2col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 2.75rem; }
+.ct-menu-entry { padding-bottom: 1.5rem; border-bottom: 1px dashed #D4C3A3; }
+.ct-menu-entry h3 { font-size: 1.32rem; color: #6B1D2F; margin-bottom: 0.45rem; }
+.ct-menu-entry p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
+.ct-menu-bullets { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.ct-menu-bullets li { background: #F6F0E6; border: 1px solid #E8DEC8; color: #380E18; font-size: 0.82rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 999px; }
+
+.ct-gallery-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.ct-gal-card { background: #FDFBF7; border: 1px solid #E8DEC8; border-radius: 10px; overflow: hidden; }
+.ct-gal-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.ct-gal-body { padding: 1.35rem; }
+.ct-gal-body h3 { font-size: 1.2rem; color: #380E18; }
+.ct-gal-body p { color: var(--muted); font-size: 0.92rem; margin: 0; }
+
+/* Varm bunn-CTA */
+.ct-bottom-cta { background: #6B1D2F; color: #FDFBF7; padding: clamp(3rem, 6vw, 4.75rem) 0; text-align: center; }
+.ct-bottom-cta h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); color: #FDFBF7; }
+.ct-bottom-cta p { color: #F6F0E6; max-width: 54ch; margin: 0.5rem auto 1.75rem; }
+.ct-btn-gold-fill { display: inline-flex; align-items: center; justify-content: center; background: #E9C27A; color: #380E18; font-weight: 700; padding: 0.88rem 1.8rem; border-radius: 6px; }
+
+.ct-footer { background: #380E18; color: #E8DEC8; padding: 3rem 0 2rem; }
+.ct-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.ct-footer h3 { color: #E9C27A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.85rem; }
+.ct-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.ct-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.ct-footer-links a:hover { color: #FFFFFF; }
+.ct-footer-end { border-top: 1px solid rgba(233, 194, 122, 0.25); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-catering .mobile-nav { background: #FDFBF7; color: #380E18; border-top: 1px solid #E8DEC8; }
+
+@media (max-width: 1080px) {
+  .ct-magazine-frame { grid-template-columns: 1fr; }
+  .ct-gallery-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .ct-menu-2col, .ct-gallery-3, .ct-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="tpl-catering" data-template="catering">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Bauta Regnskap AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="ct-header">
+  <div class="ct-wrap ct-header-bar">
+    <a href="index.html" class="ct-brand">Bauta Regnskap AS</a>
+    <nav class="ct-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link active" aria-current="page">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn ct-btn-wine">Send forespørsel</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html" aria-current="page">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="ct-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Kontakt</p>
+      <h1>Klar for bedre oversikt over bedriftens økonomi?</h1>
+      <p>Ta kontakt med Bauta Regnskap AS for en uforpliktende prat om regnskap og rådgivning.</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="ct-wrap contact-split">
+      <div><form class="form-card" id="kontakt-skjema" data-demo-form="true" data-company="Bauta Regnskap AS" novalidate>
+  <div class="form-grid">
+    <div class="form-field">
+      <label for="kontakt-skjema-name">Navn</label>
+      <input id="kontakt-skjema-name" name="name" type="text" autocomplete="name" required placeholder="Ditt navn">
+    </div>
+    <div class="form-field">
+      <label for="kontakt-skjema-phone">Telefon</label>
+      <input id="kontakt-skjema-phone" name="phone" type="tel" autocomplete="tel" placeholder="+47 90 00 00 00">
+    </div>
+    <div class="form-field full">
+      <label for="kontakt-skjema-email">E-post</label>
+      <input id="kontakt-skjema-email" name="email" type="email" autocomplete="email" required placeholder="navn@bedrift.no">
+    </div>
+    <div class="form-field full">
+      <label for="kontakt-skjema-msg">Hva kan vi hjelpe med?</label>
+      <textarea id="kontakt-skjema-msg" name="message" required placeholder="Fortell kort om behov, ønsket tidspunkt og eventuelle spørsmål."></textarea>
+    </div>
+    <div class="hp-field" aria-hidden="true">
+      <label for="kontakt-skjema-hp">Nettside</label>
+      <input id="kontakt-skjema-hp" name="website_url" type="text" tabindex="-1" autocomplete="off">
+    </div>
+  </div>
+  <div style="margin-top: 1.25rem;">
+    <button type="submit" class="btn ct-btn-wine">Send forespørsel</button>
+  </div>
+  <div class="form-feedback" data-form-feedback="true" role="status" aria-live="polite"></div>
+</form></div>
+      <aside class="info-stack"><div class="info-tile"><strong>Bedrift</strong><span>Bauta Regnskap AS</span></div><div class="info-tile"><strong>Område</strong><span>Sandefjord</span></div><div class="info-tile"><strong>E-post</strong><a href="mailto:robert@bautaregnskap.no">robert@bautaregnskap.no</a></div><div class="info-tile"><strong>Organisasjonsnummer</strong><span>Org.nr. 991 181 954</span></div><div style="border-radius:14px;overflow:hidden;border:1px solid var(--border);"><img src="../assets/curated/regnskap/06-budsjett-briller-notater.webp" alt="Notatblokk, briller og kalkulator klargjort for årsoppgjør" width="960" height="641" loading="eager" fetchpriority="high" decoding="sync"></div></aside>
+    </div>
+  </section>
+</main>
+  <footer class="ct-footer">
+  <div class="ct-wrap">
+    <div class="ct-footer-grid">
+      <div>
+        <h3>Bauta Regnskap AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Regnskap, lønn og økonomirådgivning i Sandefjord.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="ct-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="ct-footer-links">
+          <span>Sandefjord</span>
+          <a href="mailto:robert@bautaregnskap.no">robert@bautaregnskap.no</a>
+          <span>Org.nr. 991 181 954</span>
+        </div>
+      </div>
+    </div>
+    <div class="ct-footer-end">
+      <span>© Bauta Regnskap AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
+</body>
+</html>

@@ -1,23 +1,507 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nb">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23B45309'/%3E%3Cpath d='M8 22 L20 10 L32 22' stroke='%23FFFFFF' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M12.5 22 V30 H27.5 V22' stroke='%23FFFFFF' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Beitostølen Anlegg AS utfører graving, grunnarbeid, massetransport og brøyting på Beitostølen og i Valdres. Ta kontakt for en uforpliktende prat." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
-    <title>Beitostølen Anlegg AS – Grunnarbeid, Graving &amp; Transport i Beitostølen</title>
-    <meta property="og:title" content="Beitostølen Anlegg AS – Grunnarbeid, Graving &amp; Transport i Beitostølen" />
-    <meta property="og:description" content="Beitostølen Anlegg AS utfører graving, grunnarbeid, massetransport og brøyting på Beitostølen og i Valdres. Ta kontakt for en uforpliktende prat." />
-    <meta property="og:image" content="https://vikingnet.no/demos/byggmester.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://vikingnet.no/demos/byggmester.png" />
-    <script type="module" crossorigin src="/vikingnet-demo/beitostolen-anlegg/assets/index-TqloILD0.js"></script>
-    <link rel="stylesheet" crossorigin href="/vikingnet-demo/beitostolen-anlegg/assets/index-CEmqeFWJ.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beitostølen Anlegg AS – Anlegg &amp; Grunnarbeid i Beitostølen</title>
+  <meta name="description" content="Beitostølen Anlegg AS utfører graving, tomteklargjøring, drenering og utomhusarbeider for både privatpersoner, entreprenører og næringskunder.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Outfit:wght@600;700;800&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --bm-forest: #234B36;
+  --bm-deep: #0A1610;
+  --bm-linen: #F6F4EE;
+  --bm-sage: #EAF2EC;
+  --bm-ochre: #9A4306;
+  --accent: #234B36;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #9A4306;
+  --strip-bg: #0A1610;
+  --strip-fg: #DCE8E0;
+  --strip-link: #FBBF24;
+  --hero-bg: #F6F4EE;
+  --hero-ink: #0A1610;
+  --hero-muted: #374B40;
+  --surface-card: #FFFFFF;
+  --ink: #0A1610;
+  --muted: #374B40;
+  --border: #D9E2DC;
+  --border-strong: #B7C9BD;
+  --tint: #EAF2EC;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+body.tpl-byggmester {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bm-linen);
+  color: var(--ink);
+}
+.tpl-byggmester h1, .tpl-byggmester h2, .tpl-byggmester h3 {
+  font-family: 'Outfit', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.bm-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.bm-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(246, 244, 238, 0.96); color: #0A1610;
+  border-bottom: 1px solid #D9E2DC;
+}
+.bm-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px; }
+.bm-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.12rem; color: #0A1610; }
+.bm-emblem { width: 38px; height: 38px; border-radius: 10px; background: #234B36; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; }
+.bm-nav { display: flex; align-items: center; gap: 1.6rem; font-size: 0.94rem; font-weight: 600; }
+.bm-nav a { display: inline-flex; align-items: center; padding: 0.35rem 0; border-bottom: 2px solid transparent; }
+.bm-nav a:hover, .bm-nav a.active { color: #234B36; border-bottom-color: #234B36; }
+.bm-btn-forest {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: #234B36; color: #FFFFFF; font-weight: 600; padding: 0.82rem 1.5rem;
+  border-radius: 10px; border: 2px solid #234B36;
+}
+.bm-btn-forest:hover { background: #1B3B2A; }
+.bm-btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: #FFFFFF; color: #234B36; font-weight: 600; padding: 0.82rem 1.5rem;
+  border-radius: 10px; border: 1.5px solid #234B36;
+}
+.bm-btn-outline:hover { background: #EAF2EC; }
+
+.bm-hero { padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem); }
+.bm-hero-top { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 2rem; align-items: end; margin-bottom: 2rem; }
+.bm-kicker { display: inline-block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9A4306; margin-bottom: 0.75rem; }
+.bm-hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); color: #0A1610; margin: 0; }
+.bm-hero-aside p { color: var(--muted); font-size: 1.04rem; margin-bottom: 1.25rem; }
+.bm-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.bm-framed-stage { position: relative; }
+.bm-framed-photo { border-radius: 22px; overflow: hidden; border: 1px solid #D9E2DC; box-shadow: 0 24px 50px rgba(10, 22, 16, 0.12); }
+.bm-framed-photo img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.bm-overlap-card {
+  position: relative; z-index: 2; margin: -3.2rem 1.5rem 0 auto; max-width: 760px;
+  background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 16px;
+  padding: 1.4rem 1.75rem; box-shadow: 0 18px 40px rgba(10, 22, 16, 0.1);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem;
+}
+.bm-fact strong { display: block; font-family: 'Outfit', sans-serif; color: #234B36; font-size: 1.05rem; }
+.bm-fact span { font-size: 0.86rem; color: var(--muted); }
+
+.bm-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.bm-section-sage { background: #EAF2EC; border-top: 1px solid #D9E2DC; border-bottom: 1px solid #D9E2DC; }
+.bm-head { max-width: 700px; margin-bottom: 2.25rem; }
+.bm-head h2 { font-size: clamp(1.75rem, 3.1vw, 2.55rem); }
+.bm-head p { color: var(--muted); font-size: 1.03rem; }
+
+.bm-projects-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem; }
+.bm-proj-card { background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 18px; overflow: hidden; }
+.bm-proj-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.bm-proj-body { padding: 1.6rem; }
+.bm-proj-tag { display: inline-block; background: #EAF2EC; color: #234B36; font-size: 0.78rem; font-weight: 700; padding: 0.28rem 0.7rem; border-radius: 999px; margin-bottom: 0.65rem; }
+.bm-proj-body h3 { font-size: 1.3rem; }
+.bm-proj-body p { color: var(--muted); margin: 0; }
+
+.bm-pillars-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.bm-pillar { background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 16px; padding: 1.65rem; }
+.bm-pillar-idx { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: #9A4306; margin-bottom: 0.5rem; }
+.bm-pillar h3 { font-size: 1.18rem; }
+.bm-pillar p { color: var(--muted); font-size: 0.94rem; margin: 0; }
+
+.bm-story-split { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
+.bm-story-photo { border-radius: 18px; overflow: hidden; border: 1px solid #D9E2DC; }
+.bm-story-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.bm-srv-list { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
+.bm-srv-row { background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 12px; padding: 1.1rem 1.25rem; }
+.bm-srv-row strong { display: block; color: #0A1610; margin-bottom: 0.2rem; }
+.bm-srv-row span { color: var(--muted); font-size: 0.92rem; }
+
+.bm-cta-banner { background: #234B36; color: #FFFFFF; padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.bm-cta-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.bm-cta-inner p { color: #DCE8E0; max-width: 56ch; margin: 0; }
+.bm-btn-light { display: inline-flex; align-items: center; justify-content: center; background: #FFFFFF; color: #0A1610; font-weight: 700; padding: 0.88rem 1.6rem; border-radius: 10px; }
+
+.bm-footer { background: #0A1610; color: #DCE8E0; padding: 3rem 0 2rem; }
+.bm-footer-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.bm-footer h3 { color: #FFFFFF; font-size: 1rem; margin-bottom: 0.8rem; }
+.bm-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.bm-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.bm-footer-links a:hover { color: #FBBF24; }
+.bm-footer-bar { border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-byggmester .mobile-nav { background: #F6F4EE; color: #0A1610; border-top: 1px solid #D9E2DC; }
+
+@media (max-width: 1080px) {
+  .bm-hero-top, .bm-story-split { grid-template-columns: 1fr; }
+  .bm-overlap-card { margin: 1.25rem 0 0; max-width: none; }
+  .bm-pillars-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .bm-overlap-card, .bm-projects-2, .bm-pillars-3, .bm-footer-cols { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="tpl-byggmester" data-template="byggmester">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Beitostølen Anlegg AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="bm-header">
+  <div class="bm-wrap bm-header-inner">
+    <a href="index.html" class="bm-brand"><span class="bm-emblem" aria-hidden="true">BA</span><span>Beitostølen Anlegg AS</span></a>
+    <nav class="bm-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link active" aria-current="page">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn bm-btn-forest">Avtal befaring</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html" aria-current="page">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="bm-hero">
+    <div class="bm-wrap">
+      <div class="bm-hero-top">
+        <div>
+          <span class="bm-kicker">Grunnarbeid, graving og utomhus</span>
+          <h1>Presist grunnarbeid og anleggstjenester i Beitostølen</h1>
+        </div>
+        <div class="bm-hero-aside">
+          <p>Beitostølen Anlegg AS utfører graving, tomteklargjøring, drenering og utomhusarbeider for både privatpersoner, entreprenører og næringskunder.</p>
+          <div class="bm-hero-actions">
+            <a href="kontakt.html" class="btn bm-btn-forest">Ta kontakt</a>
+            <a href="tjenester.html" class="btn bm-btn-outline">Utforsk tjenester</a>
+          </div>
+        </div>
+      </div>
+      <div class="bm-framed-stage">
+        <div class="bm-framed-photo"><img src="../assets/curated/anlegg/06-veigraving-drenering.webp" alt="Gravemaskin under grøftearbeid og utbedring langs vei" width="1023" height="681" loading="eager" fetchpriority="high" decoding="sync"></div>
+        <div class="bm-overlap-card"><div class="bm-fact"><strong>Solid grunnarbeid</strong><span>Riktige masser og godt fall</span></div><div class="bm-fact"><strong>Moderne maskinpark</strong><span>Effektiv og sikker gjennomføring</span></div><div class="bm-fact"><strong>Pålitelig fremdrift</strong><span>Tydelige avtaler fra start til slutt</span></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="bm-section">
+    <div class="bm-wrap">
+      <div class="bm-head"><span class="bm-kicker">Utvalgte områder</span><h2>Kvalitet som synes i detaljene</h2><p>Vi kombinerer faglig dyktighet med tydelige rammer for både små og større oppdrag.</p></div>
+      <div class="bm-projects-2"><article class="bm-proj-card"><img src="../assets/curated/anlegg/07-masseforflytning-anlegg.webp" alt="Gravemaskin og hjullaster i samspill under masseforflytning" width="1024" height="683" loading="lazy" decoding="async"><div class="bm-proj-body"><span class="bm-proj-tag">Grunnarbeid</span><h3>Stabilt fundament</h3><p>Riktig lagoppbygging og komprimering gir et underlag som holder over tid.</p></div></article><article class="bm-proj-card"><img src="../assets/curated/anlegg/08-doser-terrengforming.webp" alt="Anleggsmaskin i silhuett under planering og terrengforming" width="1024" height="768" loading="lazy" decoding="async"><div class="bm-proj-body"><span class="bm-proj-tag">Drenering</span><h3>Tørr og trygg grunnmur</h3><p>Effektiv håndtering av overvann og fukt beskytter boligens verdi.</p></div></article></div>
+    </div>
+  </section>
+  <section class="bm-section bm-section-sage">
+    <div class="bm-wrap">
+      <div class="bm-head"><span class="bm-kicker">Arbeidsmetode</span><h2>Tre steg fra idé til resultat</h2></div>
+      <div class="bm-pillars-3"><article class="bm-pillar"><div class="bm-pillar-idx">01</div><h3>Befaring og vurdering</h3><p>Vi vurderer tilkomst, grunnforhold, masser og riktig utførelse.</p></article><article class="bm-pillar"><div class="bm-pillar-idx">02</div><h3>Plan og pristilbud</h3><p>Du får en ryddig gjennomgang av omfang, massetransport og fremdrift.</p></article><article class="bm-pillar"><div class="bm-pillar-idx">03</div><h3>Utførelse og finish</h3><p>Vi graver, komprimerer og leverer et ferdig og ryddig område.</p></article></div>
+    </div>
+  </section>
+  <section class="bm-section">
+    <div class="bm-wrap bm-story-split">
+      <div class="bm-story-photo"><img src="../assets/curated/anlegg/01-asfalt-vei-fjell.webp" alt="Asfaltering og veibygging i norsk fjellandskap" width="1200" height="896" loading="lazy" decoding="async"></div>
+      <div>
+        <span class="bm-kicker">Våre tjenester</span><h2>Hva Beitostølen Anlegg AS leverer</h2>
+        <div class="bm-srv-list"><div class="bm-srv-row"><strong>Tomtegraving og klargjøring</strong><span>Utgraving, planering og klargjøring av tomt for bolig, hytte, garasje eller næringsbygg.</span></div><div class="bm-srv-row"><strong>Drenering og vann/avløp</strong><span>Sikker bortledning av overvann, ny drenering rundt grunnmur og grøfting for VA.</span></div><div class="bm-srv-row"><strong>Gårdsplass, vei og opparbeidelse</strong><span>Oppbygging av innkjørsel, parkeringsareal, stikkveier og bærelag klart for dekke.</span></div><div class="bm-srv-row"><strong>Natursteinsmur og utomhus</strong><span>Støttemurer, terrengforming og ferdigstilling av uteområder som utnytter tomten bedre.</span></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="bm-cta-banner">
+    <div class="bm-wrap bm-cta-inner">
+      <div><h2>Skal du i gang med grave- eller grunnarbeid?</h2><p>Kontakt Beitostølen Anlegg AS for en befaring og et uforpliktende tilbud.</p></div>
+      <a href="kontakt.html" class="btn bm-btn-light">Send forespørsel</a>
+    </div>
+  </section>
+</main>
+  <footer class="bm-footer">
+  <div class="bm-wrap">
+    <div class="bm-footer-cols">
+      <div>
+        <h3>Beitostølen Anlegg AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Grunnarbeid, graving og utomhus i Beitostølen.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="bm-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="bm-footer-links">
+          <span>Beitostølen</span>
+          <span>Liavegen 57, 2953 Beitostølen</span>
+          <a href="tel:+4797689059">+4797689059</a>
+          <a href="mailto:post@beitostolenanlegg.no">post@beitostolenanlegg.no</a>
+          <span>Org.nr. 989 233 211</span>
+        </div>
+      </div>
+    </div>
+    <div class="bm-footer-bar">
+      <span>© Beitostølen Anlegg AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
+</body>
 </html>

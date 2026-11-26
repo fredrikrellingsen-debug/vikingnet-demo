@@ -1,183 +1,480 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
-<title>O. T. Wike Entreprenør AS – Anlegg, vei &amp; infrastruktur</title>
-<meta name="description" content="Oskar og Tormod Wike AS utfører det meste av tradisjonelle anleggstjenester - grunnarbeid, tomtearbeid og transport.">
-<meta property="og:title" content="O. T. Wike Entreprenør AS – Anlegg, vei &amp; infrastruktur">
-<meta property="og:description" content="Oskar og Tormod Wike AS utfører det meste av tradisjonelle anleggstjenester - grunnarbeid, tomtearbeid og transport.">
-<meta property="og:image" content="../assets/webp/d3966bffb8df.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="theme.css">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSKAR OG TORMOD WIKE AS – Anlegg &amp; Grunnarbeid i Tønsberg</title>
+  <meta name="description" content="OSKAR OG TORMOD WIKE AS utfører graving, tomteklargjøring, drenering og utomhusarbeider for både privatpersoner, entreprenører og næringskunder.">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --ct-burgundy: #6B1D2F;
+  --ct-wine: #380E18;
+  --ct-gold: #8A5B14;
+  --ct-gold-soft: #E9C27A;
+  --ct-cream: #FDFBF7;
+  --ct-sand: #F6F0E6;
+  --accent: #6B1D2F;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #6B1D2F;
+  --strip-bg: #380E18;
+  --strip-fg: #F6F0E6;
+  --strip-link: #E9C27A;
+  --hero-bg: #FDFBF7;
+  --hero-ink: #380E18;
+  --hero-muted: #5C2A35;
+  --surface-card: #FFFFFF;
+  --ink: #380E18;
+  --muted: #5C2A35;
+  --border: #E8DEC8;
+  --border-strong: #D4C3A3;
+  --tint: #F6F0E6;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-catering {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--ct-cream);
+  color: var(--ink);
+}
+.tpl-catering h1, .tpl-catering h2, .tpl-catering h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+.ct-wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.ct-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(253, 251, 247, 0.97); color: #380E18;
+  border-bottom: 2px solid #E8DEC8;
+}
+.ct-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px; }
+.ct-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.38rem; font-weight: 700; color: #6B1D2F; }
+.ct-nav { display: flex; align-items: center; gap: 1.6rem; font-size: 0.93rem; font-weight: 600; }
+.ct-nav a { display: inline-flex; align-items: center; color: #380E18; }
+.ct-nav a:hover, .ct-nav a.active { color: #6B1D2F; }
+.ct-btn-wine {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #6B1D2F; color: #FFFFFF; font-weight: 600; padding: 0.84rem 1.55rem;
+  border-radius: 6px; border: 2px solid #6B1D2F;
+}
+.ct-btn-wine:hover { background: #4F1422; border-color: #4F1422; }
+.ct-btn-cream {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #F6F0E6; color: #380E18; font-weight: 600; padding: 0.84rem 1.55rem;
+  border-radius: 6px; border: 1.5px solid #D4C3A3;
+}
+
+/* Klassisk innrammet magasin-hero */
+.ct-hero { padding: clamp(2.5rem, 5vw, 4.5rem) 0; }
+.ct-magazine-frame {
+  border: 2px solid #D4C3A3; padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: #F6F0E6; border-radius: 12px;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.75rem, 4vw, 3rem); align-items: center;
+}
+.ct-issue { display: inline-block; color: #8A5B14; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 0.9rem; }
+.ct-magazine-frame h1 { font-size: clamp(2.1rem, 4vw, 3.3rem); color: #380E18; margin-bottom: 1rem; }
+.ct-magazine-frame p { color: var(--muted); font-size: 1.04rem; margin-bottom: 1.65rem; }
+.ct-hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.ct-hero-photo { border: 6px solid #FFFFFF; border-radius: 8px; overflow: hidden; box-shadow: 0 18px 42px rgba(56, 14, 24, 0.14); }
+.ct-hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* 2-spalters tjenestemeny */
+.ct-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.ct-section-sand { background: #F6F0E6; border-top: 1px solid #E8DEC8; border-bottom: 1px solid #E8DEC8; }
+.ct-head { text-align: center; max-width: 680px; margin: 0 auto 2.5rem; }
+.ct-head h2 { font-size: clamp(1.85rem, 3.2vw, 2.6rem); }
+.ct-head p { color: var(--muted); }
+
+.ct-menu-2col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 2.75rem; }
+.ct-menu-entry { padding-bottom: 1.5rem; border-bottom: 1px dashed #D4C3A3; }
+.ct-menu-entry h3 { font-size: 1.32rem; color: #6B1D2F; margin-bottom: 0.45rem; }
+.ct-menu-entry p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
+.ct-menu-bullets { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.ct-menu-bullets li { background: #F6F0E6; border: 1px solid #E8DEC8; color: #380E18; font-size: 0.82rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 999px; }
+
+.ct-gallery-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.ct-gal-card { background: #FDFBF7; border: 1px solid #E8DEC8; border-radius: 10px; overflow: hidden; }
+.ct-gal-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.ct-gal-body { padding: 1.35rem; }
+.ct-gal-body h3 { font-size: 1.2rem; color: #380E18; }
+.ct-gal-body p { color: var(--muted); font-size: 0.92rem; margin: 0; }
+
+/* Varm bunn-CTA */
+.ct-bottom-cta { background: #6B1D2F; color: #FDFBF7; padding: clamp(3rem, 6vw, 4.75rem) 0; text-align: center; }
+.ct-bottom-cta h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); color: #FDFBF7; }
+.ct-bottom-cta p { color: #F6F0E6; max-width: 54ch; margin: 0.5rem auto 1.75rem; }
+.ct-btn-gold-fill { display: inline-flex; align-items: center; justify-content: center; background: #E9C27A; color: #380E18; font-weight: 700; padding: 0.88rem 1.8rem; border-radius: 6px; }
+
+.ct-footer { background: #380E18; color: #E8DEC8; padding: 3rem 0 2rem; }
+.ct-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.ct-footer h3 { color: #E9C27A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.85rem; }
+.ct-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.ct-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.ct-footer-links a:hover { color: #FFFFFF; }
+.ct-footer-end { border-top: 1px solid rgba(233, 194, 122, 0.25); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-catering .mobile-nav { background: #FDFBF7; color: #380E18; border-top: 1px solid #E8DEC8; }
+
+@media (max-width: 1080px) {
+  .ct-magazine-frame { grid-template-columns: 1fr; }
+  .ct-gallery-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .ct-menu-2col, .ct-gallery-3, .ct-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
 </head>
-<body>
-<a class="hopp" href="#innhold">Gå til innholdet</a>
-<header class="topp">
-  <div class="topp__indre">
-    <a class="merke" href="index.html"><img class="merke__logo" src="img/logo.svg" alt="O. T. Wike Entreprenør AS" height="34"></a>
-    <details class="mobilmeny">
-      <summary aria-label="Meny"><span></span><span></span><span></span></summary>
-      <nav class="mobilmeny__liste"><a href="index.html" aria-current="page">Forside</a><a href="tjenester.html">Tjenester</a><a href="prosjekter.html">Prosjekter</a><a href="panel.html">Panel</a><a href="om-oss.html">Om oss</a><a href="kontakt.html">Kontakt</a></nav>
-    </details>
-    <nav class="meny"><a href="index.html" aria-current="page">Forside</a><a href="tjenester.html">Tjenester</a><a href="prosjekter.html">Prosjekter</a><a href="panel.html">Panel</a><a href="om-oss.html">Om oss</a><a href="kontakt.html">Kontakt</a></nav>
-    <a class="knapp knapp--liten" href="kontakt.html">Ta kontakt</a>
+<body class="tpl-catering" data-template="catering">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>OSKAR OG TORMOD WIKE AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="ct-header">
+  <div class="ct-wrap ct-header-bar">
+    <a href="index.html" class="ct-brand">OSKAR OG TORMOD WIKE AS</a>
+    <nav class="ct-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link active" aria-current="page">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn ct-btn-wine">Send forespørsel</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
   </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html" aria-current="page">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
 </header>
-<main id="innhold">
-<section class="helt helt--full">
-  <div class="helt__bilde"><img src="../assets/webp/d3966bffb8df.webp" alt="O. T. Wike Entreprenør AS" loading="eager" decoding="async"></div>
-  <div class="helt__tekst">
-    <p class="merkelapp">Anlegg, vei &amp; infrastruktur · Vear</p>
-    <h1>Din anleggsentrepenør i Vestfold</h1>
-    <p class="helt__ingress">Oskar og Tormod Wike AS utfører det meste av tradisjonelle anleggstjenester - grunnarbeid, tomtearbeid og transport.</p>
-    <div class="knapper">
-      <a class="knapp" href="kontakt.html">Ta kontakt</a>
-      <a class="knapp knapp--tom" href="tjenester.html">Se våre tjenester</a>
+  <main id="main-content">
+  <section class="ct-hero">
+    <div class="ct-wrap">
+      <div class="ct-magazine-frame">
+        <div>
+          <span class="ct-issue">Grunnarbeid, graving og utomhus · Tønsberg</span>
+          <h1>Presist grunnarbeid og anleggstjenester i Tønsberg</h1>
+          <p>OSKAR OG TORMOD WIKE AS utfører graving, tomteklargjøring, drenering og utomhusarbeider for både privatpersoner, entreprenører og næringskunder.</p>
+          <div class="ct-hero-actions">
+            <a href="kontakt.html" class="btn ct-btn-wine">Send forespørsel</a>
+            <a href="tjenester.html" class="btn ct-btn-cream">Se tjenestemeny</a>
+          </div>
+        </div>
+        <div class="ct-hero-photo"><img src="../assets/curated/anlegg/02-gravemaskin-lastebil.webp" alt="Gravemaskin som laster masser over i tippbil på anleggsplass" width="1024" height="683" loading="eager" fetchpriority="high" decoding="sync"></div>
+      </div>
     </div>
-    <ul class="tillit">
-      <li class="tillit__punkt">Moderne maskinpark</li>
-      <li class="tillit__punkt">Sentralt godkjent kompetanse</li>
-      <li class="tillit__punkt">Levert til avtalt tid og kvalitet</li>
-    </ul>
-  </div>
-</section>
-
-<section class="seksjon">
-  <div class="seksjon__hode">
-    <p class="merkelapp">Tjenester</p>
-    <h2>Dette hjelper vi deg med</h2>
-    <p class="innledning">Vi leverer fagmessige løsninger med tydelig avklaring i forkant, ryddig gjennomføring og dokumentert kvalitet.</p>
-  </div>
-  <div class="rutenett rutenett--2x2">
-    <article class="kort">
-      <div class="kort__bilde"><img src="../assets/webp/2ba00305cccb.webp" alt="Asfaltering av veier, plasser og tun" loading="eager"></div>
-      <span class="kort__nr">01</span>
-      <h3>Asfaltering av veier, plasser og tun</h3>
-      <p>Maskinell og manuell legging av slitesterk asfalt for gårdsplasser, borettslag, parkeringsanlegg, industriområder og offentlige veier.</p>
-      <a class="tekstlenke" href="tjenester.html">Les mer om tjenesten →</a>
-    </article>
-    <article class="kort">
-      <div class="kort__bilde"><img src="../assets/webp/681928fcb07a.webp" alt="Grunnarbeid, graving og drenering" loading="eager"></div>
-      <span class="kort__nr">02</span>
-      <h3>Grunnarbeid, graving og drenering</h3>
-      <p>Utgraving av byggegroper, drenering rundt bolig og næringsbygg, klargjøring av tomter samt utskifting av vann- og avløpsledninger.</p>
-      <a class="tekstlenke" href="tjenester.html">Les mer om tjenesten →</a>
-    </article>
-    <article class="kort">
-      <div class="kort__bilde"><img src="../assets/webp/5156496c4b27.webp" alt="Steinarbeid, kantstein og utomhus" loading="eager"></div>
-      <span class="kort__nr">03</span>
-      <h3>Steinarbeid, kantstein og utomhus</h3>
-      <p>Setting av granittkantstein, belegningsstein, støttemurer og opparbeidelse av funksjonelle og estetiske uteområder.</p>
-      <a class="tekstlenke" href="tjenester.html">Les mer om tjenesten →</a>
-    </article>
-    <article class="kort">
-      <div class="kort__bilde"><img src="../assets/webp/d31dddcccd9a.webp" alt="Vinterdrift, veivedlikehold og merking" loading="eager"></div>
-      <span class="kort__nr">04</span>
-      <h3>Vinterdrift, veivedlikehold og merking</h3>
-      <p>Helårlig drift og vedlikehold av veinett og utearealer, inkludert brøyting, strøing, feiing, oppmerking og løpende utbedring av dekkeskader.</p>
-      <a class="tekstlenke" href="tjenester.html">Les mer om tjenesten →</a>
-    </article>
-  </div>
-  <p class="seksjon__mer"><a class="tekstlenke" href="tjenester.html">Se alle tjenester i detalj →</a></p>
-</section>
-
-<section class="seksjon">
-  <div class="seksjon__hode">
-    <p class="merkelapp">Derfor velger kundene oss</p>
-    <h2>Kvalitet og forutsigbarhet i hvert oppdrag</h2>
-  </div>
-  <div class="verdier">
-    <div class="verdi"><h3>Grundig forarbeid</h3><p>Et varig sluttresultat krever riktig komprimering, bærelag og avrenning før toppdekket legges.</p></div>
-    <div class="verdi"><h3>Kapasitet og maskinpark</h3><p>Med moderne maskiner og erfarne maskinførere løser vi både små privatoppdrag og store entrepriser effektivt.</p></div>
-    <div class="verdi"><h3>HMS og kvalitetssikring</h3><p>Vi arbeider systematisk med sikkerhet, miljøkrav og dokumentasjon på alle anleggsplasser.</p></div>
-    <div class="verdi"><h3>Lokal kjennskap</h3><p>Vi kjenner grunnforholdene og klimautfordringene i området, og dimensjonerer løsningene deretter.</p></div>
-  </div>
-</section>
-
-<section class="bildebande">
-  <img src="../assets/webp/a9f48759eee3.webp" alt="O. T. Wike Entreprenør AS" loading="eager">
-  <div class="bildebande__tekst"><p>Sterkt fundament og slitesterke flater – bygget for nordisk klima og tung belastning.</p></div>
-</section>
-
-<section class="drom">
-  <div class="drom__indre">
-    <div>
-      <p class="merkelapp">Oversiktlig anleggsdrift</p>
-      <h2>Avvik og fremdrift, oppdatert</h2>
-      <p>Fra oppmåling og grunnarbeid til ferdig lagt dekke får oppdragsgiver dokumentert utførelse, mengder og avtalt fremdrift.</p>
+  </section>
+  <section class="ct-section">
+    <div class="ct-wrap">
+      <div class="ct-head"><h2>Tjenesteoversikt</h2><p>Gjennomarbeidede løsninger skreddersydd til ditt behov og din anledning.</p></div>
+      <div class="ct-menu-2col"><article class="ct-menu-entry"><h3>Tomtegraving og klargjøring</h3><p>Utgraving, planering og klargjøring av tomt for bolig, hytte, garasje eller næringsbygg.</p><ul class="ct-menu-bullets"><li>Nøyaktig høyde- og fallsetting</li><li>Riktig masseutskifting</li><li>Klart underlag for neste fag</li></ul></article><article class="ct-menu-entry"><h3>Drenering og vann/avløp</h3><p>Sikker bortledning av overvann, ny drenering rundt grunnmur og grøfting for VA.</p><ul class="ct-menu-bullets"><li>Beskytter bygg mot fukt</li><li>Skånsom graving nær mur</li><li>Komplett tilbakefylling</li></ul></article><article class="ct-menu-entry"><h3>Gårdsplass, vei og opparbeidelse</h3><p>Oppbygging av innkjørsel, parkeringsareal, stikkveier og bærelag klart for dekke.</p><ul class="ct-menu-bullets"><li>God komprimering i lag</li><li>Tåler tele og tung belastning</li><li>Pen avslutning mot kanter</li></ul></article><article class="ct-menu-entry"><h3>Natursteinsmur og utomhus</h3><p>Støttemurer, terrengforming og ferdigstilling av uteområder som utnytter tomten bedre.</p><ul class="ct-menu-bullets"><li>Stabil oppbygging</li><li>Tilpasset omkringliggende terreng</li><li>Helhetlig sluttresultat</li></ul></article></div>
     </div>
-    <div class="drom__kort">
-      <p class="drom__korttittel">Prosjekt- og driftsstatus</p>
-      <div class="drom__rad"><span>Befaring og oppmåling</span><span>Fullført</span></div><div class="drom__rad"><span>Grunnarbeid og komprimering</span><span>Utført</span></div><div class="drom__rad"><span>Legging av dekke og sluttkontroll</span><span>Levert</span></div>
+  </section>
+  <section class="ct-section ct-section-sand">
+    <div class="ct-wrap">
+      <div class="ct-head"><h2>Håndverk og oppfølging</h2><p>Slik skaper vi forutsigbare og gode opplevelser i hvert steg.</p></div>
+      <div class="ct-gallery-3"><article class="ct-gal-card"><img src="../assets/curated/anlegg/03-betong-armering-mannskap.webp" alt="Anleggsarbeidere i vernetøy under armering og betongarbeid" width="1200" height="795" loading="lazy" decoding="async"><div class="ct-gal-body"><h3>Stabilt fundament</h3><p>Riktig lagoppbygging og komprimering gir et underlag som holder over tid.</p></div></article><article class="ct-gal-card"><img src="../assets/curated/anlegg/04-beltegraver-grunnarbeid.webp" alt="Beltegraver i arbeid med utgraving og klargjøring av tomt" width="1024" height="683" loading="lazy" decoding="async"><div class="ct-gal-body"><h3>Tørr og trygg grunnmur</h3><p>Effektiv håndtering av overvann og fukt beskytter boligens verdi.</p></div></article><article class="ct-gal-card"><img src="../assets/curated/anlegg/05-byggegrop-fundament.webp" alt="Utgravd byggegrop klargjort for fundamentering og rørgrøfter" width="1024" height="683" loading="lazy" decoding="async"><div class="ct-gal-body"><h3>Funksjonelle uteområder</h3><p>Velplanerte gårdsplasser, innkjørsler og murer gir et ryddig helhetsinntrykk.</p></div></article></div>
     </div>
-  </div>
-</section>
-
-<section class="seksjon">
-  <div class="seksjon__hode">
-    <p class="merkelapp">Prosessen vår</p>
-    <h2>Slik foregår et oppdrag</h2>
-  </div>
-  <ol class="steg">
-    <li><span class="steg__nr">01</span><h3>Ta kontakt</h3><p>Beskriv kort hva du ønsker hjelp til på skjema, e-post eller telefon, så tar vi raskt kontakt.</p></li>
-    <li><span class="steg__nr">02</span><h3>Kartlegging og tilbud</h3><p>Vi avklarer omfang, gjennomfører eventuell befaring og gir deg et ryddig og forutsigbart tilbud.</p></li>
-    <li><span class="steg__nr">03</span><h3>Fagmessig utførelse</h3><p>Oppdraget gjennomføres til avtalt tid og kvalitet, med tett oppfølging helt til alt er ferdig levert.</p></li>
-  </ol>
-</section>
-
-<section class="seksjon">
-  <div class="seksjon__hode">
-    <p class="merkelapp">Utvalgte glimt</p>
-    <h2>Fra vår arbeidshverdag</h2>
-  </div>
-  <div class="galleri galleri--tre">
-    <figure class="galleri__bilde"><img src="../assets/webp/7696257ca85e.webp" alt="O. T. Wike Entreprenør AS – Asfaltering av veier, plasser og tun" loading="eager"><figcaption>O. T. Wike Entreprenør AS – Asfaltering av veier, plasser og tun</figcaption></figure>
-    <figure class="galleri__bilde"><img src="../assets/webp/5b232e5aa761.webp" alt="O. T. Wike Entreprenør AS – Grunnarbeid, graving og drenering" loading="eager"><figcaption>O. T. Wike Entreprenør AS – Grunnarbeid, graving og drenering</figcaption></figure>
-    <figure class="galleri__bilde"><img src="../assets/webp/681928fcb07a.webp" alt="O. T. Wike Entreprenør AS – Steinarbeid, kantstein og utomhus" loading="eager"><figcaption>O. T. Wike Entreprenør AS – Steinarbeid, kantstein og utomhus</figcaption></figure>
-  </div>
-  <p class="seksjon__mer"><a class="tekstlenke" href="prosjekter.html">Se flere bilder og prosjekter →</a></p>
-</section>
-
-<section class="seksjon seksjon--kontakt" id="kontakt">
-  <div class="seksjon--kontakt__grid">
-    <div>
-      <p class="merkelapp">Kontakt oss</p>
-      <h2>Klar for en uforpliktende prat?</h2>
-      <p class="innledning">Fortell oss kort hva du trenger hjelp til, så svarer vi deg raskt med faglige råd, prisoverslag eller avtale om befaring.</p>
-      <aside class="kontaktkort">
-        <p class="kontaktkort__navn">O. T. Wike Entreprenør AS</p>
-        
-        <p><strong>E-post</strong><br><a href="mailto:post@otwike.no">post@otwike.no</a></p>
-        <p><strong>Område</strong><br>Vear</p>
-      </aside>
+  </section>
+  <section class="ct-bottom-cta">
+    <div class="ct-wrap">
+      <h2>Skal du i gang med grave- eller grunnarbeid?</h2>
+      <p>Kontakt OSKAR OG TORMOD WIKE AS for en befaring og et uforpliktende tilbud.</p>
+      <a href="kontakt.html" class="btn ct-btn-gold-fill">Ta kontakt i dag</a>
     </div>
-    <form class="skjema" action="mailto:post@otwike.no" method="post" enctype="text/plain">
-      <label>Navn<input name="navn" type="text" required placeholder="Fornavn Etternavn"></label>
-      <label>E-post<input name="epost" type="email" required placeholder="navn@epost.no"></label>
-      <label>Telefon<input name="telefon" type="tel" placeholder="900 00 000"></label>
-      <label>Hva gjelder henvendelsen?<select name="type"><option>Asfaltering av veier, plasser og tun</option><option>Grunnarbeid, graving og drenering</option><option>Steinarbeid, kantstein og utomhus</option><option>Vinterdrift, veivedlikehold og merking</option><option>Annet</option></select></label>
-      <label>Melding<textarea name="beskrivelse" rows="4" required placeholder="Beskriv kort hva vi kan hjelpe deg med..."></textarea></label>
-      <button class="knapp" type="submit">Send henvendelse</button>
-    </form>
-  </div>
-</section>
+  </section>
 </main>
-<footer class="bunn">
-  <div class="bunn__indre">
-    <div>
-      <p class="bunn__navn">O. T. Wike Entreprenør AS</p>
-      <p class="bunn__tekst">Vear · post@otwike.no</p>
+  <footer class="ct-footer">
+  <div class="ct-wrap">
+    <div class="ct-footer-grid">
+      <div>
+        <h3>OSKAR OG TORMOD WIKE AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Grunnarbeid, graving og utomhus i Tønsberg.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="ct-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="ct-footer-links">
+          <span>Tønsberg</span>
+          <a href="mailto:post@otwike.no">post@otwike.no</a>
+          <span>Org.nr. 930 705 462</span>
+        </div>
+      </div>
     </div>
-    <nav class="bunn__meny"><a href="index.html">Forside</a><a href="tjenester.html">Tjenester</a><a href="prosjekter.html">Prosjekter</a><a href="panel.html">Panel</a><a href="om-oss.html">Om oss</a><a href="kontakt.html">Kontakt</a></nav>
-    <p class="bunn__krav">© 2026 O. T. Wike Entreprenør AS</p>
+    <div class="ct-footer-end">
+      <span>© OSKAR OG TORMOD WIKE AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
   </div>
 </footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
 </body>
 </html>

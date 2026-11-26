@@ -1,243 +1,504 @@
 <!DOCTYPE html>
 <html lang="nb">
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  <meta charset="UTF-8" />
-  <meta name="color-scheme" content="light" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hotel No 13 – Boutiquehotell midt på Torgallmenningen i Bergen</title>
-  <meta name="description" content="Bo midt i Bergens storstue med Bryggen, Fisketorget, restauranter og shopping rett utenfor døren – i særegne rom som forener klassisk eleganse og moderne komfort." />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Hotel No 13 – Boutiquehotell midt på Torgallmenningen i Bergen" />
-  <meta property="og:description" content="Bo midt i Bergens storstue med Bryggen, Fisketorget, restauranter og shopping rett utenfor døren – i særegne rom som forener klassisk eleganse og moderne komfort." />
-  <meta property="og:image" content="../assets/webp/45caacd51e0d.webp" />
-  <meta property="og:locale" content="nb_NO" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../kit/base.css" />
-  <link rel="stylesheet" href="theme.css" />
-  <link rel="stylesheet" href="styles.css" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "Hotel No 13", "description": "Bo midt i Bergens storstue med Bryggen, Fisketorget, restauranter og shopping rett utenfor døren – i særegne rom som forener klassisk eleganse og moderne komfort.", "email": "sondre.kvitne@hoteloleana.no"}</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel No 13 – Hotell, Restaurant &amp; Catering i Bergen</title>
+  <meta name="description" content="Bo midt i Bergens storstue med Bryggen, Fisketorget, restauranter og shopping rett utenfor døren – i særegne rom som forener klassisk eleganse og moderne komfort.">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Outfit:wght@600;700;800&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --bm-forest: #234B36;
+  --bm-deep: #0A1610;
+  --bm-linen: #F6F4EE;
+  --bm-sage: #EAF2EC;
+  --bm-ochre: #9A4306;
+  --accent: #234B36;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #9A4306;
+  --strip-bg: #0A1610;
+  --strip-fg: #DCE8E0;
+  --strip-link: #FBBF24;
+  --hero-bg: #F6F4EE;
+  --hero-ink: #0A1610;
+  --hero-muted: #374B40;
+  --surface-card: #FFFFFF;
+  --ink: #0A1610;
+  --muted: #374B40;
+  --border: #D9E2DC;
+  --border-strong: #B7C9BD;
+  --tint: #EAF2EC;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+body.tpl-byggmester {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bm-linen);
+  color: var(--ink);
+}
+.tpl-byggmester h1, .tpl-byggmester h2, .tpl-byggmester h3 {
+  font-family: 'Outfit', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.bm-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.bm-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(246, 244, 238, 0.96); color: #0A1610;
+  border-bottom: 1px solid #D9E2DC;
+}
+.bm-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px; }
+.bm-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.12rem; color: #0A1610; }
+.bm-emblem { width: 38px; height: 38px; border-radius: 10px; background: #234B36; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; }
+.bm-nav { display: flex; align-items: center; gap: 1.6rem; font-size: 0.94rem; font-weight: 600; }
+.bm-nav a { display: inline-flex; align-items: center; padding: 0.35rem 0; border-bottom: 2px solid transparent; }
+.bm-nav a:hover, .bm-nav a.active { color: #234B36; border-bottom-color: #234B36; }
+.bm-btn-forest {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: #234B36; color: #FFFFFF; font-weight: 600; padding: 0.82rem 1.5rem;
+  border-radius: 10px; border: 2px solid #234B36;
+}
+.bm-btn-forest:hover { background: #1B3B2A; }
+.bm-btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: #FFFFFF; color: #234B36; font-weight: 600; padding: 0.82rem 1.5rem;
+  border-radius: 10px; border: 1.5px solid #234B36;
+}
+.bm-btn-outline:hover { background: #EAF2EC; }
+
+.bm-hero { padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem); }
+.bm-hero-top { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 2rem; align-items: end; margin-bottom: 2rem; }
+.bm-kicker { display: inline-block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9A4306; margin-bottom: 0.75rem; }
+.bm-hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); color: #0A1610; margin: 0; }
+.bm-hero-aside p { color: var(--muted); font-size: 1.04rem; margin-bottom: 1.25rem; }
+.bm-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.bm-framed-stage { position: relative; }
+.bm-framed-photo { border-radius: 22px; overflow: hidden; border: 1px solid #D9E2DC; box-shadow: 0 24px 50px rgba(10, 22, 16, 0.12); }
+.bm-framed-photo img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.bm-overlap-card {
+  position: relative; z-index: 2; margin: -3.2rem 1.5rem 0 auto; max-width: 760px;
+  background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 16px;
+  padding: 1.4rem 1.75rem; box-shadow: 0 18px 40px rgba(10, 22, 16, 0.1);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem;
+}
+.bm-fact strong { display: block; font-family: 'Outfit', sans-serif; color: #234B36; font-size: 1.05rem; }
+.bm-fact span { font-size: 0.86rem; color: var(--muted); }
+
+.bm-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.bm-section-sage { background: #EAF2EC; border-top: 1px solid #D9E2DC; border-bottom: 1px solid #D9E2DC; }
+.bm-head { max-width: 700px; margin-bottom: 2.25rem; }
+.bm-head h2 { font-size: clamp(1.75rem, 3.1vw, 2.55rem); }
+.bm-head p { color: var(--muted); font-size: 1.03rem; }
+
+.bm-projects-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem; }
+.bm-proj-card { background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 18px; overflow: hidden; }
+.bm-proj-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.bm-proj-body { padding: 1.6rem; }
+.bm-proj-tag { display: inline-block; background: #EAF2EC; color: #234B36; font-size: 0.78rem; font-weight: 700; padding: 0.28rem 0.7rem; border-radius: 999px; margin-bottom: 0.65rem; }
+.bm-proj-body h3 { font-size: 1.3rem; }
+.bm-proj-body p { color: var(--muted); margin: 0; }
+
+.bm-pillars-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.bm-pillar { background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 16px; padding: 1.65rem; }
+.bm-pillar-idx { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: #9A4306; margin-bottom: 0.5rem; }
+.bm-pillar h3 { font-size: 1.18rem; }
+.bm-pillar p { color: var(--muted); font-size: 0.94rem; margin: 0; }
+
+.bm-story-split { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
+.bm-story-photo { border-radius: 18px; overflow: hidden; border: 1px solid #D9E2DC; }
+.bm-story-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.bm-srv-list { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
+.bm-srv-row { background: #FFFFFF; border: 1px solid #D9E2DC; border-radius: 12px; padding: 1.1rem 1.25rem; }
+.bm-srv-row strong { display: block; color: #0A1610; margin-bottom: 0.2rem; }
+.bm-srv-row span { color: var(--muted); font-size: 0.92rem; }
+
+.bm-cta-banner { background: #234B36; color: #FFFFFF; padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.bm-cta-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.bm-cta-inner p { color: #DCE8E0; max-width: 56ch; margin: 0; }
+.bm-btn-light { display: inline-flex; align-items: center; justify-content: center; background: #FFFFFF; color: #0A1610; font-weight: 700; padding: 0.88rem 1.6rem; border-radius: 10px; }
+
+.bm-footer { background: #0A1610; color: #DCE8E0; padding: 3rem 0 2rem; }
+.bm-footer-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.bm-footer h3 { color: #FFFFFF; font-size: 1rem; margin-bottom: 0.8rem; }
+.bm-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.bm-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.bm-footer-links a:hover { color: #FBBF24; }
+.bm-footer-bar { border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-byggmester .mobile-nav { background: #F6F4EE; color: #0A1610; border-top: 1px solid #D9E2DC; }
+
+@media (max-width: 1080px) {
+  .bm-hero-top, .bm-story-split { grid-template-columns: 1fr; }
+  .bm-overlap-card { margin: 1.25rem 0 0; max-width: none; }
+  .bm-pillars-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .bm-overlap-card, .bm-projects-2, .bm-pillars-3, .bm-footer-cols { grid-template-columns: 1fr; }
+}
+  </style>
 </head>
-<body>
-<header class="header">
-  <div class="wrap header__inner">
-    <a class="brand" href="#topp"><span class="brand__dot" aria-hidden="true"></span>Hotel No 13</a>
-    <nav class="nav" data-nav hidden aria-label="Hovedmeny">
-      <a href="#tjenester">Tjenester</a>
-      <a href="#om">Om oss</a>
-      <a href="#prosess">Slik jobber vi</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-    <a class="btn btn--sm header__cta" href="#kontakt">Be om tilbud</a>
-    <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Åpne meny"><span></span><span></span><span></span></button>
+<body class="tpl-byggmester" data-template="byggmester">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Hotel No 13</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="bm-header">
+  <div class="bm-wrap bm-header-inner">
+    <a href="index.html" class="bm-brand"><span class="bm-emblem" aria-hidden="true">H1</span><span>Hotel No 13</span></a>
+    <nav class="bm-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link active" aria-current="page">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn bm-btn-forest">Avtal befaring</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
   </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html" aria-current="page">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
 </header>
-<main id="topp">
-
-<section class="hero">
-  <div class="wrap hero__inner">
-    <div class="hero__copy">
-      <p class="eyebrow">Boutiquehotell · Torgallmenningen i Bergen</p>
-      <h1>Urbant boutiquehotell midt på Torgallmenningen i Bergen</h1>
-      <p class="lead">Bo midt i Bergens storstue med Bryggen, Fisketorget, restauranter og shopping rett utenfor døren – i særegne rom som forener klassisk eleganse og moderne komfort.</p>
-      <div class="hero__cta">
-        <a class="btn" href="#kontakt">Ta kontakt med oss</a>
-        <a class="btn btn--ghost" href="#tjenester">Se hva vi tilbyr</a>
+  <main id="main-content">
+  <section class="bm-hero">
+    <div class="bm-wrap">
+      <div class="bm-hero-top">
+        <div>
+          <span class="bm-kicker">Matopplevelser, vertskap og selskaper</span>
+          <h1>Sesongens råvarer og varmt vertskap i Bergen</h1>
+        </div>
+        <div class="bm-hero-aside">
+          <p>Bo midt i Bergens storstue med Bryggen, Fisketorget, restauranter og shopping rett utenfor døren – i særegne rom som forener klassisk eleganse og moderne komfort.</p>
+          <div class="bm-hero-actions">
+            <a href="kontakt.html" class="btn bm-btn-forest">Ta kontakt</a>
+            <a href="tjenester.html" class="btn bm-btn-outline">Utforsk tjenester</a>
+          </div>
+        </div>
+      </div>
+      <div class="bm-framed-stage">
+        <div class="bm-framed-photo"><img src="../assets/curated/hotell_mat/01-moderne-bistro-restaurant.webp" alt="Stemningsfull restaurant og bistro med varm belysning" width="1200" height="800" loading="eager" fetchpriority="high" decoding="sync"></div>
+        <div class="bm-overlap-card"><div class="bm-fact"><strong>Gode råvarer</strong><span>Tilberedt med omtanke etter sesong</span></div><div class="bm-fact"><strong>Personlig vertskap</strong><span>Ryddig planlegging og god stemning</span></div><div class="bm-fact"><strong>Fleksible menyer</strong><span>Tilpasset selskap, møter og hverdag</span></div></div>
       </div>
     </div>
-    <figure class="hero__kort">
-      <img src="../assets/webp/45caacd51e0d.webp" alt="Hotel No 13 – Urbant boutiquehotell midt på Torgallmenningen i Bergen" loading="eager" decoding="async" />
-    </figure>
-  </div>
-</section>
-
-<div class="fakta" aria-label="Nøkkelinformasjon">
-  <div class="wrap fakta__inner">
-    <div class="fakta__item"><strong>Torgallmenningen</strong><span>Midt i Bergen sentrum</span></div>
-    <div class="fakta__item"><strong>Boutique-stil</strong><span>Unikt interiør og atmosfære</span></div>
-    <div class="fakta__item"><strong>Beste pris</strong><span>Ved direkte bestilling</span></div>
-    <div class="fakta__item"><strong>Lei hele hotellet</strong><span>Selskap og firmaturer</span></div>
-  </div>
-</div>
-
-<section class="section" id="tjenester">
-  <div class="wrap">
-    <div class="seksjonshode">
-      <h2>Dette hjelper vi deg med</h2>
-      <p>Vi leverer gjennomtenkte løsninger med høy faglig standard, forutsigbarhet og personlig oppfølging.</p>
+  </section>
+  <section class="bm-section">
+    <div class="bm-wrap">
+      <div class="bm-head"><span class="bm-kicker">Utvalgte områder</span><h2>Kvalitet som synes i detaljene</h2><p>Vi kombinerer faglig dyktighet med tydelige rammer for både små og større oppdrag.</p></div>
+      <div class="bm-projects-2"><article class="bm-proj-card"><img src="../assets/curated/hotell_mat/02-nordisk-hotellrom.webp" alt="Lunt og moderne hotellrom i treverk med myk belysning" width="960" height="640" loading="lazy" decoding="async"><div class="bm-proj-body"><span class="bm-proj-tag">Kjøkkenet</span><h3>Håndverk fra bunnen</h3><p>Sesongens råvarer tilberedt med omtanke gir tydelig og ekte smak.</p></div></article><article class="bm-proj-card"><img src="../assets/curated/hotell_mat/03-restaurantkjokken-kokker.webp" alt="Kokker i full aktivitet i åpent profesjonelt restaurantkjøkken" width="960" height="640" loading="lazy" decoding="async"><div class="bm-proj-body"><span class="bm-proj-tag">Anretning</span><h3>Innbydende servering</h3><p>Gjennomført presentasjon som løfter både møter og festmiddager.</p></div></article></div>
     </div>
-    <div class="kort-rutenett">
-      <article class="kort">
-        <div class="kort__bilde">
-          <img src="../assets/webp/2f9540cd1e72.webp" alt="Særegne hotellrom og suiter" width="800" height="500" loading="eager" />
-          <span class="kort__nr">01</span>
-        </div>
-        <div class="kort__innhold">
-          <h3>Særegne hotellrom og suiter</h3>
-          <p>Individuelt innredede rom med høy sengkomfort, lune fargetoner og bad i delikat design midt i bykjernen.</p>
-          <a class="kort__lenke" href="#kontakt">Be om tilbud →</a>
-        </div>
-      </article>
-      <article class="kort">
-        <div class="kort__bilde">
-          <img src="../assets/webp/2a01140a8284.webp" alt="Frokost og matopplevelser" width="800" height="500" loading="eager" />
-          <span class="kort__nr">02</span>
-        </div>
-        <div class="kort__innhold">
-          <h3>Frokost og matopplevelser</h3>
-          <p>Start dagen med en innbydende frokost i stemningsfulle lokaler før du tar fatt på arbeidsdagen eller byvandringen.</p>
-          <a class="kort__lenke" href="#kontakt">Be om tilbud →</a>
-        </div>
-      </article>
-      <article class="kort">
-        <div class="kort__bilde">
-          <img src="../assets/webp/0828ccabb49f.webp" alt="Lei hele Hotel No 13 eksklusivt" width="800" height="500" loading="eager" />
-          <span class="kort__nr">03</span>
-        </div>
-        <div class="kort__innhold">
-          <h3>Lei hele Hotel No 13 eksklusivt</h3>
-          <p>Unik mulighet for bedrifter, ledergrupper eller bryllupsfølger som ønsker sitt helt eget boutiquehotell i Bergen.</p>
-          <a class="kort__lenke" href="#kontakt">Be om tilbud →</a>
-        </div>
-      </article>
-      <article class="kort">
-        <div class="kort__bilde">
-          <img src="../assets/webp/77493cc630d6.webp" alt="Personlig vertskap og lokalkunnskap" width="800" height="500" loading="eager" />
-          <span class="kort__nr">04</span>
-        </div>
-        <div class="kort__innhold">
-          <h3>Personlig vertskap og lokalkunnskap</h3>
-          <p>Vårt dedikerte team hjelper deg med bordreservasjoner, kulturopplevelser og alt du trenger under oppholdet.</p>
-          <a class="kort__lenke" href="#kontakt">Be om tilbud →</a>
-        </div>
-      </article>
+  </section>
+  <section class="bm-section bm-section-sage">
+    <div class="bm-wrap">
+      <div class="bm-head"><span class="bm-kicker">Arbeidsmetode</span><h2>Tre steg fra idé til resultat</h2></div>
+      <div class="bm-pillars-3"><article class="bm-pillar"><div class="bm-pillar-idx">01</div><h3>Forespørsel</h3><p>Fortell oss dato, antall gjester og hva slags stemning du ønsker.</p></article><article class="bm-pillar"><div class="bm-pillar-idx">02</div><h3>Menyforslag</h3><p>Vi setter sammen et skreddersydd forslag inkludert hensyn til allergier.</p></article><article class="bm-pillar"><div class="bm-pillar-idx">03</div><h3>Gjennomføring</h3><p>Maten tilberedes ferskt og leveres eller serveres presist til avtalt tid.</p></article></div>
     </div>
-  </div>
-</section>
-
-
-<section class="section seksjon-mork" id="hvorfor">
-  <div class="wrap">
-    <div class="seksjonshode">
-      <h2>Derfor velger kundene oss</h2>
-      <p>Kvalitet, forutsigbarhet og personlig oppfølging i hvert eneste ledd.</p>
-    </div>
-    <div class="verdier">
-      <div class="verdi"><h3>Midt på Torgallmenningen</h3><p>Mer sentralt i Bergen kommer du ikke – med Bryggen, Fisketorget og bylivet rett utenfor døren.</p></div>
-      <div class="verdi"><h3>Unikt boutique-interiør</h3><p>Individuelt utformede rom som kombinerer klassisk arkitektur med lun, moderne komfort.</p></div>
-      <div class="verdi"><h3>Personlig vertskap</h3><p>Dedikert team som legger til rette for alt fra forretningsreiser til romantiske helgeturer.</p></div>
-      <div class="verdi"><h3>Mulighet for eksklusiv leie</h3><p>Bedrifter, ledergrupper og selskaper kan leie hele Hotel No 13 som sitt eget private byhotell.</p></div>
-    </div>
-  </div>
-</section>
-<section class="section om" id="om">
-  <div class="wrap om__grid">
-    <div class="om__tekst">
-      <h2>Om Hotel No 13</h2>
-      <p>Hotel No 13 ligger på den ærverdige adressen Torgallmenningen 13 – mer sentralt i Bergen kommer du ikke.</p>
-      <p>Enten du besøker vestlandshovedstaden i jobbsammenheng eller på helgetur, gir vi deg en lun, personlig og minnerik hotellopplevelse.</p>
-      <ul class="om__fordeler">
-        <li>Torgallmenningen – Midt i Bergen sentrum</li>
-        <li>Boutique-stil – Unikt interiør og atmosfære</li>
-        <li>Beste pris – Ved direkte bestilling</li>
-      </ul>
-    </div>
-    <figure class="om__bilde">
-      <img src="../assets/webp/77493cc630d6.webp" alt="Om Hotel No 13" loading="eager" />
-      <figcaption>
-        <strong>Hotel No 13</strong>
-        <span>Boutiquehotell · Torgallmenningen i Bergen</span>
-      </figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="section galleri">
-  <div class="wrap">
-    <div class="seksjonshode">
-      <h2>Glimt fra virksomheten</h2>
-      <p>Utvalgte bilder fra våre prosjekter, produkter og arbeidshverdag.</p>
-    </div>
-    <div class="galleri__rutenett">
-      <figure><img src="../assets/webp/cd4a153590f3.webp" alt="Hotel No 13 – bilde 1" loading="eager" /></figure>
-      <figure><img src="../assets/webp/b0e686f8644f.webp" alt="Hotel No 13 – bilde 2" loading="eager" /></figure>
-      <figure><img src="../assets/webp/ded34318aa06.webp" alt="Hotel No 13 – bilde 3" loading="eager" /></figure>
-    </div>
-  </div>
-</section>
-
-<section class="section prosess" id="prosess">
-  <div class="wrap">
-    <div class="seksjonshode">
-      <h2>Slik jobber vi</h2>
-      <p>En ryddig og oversiktlig prosess fra første henvendelse til ferdig leveranse.</p>
-    </div>
-    <ol class="steg">
-      <li class="steg__item">
-        <span class="steg__nr">STEG 01</span>
-        <h3>Uforpliktende dialog</h3>
-        <p>Ta kontakt via skjema, e-post eller telefon og fortell kort hva du ønsker hjelp til.</p>
-      </li>
-      <li class="steg__item">
-        <span class="steg__nr">STEG 02</span>
-        <h3>Kartlegging og løsningsforslag</h3>
-        <p>Vi går gjennom behovene dine og gir deg konkrete råd, prisoverslag eller avtaler befaring.</p>
-      </li>
-      <li class="steg__item">
-        <span class="steg__nr">STEG 03</span>
-        <h3>Trygg gjennomføring</h3>
-        <p>Arbeidet eller leveransen utføres til avtalt tid og pris, med tett oppfølging hele veien.</p>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<div class="ctastripe">
-  <div class="wrap ctastripe__inner">
-    <div class="ctastripe__tekst">
-      <h2>Klar for en uforpliktende prat med Hotel No 13?</h2>
-      <p>Send oss en melding i dag, så hjelper vi deg med rådgivning, priser eller et tilbud tilpasset dine behov.</p>
-    </div>
-    <a class="btn" href="#kontakt">Kontakt oss nå</a>
-  </div>
-</div>
-
-<section class="section kontakt" id="kontakt">
-  <div class="wrap kontakt__grid">
-    <div class="kontakt__info">
-      <h2>Ta kontakt</h2>
-      <p class="kontakt__ingress">Vi ser frem til å høre fra deg. Ta kontakt direkte eller bruk skjemaet, så svarer vi deg raskt.</p>
-      <ul class="kontakt__liste">
-        <li><span>E-post</span><a href="mailto:sondre.kvitne@hoteloleana.no">sondre.kvitne@hoteloleana.no</a></li>
-        <li><span>Område</span><strong>Boutiquehotell · Torgallmenningen i Bergen</strong></li>
-        <li><span>Responstid</span><strong>Vi svarer normalt innen én arbeidsdag</strong></li>
-      </ul>
-    </div>
-    <form class="kontakt__skjema" data-contact-form data-mailto="sondre.kvitne@hoteloleana.no" data-subject="Henvendelse fra nettsiden">
-      <h3>Send en henvendelse</h3>
-      <label>Navn<input type="text" name="Navn" required placeholder="Fornavn Etternavn" /></label>
-      <div class="kontakt__rad">
-        <label>Telefon<input type="tel" name="Telefon" placeholder="900 00 000" /></label>
-        <label>E-post<input type="email" name="E-post" required placeholder="navn@epost.no" /></label>
+  </section>
+  <section class="bm-section">
+    <div class="bm-wrap bm-story-split">
+      <div class="bm-story-photo"><img src="../assets/curated/hotell_mat/04-anretning-gourmetmat.webp" alt="Presis anretning av retter på hvite tallerkener før servering" width="960" height="563" loading="lazy" decoding="async"></div>
+      <div>
+        <span class="bm-kicker">Våre tjenester</span><h2>Hva Hotel No 13 leverer</h2>
+        <div class="bm-srv-list"><div class="bm-srv-row"><strong>Selskapsmenyer og festbord</strong><span>Gjennomførte menyer til jubileum, bryllup, konfirmasjon og private markeringer.</span></div><div class="bm-srv-row"><strong>Bedriftsarrangement og møtemat</strong><span>Frisk og innbydende servering til konferanser, styremøter og kundesamlinger.</span></div><div class="bm-srv-row"><strong>Tapas, buffé og delingsretter</strong><span>Rause og smakfulle alternativer som gjør det enkelt å samle mange rundt bordet.</span></div><div class="bm-srv-row"><strong>Vertskap og helhetlig opplevelse</strong><span>Hjelp til menyvalg, tidsplan og praktisk gjennomføring slik at du kan nyte dagen.</span></div></div>
       </div>
-            <label>Velg tjeneste<select name="type" required><option value="Særegne hotellrom og suiter">Særegne hotellrom og suiter</option><option value="Frokost og matopplevelser">Frokost og matopplevelser</option><option value="Lei hele Hotel No 13 eksklusivt">Lei hele Hotel No 13 eksklusivt</option><option value="Personlig vertskap og lokalkunnskap">Personlig vertskap og lokalkunnskap</option><option value="Annet">Annet</option></select></label>
-      <label>Hva gjelder henvendelsen?<textarea name="Melding" rows="4" placeholder="Beskriv kort hva du ønsker hjelp eller tilbud på..."></textarea></label>
-      <button class="btn btn--full" type="submit">Send henvendelse</button>
-      <p class="small muted" data-form-note></p>
-    </form>
-  </div>
-</section>
+    </div>
+  </section>
+  <section class="bm-cta-banner">
+    <div class="bm-wrap bm-cta-inner">
+      <div><h2>Planlegger du selskap, møte eller en god matopplevelse?</h2><p>Send en forespørsel til Hotel No 13 for menyforslag og tilgjengelighet.</p></div>
+      <a href="kontakt.html" class="btn bm-btn-light">Send forespørsel</a>
+    </div>
+  </section>
 </main>
-<footer class="footer">
-  <div class="wrap footer__inner">
-    <p><strong>Hotel No 13</strong> · Boutiquehotell · Torgallmenningen i Bergen</p>
-    <p><a href="mailto:sondre.kvitne@hoteloleana.no">sondre.kvitne@hoteloleana.no</a></p>
-    <p class="small">© <span data-year>2026</span> Hotel No 13</p>
+  <footer class="bm-footer">
+  <div class="bm-wrap">
+    <div class="bm-footer-cols">
+      <div>
+        <h3>Hotel No 13</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Matopplevelser, vertskap og selskaper i Bergen.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="bm-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="bm-footer-links">
+          <span>Bergen</span>
+          <a href="mailto:sondre.kvitne@hoteloleana.no">sondre.kvitne@hoteloleana.no</a>
+        </div>
+      </div>
+    </div>
+    <div class="bm-footer-bar">
+      <span>© Hotel No 13</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
   </div>
 </footer>
-<script src="../kit/app.js"></script>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
 </body>
 </html>

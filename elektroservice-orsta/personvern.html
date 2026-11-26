@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personvern – Elektroservice Ørsta AS</title>
+  <meta name="description" content="Personvernerklæring for Elektroservice Ørsta AS.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --rb-night: #111A2B;
+  --rb-deep: #090D16;
+  --rb-gold: #D49B42;
+  --rb-gold-light: #E8C48A;
+  --rb-parchment: #FAF8F5;
+  --accent: #D49B42;
+  --accent-ink: #090D16;
+  --focus-ring: #E8C48A;
+  --strip-bg: #090D16;
+  --strip-fg: #E7E2D8;
+  --strip-link: #E8C48A;
+  --hero-bg: #111A2B;
+  --hero-ink: #FAF8F5;
+  --hero-muted: #CBD5E1;
+  --surface-card: #FFFFFF;
+  --ink: #162033;
+  --muted: #475569;
+  --border: #E7E2D8;
+  --border-strong: #D4CBB8;
+  --tint: #F5EFE6;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-restaurant-bistro {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--rb-parchment);
+  color: var(--ink);
+}
+.tpl-restaurant-bistro h1, .tpl-restaurant-bistro h2, .tpl-restaurant-bistro h3, .rb-serif {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.rb-wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.rb-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(17, 26, 43, 0.97); color: #FAF8F5;
+  border-bottom: 1px solid rgba(212, 155, 66, 0.32);
+}
+.rb-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px; }
+.rb-brand { font-family: 'Fraunces', Georgia, serif; font-size: 1.32rem; font-weight: 600; color: #FAF8F5; display: inline-flex; align-items: center; gap: 0.65rem; }
+.rb-diamond { width: 12px; height: 12px; background: #D49B42; transform: rotate(45deg); flex-shrink: 0; }
+.rb-nav { display: flex; align-items: center; gap: 1.65rem; font-size: 0.92rem; font-weight: 500; }
+.rb-nav a { display: inline-flex; align-items: center; color: #E7E2D8; }
+.rb-nav a:hover, .rb-nav a.active { color: #E8C48A; }
+.rb-btn-gold {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #D49B42; color: #090D16; font-weight: 700; padding: 0.82rem 1.55rem;
+  border-radius: 6px; border: 2px solid #D49B42;
+}
+.rb-btn-gold:hover { background: #E8C48A; border-color: #E8C48A; }
+.rb-btn-outline {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; color: #FAF8F5; font-weight: 600; padding: 0.82rem 1.55rem;
+  border-radius: 6px; border: 1px solid rgba(232, 196, 138, 0.55);
+}
+
+/* Stemningsfull mørk editorial-hero */
+.rb-hero {
+  background: linear-gradient(160deg, #090D16 0%, #111A2B 60%, #1B2942 100%);
+  color: #FAF8F5; padding: clamp(3.25rem, 6.5vw, 5.75rem) 0;
+}
+.rb-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 4.5vw, 4rem); align-items: center; }
+.rb-kicker { display: block; color: #E8C48A; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; margin-bottom: 1rem; }
+.rb-hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); line-height: 1.09; margin-bottom: 1.15rem; }
+.rb-rule { width: 64px; height: 2px; background: #D49B42; margin-bottom: 1.25rem; }
+.rb-hero-lead { color: #CBD5E1; font-size: 1.06rem; max-width: 52ch; margin-bottom: 1.85rem; }
+.rb-hero-btns { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+.rb-hero-photo { border-radius: 14px; overflow: hidden; border: 1px solid rgba(212, 155, 66, 0.4); box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45); }
+.rb-hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Vekslende bilde/tekst-seksjoner (zigzag) */
+.rb-section { padding: clamp(3.25rem, 6vw, 5.25rem) 0; }
+.rb-zigzag-list { display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); }
+.rb-zigzag-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
+.rb-zigzag-row.is-reverse .rb-zz-media { order: 2; }
+.rb-zz-media { border-radius: 14px; overflow: hidden; border: 1px solid #E7E2D8; box-shadow: 0 16px 36px rgba(17, 26, 43, 0.08); }
+.rb-zz-media img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; }
+.rb-zz-tag { display: inline-block; color: #8F5C16; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 0.55rem; }
+.rb-zz-copy h2 { font-size: clamp(1.65rem, 2.8vw, 2.3rem); color: #162033; }
+.rb-zz-copy p { color: var(--muted); font-size: 1.02rem; }
+
+/* Framhevet sitat/løfte i nattblå + gull */
+.rb-quote-band {
+  background: #111A2B; color: #FAF8F5; padding: clamp(3rem, 6vw, 5rem) 0;
+  text-align: center; border-top: 2px solid #D49B42; border-bottom: 2px solid #D49B42;
+}
+.rb-quote-band blockquote {
+  margin: 0 auto 1.25rem; max-width: 34ch;
+  font-family: 'Fraunces', Georgia, serif; font-style: italic;
+  font-size: clamp(1.45rem, 2.8vw, 2.2rem); line-height: 1.35; color: #FAF8F5;
+}
+.rb-quote-attr { color: #E8C48A; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
+
+.rb-menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.rb-menu-item { background: #FFFFFF; border: 1px solid #E7E2D8; border-radius: 12px; padding: 1.6rem; }
+.rb-menu-item h3 { font-size: 1.3rem; color: #162033; }
+.rb-menu-item p { color: var(--muted); font-size: 0.94rem; margin: 0; }
+
+.rb-footer { background: #090D16; color: #CBD5E1; padding: 3rem 0 2rem; }
+.rb-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.rb-footer h3 { color: #E8C48A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.9rem; }
+.rb-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.rb-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.rb-footer-links a:hover { color: #E8C48A; }
+.rb-footer-end { border-top: 1px solid rgba(212, 155, 66, 0.25); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-restaurant-bistro .mobile-nav { background: #111A2B; color: #FAF8F5; border-top: 1px solid rgba(212, 155, 66, 0.3); }
+
+@media (max-width: 1080px) {
+  .rb-hero-grid, .rb-zigzag-row { grid-template-columns: 1fr; }
+  .rb-zigzag-row.is-reverse .rb-zz-media { order: 0; }
+}
+@media (max-width: 768px) {
+  .rb-menu-grid, .rb-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="tpl-restaurant-bistro" data-template="restaurant-bistro">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Elektroservice Ørsta AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="rb-header">
+  <div class="rb-wrap rb-header-bar">
+    <a href="index.html" class="rb-brand"><span class="rb-diamond" aria-hidden="true"></span><span>Elektroservice Ørsta AS</span></a>
+    <nav class="rb-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn rb-btn-gold">Kontakt oss</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="rb-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Personvern &amp; GDPR</p>
+      <h1>Personvernerklæring</h1>
+      <p>Slik behandler Elektroservice Ørsta AS personopplysninger i tråd med norsk personopplysningslov og EUs personvernforordning (GDPR).</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="rb-wrap">
+      <article class="prose-card">
+        <h2>1. Behandlingsansvarlig</h2>
+        <p>Elektroservice Ørsta AS (Org.nr. 956 899 478) er behandlingsansvarlig for personopplysninger som samles inn ved kontakt og kundeforhold. Ved spørsmål kan du kontakte oss via firmapost@elektroservice.no.</p>
+        <h2>2. Hvilke opplysninger som behandles og formål</h2>
+        <ul>
+          <li>Kontaktopplysninger du selv oppgir i skjema, e-post eller telefon (navn, telefonnummer, e-post og melding) for å besvare forespørsler og gi tilbud.</li>
+          <li>Nødvendig oppdragsinformasjon for å oppfylle avtaler og lovpålagte plikter (f.eks. bokføringsloven).</li>
+        </ul>
+        <h2>3. Informasjonskapsler (cookies) og sporing</h2>
+        <p>Denne nettsiden bruker ikke reklamecookies eller tredjeparts sporingsskript. Det lagres ingen unødvendige informasjonskapsler i nettleseren din.</p>
+        <h2>4. Lagringstid og sikkerhet</h2>
+        <p>Personopplysninger lagres kun så lenge det er nødvendig for formålet de ble samlet inn for, eller så lenge lovgivningen krever det, og slettes deretter på en sikker måte.</p>
+        <h2>5. Dine rettigheter</h2>
+        <p>Du har rett til innsyn, retting, sletting og begrensning av behandlingen av dine personopplysninger, samt rett til å klage til Datatilsynet dersom du mener reglene ikke følges.</p>
+      </article>
+    </div>
+  </section>
+</main>
+  <footer class="rb-footer">
+  <div class="rb-wrap">
+    <div class="rb-footer-grid">
+      <div>
+        <h3>Elektroservice Ørsta AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Elektroinstallasjon og tekniske løsninger i Ørsta.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="rb-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="rb-footer-links">
+          <span>Ørsta</span>
+          <a href="tel:+4770049530">+47 70 04 95 30</a>
+          <a href="mailto:firmapost@elektroservice.no">firmapost@elektroservice.no</a>
+          <span>Org.nr. 956 899 478</span>
+        </div>
+      </div>
+    </div>
+    <div class="rb-footer-end">
+      <span>© Elektroservice Ørsta AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
+</body>
+</html>

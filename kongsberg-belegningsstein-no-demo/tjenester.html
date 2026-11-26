@@ -1,890 +1,496 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tjenester – Kongsberg Belegningsstein AS i Kongsberg</title>
+  <title>Tjenester – Kongsberg Belegningsstein AS</title>
+  <meta name="description" content="Oversikt over tjenester fra Kongsberg Belegningsstein AS i Kongsberg.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap">
   <style>
-    :root {
-      --bakgrunn: #F6F8F4;
-      --bakgrunn-alt: #EAEFE5;
-      --kort-bg: #FFFFFF;
-      --blekk: #14241B;
-      --dempet: #3F5247;
-      --aksent: #15803D;
-      --aksent-mork: #166534;
-      --aksent-myk: #DCFCE7;
-      --topp-bg: #112218;
-      --topp-blekk: #F6F8F4;
-      --seksjon-mork: #112218;
-      --font-overskrift: 'Fraunces', serif;
-      --font-brodtekst: 'Plus Jakarta Sans', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
-    body {
-      background-color: var(--bakgrunn);
-      color: var(--blekk);
-      font-family: var(--font-brodtekst);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    :focus-visible {
-      outline: 3px solid var(--aksent);
-      outline-offset: 3px;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-    .container {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-    /* Top utility bar */
-    .topbar {
-      background-color: #090D14;
-      color: #CBD5E1;
-      font-size: 0.82rem;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .topbar__indre {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-    .topbar__venstre, .topbar__hoyre {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1.1rem;
-    }
-    .topbar__punkt {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.01em;
-    }
-    .topbar__prikk {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: #22C55E;
-      box-shadow: 0 0 8px #22C55E;
-    }
-    /* Sticky Header (.topp) with guaranteed contrast >= 70 */
-    .topp {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background-color: var(--topp-bg);
-      color: var(--topp-blekk);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 0.85rem 0;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
-    }
-    .topp__indre {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .merke {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.08rem, 1.8vw, 1.35rem);
-      font-weight: 700;
-      color: var(--topp-blekk);
-      letter-spacing: -0.02em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      min-height: 44px;
-    }
-    .merke__ikon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--aksent), var(--aksent-mork));
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.92rem;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-    .merke__tekst {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-    }
-    .merke__under {
-      font-family: var(--font-brodtekst);
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: #94A3B8;
-      letter-spacing: 0.02em;
-      margin-top: 2px;
-    }
-    .nav-desktop {
-      display: none;
-      align-items: center;
-      gap: 1.35rem;
-    }
-    .nav-desktop a:not(.knapp) {
-      color: var(--topp-blekk);
-      font-weight: 500;
-      font-size: 0.95rem;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.35rem;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-    }
-    .nav-desktop a:not(.knapp):hover, .nav-desktop a[aria-current="page"] {
-      color: #FFFFFF;
-      border-bottom-color: var(--aksent);
-    }
-    .knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      min-height: 46px;
-      min-width: 46px;
-      padding: 0.78rem 1.45rem;
-      border-radius: 10px;
-      background-color: var(--aksent);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 0.98rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-      transition: transform 0.15s ease, background-color 0.15s ease;
-    }
-    .knapp:hover { background-color: var(--aksent-mork); transform: translateY(-1px); }
-    .knapp--sekundar {
-      background-color: var(--kort-bg);
-      color: var(--blekk);
-      border: 1.5px solid rgba(15, 23, 42, 0.22);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-    .knapp--sekundar:hover {
-      background-color: var(--bakgrunn-alt);
-      border-color: var(--aksent);
-    }
-    .mobil-meny-knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 44px;
-      min-height: 44px;
-      padding: 0.5rem 0.9rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--topp-blekk);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .mobil-meny {
-      display: none;
-      background-color: var(--topp-bg);
-      color: var(--topp-blekk);
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .mobil-meny.aapen { display: flex; flex-direction: column; gap: 0.45rem; }
-    .mobil-meny a {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      color: var(--topp-blekk);
-      font-weight: 500;
-    }
-    /* Hero */
-    .hero {
-      padding: clamp(2.5rem, 5.5vw, 5rem) 0;
-      background: radial-gradient(circle at 85% 15%, var(--aksent-myk) 0%, transparent 45%), linear-gradient(180deg, var(--bakgrunn-alt) 0%, var(--bakgrunn) 100%);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.09);
-    }
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-    .merkelapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.38rem 0.9rem;
-      border-radius: 999px;
-      background-color: var(--aksent);
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 1.1rem;
-    }
-    h1 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(2rem, 4vw, 3.35rem);
-      line-height: 1.12;
-      letter-spacing: -0.025em;
-      text-wrap: balance;
-      margin-bottom: 1.15rem;
-      color: var(--blekk);
-    }
-    h2 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      line-height: 1.18;
-      letter-spacing: -0.02em;
-      text-wrap: balance;
-      margin-bottom: 0.85rem;
-      color: var(--blekk);
-    }
-    h3 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.15rem, 1.7vw, 1.35rem);
-      line-height: 1.28;
-      margin-bottom: 0.5rem;
-      color: var(--blekk);
-    }
-    .seksjon-etikett {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--aksent);
-      margin-bottom: 0.5rem;
-    }
-    .ingress {
-      font-size: clamp(1.02rem, 1.3vw, 1.18rem);
-      color: var(--dempet);
-      margin-bottom: 1.65rem;
-      max-width: 62ch;
-    }
-    .hero__knapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      margin-bottom: 1.65rem;
-    }
-    .hero__tillit {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem 1.35rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(15, 23, 42, 0.1);
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--blekk);
-    }
-    .hero__tillit li {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-    .hero__tillit svg {
-      width: 18px;
-      height: 18px;
-      color: var(--aksent);
-      flex-shrink: 0;
-    }
-    .hero__ramme {
-      position: relative;
-    }
-    .hero__bilde {
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
-      border: 4px solid var(--kort-bg);
-      aspect-ratio: 16 / 11;
-      background-color: var(--bakgrunn-alt);
-    }
-    .hero__bilde img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero__flyt {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-      color: #F8FAFC;
-      padding: 0.85rem 1.1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      font-size: 0.86rem;
-    }
-    .hero__flyt strong {
-      display: block;
-      font-size: 0.95rem;
-      color: #FFFFFF;
-    }
-    .hero__flyt-kode {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      background: var(--aksent);
-      color: #FFFFFF;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    /* Fakta-stripe */
-    .fakta-stripe {
-      padding: 1.85rem 0;
-      background-color: var(--kort-bg);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .fakta-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    .fakta-boks {
-      padding: 1.15rem 1.35rem;
-      border-radius: 14px;
-      background-color: var(--bakgrunn);
-      border: 1px solid rgba(15, 23, 42, 0.09);
-      border-top: 3px solid var(--aksent);
-    }
-    .fakta-boks__etikett {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--aksent);
-      margin-bottom: 0.25rem;
-      display: block;
-    }
-    .fakta-boks strong {
-      display: block;
-      font-family: var(--font-overskrift);
-      font-size: 1.25rem;
-      color: var(--blekk);
-      margin-bottom: 0.15rem;
-    }
-    .fakta-boks span {
-      font-size: 0.88rem;
-      color: var(--dempet);
-    }
-    /* Seksjoner & 4 tjenestekort */
-    .seksjon {
-      padding: clamp(3.2rem, 6vw, 5.5rem) 0;
-    }
-    .seksjon--alt {
-      background-color: var(--bakgrunn-alt);
-      border-top: 1px solid rgba(15, 23, 42, 0.07);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.07);
-    }
-    .seksjon--mork {
-      background-color: var(--seksjon-mork);
-      color: #F8FAFC;
-    }
-    .seksjon--mork h2, .seksjon--mork h3 {
-      color: #FFFFFF;
-    }
-    .seksjon--mork .ingress {
-      color: #CBD5E1;
-    }
-    .kort-rutenett {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .kort:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.11);
-    }
-    .kort__bilde {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background-color: var(--bakgrunn-alt);
-    }
-    .kort__bilde img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-    .kort:hover .kort__bilde img {
-      transform: scale(1.04);
-    }
-    .kort__nr {
-      position: absolute;
-      top: 0.85rem;
-      left: 0.85rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.3rem 0.65rem;
-      border-radius: 8px;
-      background-color: rgba(15, 23, 42, 0.86);
-      color: #FFFFFF;
-      backdrop-filter: blur(6px);
-    }
-    .kort__innhold {
-      padding: 1.45rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .kort__innhold p {
-      color: var(--dempet);
-      font-size: 0.95rem;
-      margin-bottom: 1.25rem;
-      flex-grow: 1;
-      max-width: 60ch;
-    }
-    .kort__lenke {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      min-height: 44px;
-      font-weight: 700;
-      font-size: 0.93rem;
-      color: var(--aksent);
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      padding-top: 0.75rem;
-    }
-    /* 4 distinkte verdier (.verdier) i mørk kontrastseksjon */
-    .verdier {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-      margin-top: 2rem;
-    }
-    .verdi {
-      background-color: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 16px;
-      padding: 1.55rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-    .verdi__ikon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background-color: var(--aksent);
-      color: #FFFFFF;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.88rem;
-      margin-bottom: 0.35rem;
-    }
-    .seksjon--mork .verdi p { color: #CBD5E1; font-size: 0.94rem; }
-    .verdi p { color: var(--dempet); font-size: 0.94rem; }
-    /* Prosess-seksjon (3 steg) */
-    .prosess-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-      margin-top: 2rem;
-    }
-    .prosess-kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      padding: 1.55rem;
-      position: relative;
-    }
-    .prosess-kort__steg {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--aksent);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.4rem;
-      display: block;
-    }
-    /* Interaktiv pris-/prosjektvelger */
-    .kalkulator {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
-      margin-top: 1.75rem;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
-    }
-    .kalkulator__valg {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.85rem;
-      margin: 1.25rem 0;
-    }
-    .kalk-knapp {
-      text-align: left;
-      padding: 1rem 1.25rem;
-      min-height: 50px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(15, 23, 42, 0.15);
-      background: var(--bakgrunn);
-      color: var(--blekk);
-      font-weight: 600;
-      font-size: 0.98rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .kalk-knapp:hover {
-      border-color: var(--aksent);
-    }
-    .kalk-knapp.aktiv {
-      border-color: var(--aksent);
-      background-color: var(--aksent);
-      color: #ffffff;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
-    }
-    .kalk-resultat {
-      padding: 1.2rem 1.4rem;
-      border-radius: 12px;
-      background-color: var(--bakgrunn-alt);
-      border-left: 4px solid var(--aksent);
-      font-weight: 600;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    /* Kontaktskjema */
-    .skjema-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.25rem;
-      margin-top: 1.5rem;
-      align-items: start;
-    }
-    .kontakt-kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-top: 1.25rem;
-      display: grid;
-      gap: 0.85rem;
-    }
-    .kontakt-kort__rad {
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .kontakt-kort__rad:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .kontakt-kort__etikett {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      color: var(--aksent);
-      display: block;
-    }
-    .skjema {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.35rem);
-      display: grid;
-      gap: 1.1rem;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
-    }
-    .skjema label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.93rem;
-      margin-bottom: 0.35rem;
-    }
-    .skjema input, .skjema select, .skjema textarea {
-      width: 100%;
-      min-height: 46px;
-      padding: 0.78rem 0.95rem;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--blekk);
-      background-color: var(--bakgrunn);
-      border: 1.5px solid rgba(15, 23, 42, 0.18);
-      border-radius: 10px;
-    }
-    .skjema input:focus, .skjema select:focus, .skjema textarea:focus {
-      border-color: var(--aksent);
-      outline: none;
-    }
-    .bunn {
-      padding: 3.5rem 0 2.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      background-color: var(--topp-bg);
-      color: #CBD5E1;
-      font-size: 0.94rem;
-    }
-    .bunn__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .bunn strong {
-      color: #FFFFFF;
-    }
-    .bunn a {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      color: #E2E8F0;
-      font-weight: 500;
-    }
-    .bunn a:hover { color: #FFFFFF; text-decoration: underline; }
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
 
-    /* 1. Mobil (320px - 640px) */
-    @media (max-width: 640px) {
-      .topbar { display: none; }
-      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg, .prosess-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-desktop { display: none; }
-      .hero__flyt { position: static; margin-top: 0.75rem; }
-    }
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
 
-    /* 2. Nettbrett / Pad (641px - 1024px) */
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .container { padding: 0 1.75rem; }
-      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .prosess-grid { grid-template-columns: repeat(3, 1fr); }
-      .bunn__grid { grid-template-columns: repeat(2, 1fr); }
-    }
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
 
-    /* 3. PC / Laptop (1025px - 1920px) */
-    @media (min-width: 1025px) {
-      .nav-desktop { display: flex; }
-      .mobil-meny-knapp { display: none; }
-      .hero__grid { grid-template-columns: 1.08fr 0.92fr; }
-      .fakta-grid { grid-template-columns: repeat(4, 1fr); }
-      .kort-rutenett { grid-template-columns: repeat(4, 1fr); }
-      .verdier { grid-template-columns: repeat(4, 1fr); }
-      .prosess-grid { grid-template-columns: repeat(3, 1fr); }
-      .kalkulator__valg { grid-template-columns: repeat(2, 1fr); }
-      .skjema-grid { grid-template-columns: 1fr 1.15fr; }
-      .bunn__grid { grid-template-columns: 1.4fr 1fr 1fr; }
-    }
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
 
-    /* 4. TV / 4K / Storskjerm (1920px+) */
-    @media (min-width: 1920px) {
-      .container {
-        max-width: 1540px;
-        margin: 0 auto;
-        padding: 0 2.5rem;
-      }
-      body { font-size: clamp(1.05rem, 1.1vw, 1.22rem); }
-    }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --el-obsidian: #090D16;
+  --el-graphite: #111827;
+  --el-surface: #F8FAFC;
+  --el-amber: #F59E0B;
+  --el-amber-dark: #B45309;
+  --el-volt: #38BDF8;
+  --accent: #F59E0B;
+  --accent-ink: #090D16;
+  --focus-ring: #F59E0B;
+  --strip-bg: #04060B;
+  --strip-fg: #CBD5E1;
+  --strip-link: #F59E0B;
+  --hero-bg: #090D16;
+  --hero-ink: #F8FAFC;
+  --hero-muted: #CBD5E1;
+  --surface-card: #FFFFFF;
+  --ink: #0F172A;
+  --muted: #475569;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --tint: #FEF3C7;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-elektriker {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--el-surface);
+  color: var(--ink);
+}
+.tpl-elektriker h1, .tpl-elektriker h2, .tpl-elektriker h3 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.el-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.el-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(9, 13, 22, 0.96); color: #F8FAFC;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+}
+.el-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+.el-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.08rem; }
+.el-mark { width: 38px; height: 38px; border-radius: 8px; background: #F59E0B; color: #090D16; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.el-nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.94rem; font-weight: 500; }
+.el-nav a { display: inline-flex; align-items: center; padding: 0.35rem 0.2rem; color: #E2E8F0; }
+.el-nav a:hover, .el-nav a.active { color: #F59E0B; }
+.el-btn-amber {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: #F59E0B; color: #090D16; font-weight: 700; padding: 0.8rem 1.45rem;
+  border-radius: 8px; border: 2px solid #F59E0B; transition: transform 0.15s ease, background 0.15s ease;
+}
+.el-btn-amber:hover { background: #FBBF24; transform: translateY(-1px); }
+.el-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: transparent; color: #F8FAFC; font-weight: 600; padding: 0.8rem 1.45rem;
+  border-radius: 8px; border: 1.5px solid rgba(248, 250, 252, 0.35);
+}
+.el-btn-ghost:hover { border-color: #F59E0B; color: #F59E0B; }
+.el-hero {
+  background: radial-gradient(circle at 80% 15%, rgba(56, 189, 248, 0.14), transparent 45%),
+              linear-gradient(145deg, #04060B 0%, #090D16 55%, #111827 100%);
+  color: #F8FAFC; padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+.el-hero-split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+.el-kicker { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #F59E0B; margin-bottom: 1rem; }
+.el-kicker::before { content: ""; width: 24px; height: 2px; background: #F59E0B; }
+.el-hero h1 { font-size: clamp(2.1rem, 4.3vw, 3.5rem); margin-bottom: 1.1rem; }
+.el-hero-lead { color: #CBD5E1; font-size: clamp(1rem, 1.4vw, 1.15rem); max-width: 56ch; margin-bottom: 1.8rem; }
+.el-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 2.2rem; }
+.el-hero-media { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45); }
+.el-hero-media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.el-hero-tag {
+  position: absolute; left: 1rem; bottom: 1rem; right: 1rem;
+  background: rgba(9, 13, 22, 0.9); color: #F8FAFC; padding: 0.8rem 1rem;
+  border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.35);
+  display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; font-size: 0.86rem;
+}
+.el-kpi-strip {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 1.5rem;
+}
+.el-kpi { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 1rem 1.15rem; }
+.el-kpi strong { display: block; color: #F59E0B; font-family: 'Space Grotesk', sans-serif; font-size: 1.12rem; }
+.el-kpi span { color: #CBD5E1; font-size: 0.88rem; }
+
+.el-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.el-section-dark { background: #111827; color: #F8FAFC; }
+.el-head { max-width: 720px; margin-bottom: 2.25rem; }
+.el-eyebrow { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #B45309; margin-bottom: 0.5rem; }
+.el-section-dark .el-eyebrow { color: #F59E0B; }
+.el-head h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); }
+.el-head p { color: var(--muted); }
+.el-section-dark .el-head p { color: #CBD5E1; }
+
+.el-services-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; }
+.el-srv-card {
+  background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #090D16;
+  border-radius: 14px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;
+}
+.el-srv-num { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; color: #B45309; margin-bottom: 0.5rem; }
+.el-srv-card h3 { font-size: 1.25rem; }
+.el-srv-card p { color: var(--muted); font-size: 0.95rem; }
+.el-bullets { display: grid; gap: 0.4rem; margin: 0.85rem 0 1.25rem; font-size: 0.9rem; color: #334155; }
+.el-bullets li::before { content: "▪ "; color: #B45309; font-weight: 700; }
+
+.el-gallery-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.el-gal-card { background: #090D16; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; overflow: hidden; }
+.el-gal-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.el-gal-body { padding: 1.35rem; }
+.el-gal-tag { display: inline-block; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #38BDF8; margin-bottom: 0.4rem; }
+.el-gal-body h3 { font-size: 1.15rem; color: #F8FAFC; }
+.el-gal-body p { color: #CBD5E1; font-size: 0.92rem; margin: 0; }
+
+.el-why-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+.el-why-item { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 1.4rem; }
+.el-why-item h3 { font-size: 1.05rem; color: #090D16; }
+.el-why-item p { font-size: 0.92rem; color: var(--muted); margin: 0; }
+
+.el-cta-band {
+  background: linear-gradient(120deg, #090D16 0%, #1E293B 100%);
+  color: #F8FAFC; border-radius: 18px; padding: clamp(2rem, 4vw, 3.25rem);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+.el-cta-band p { color: #CBD5E1; margin: 0; max-width: 54ch; }
+
+.el-footer { background: #04060B; color: #CBD5E1; padding: 3rem 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.el-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.el-footer h3 { color: #F8FAFC; font-size: 1rem; margin-bottom: 0.85rem; }
+.el-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.el-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.el-footer-links a:hover { color: #F59E0B; }
+.el-footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.25rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-elektriker .mobile-nav { background: #090D16; color: #F8FAFC; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+
+@media (max-width: 1080px) {
+  .el-hero-split { grid-template-columns: 1fr; }
+  .el-why-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .el-gallery-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .el-kpi-strip, .el-services-grid, .el-gallery-3, .el-why-4, .el-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
 </head>
-<body>
-  
-        <div class="topbar">
-          <div class="container topbar__indre">
-            <div class="topbar__venstre">
-              <span class="topbar__punkt"><span class="topbar__prikk"></span> ANLEGGSGARTNER & UTEMILJØ</span>
-              <span class="topbar__punkt">ORG.NR 990 917 450</span>
-            </div>
-            <div class="topbar__hoyre">
-              <span class="topbar__punkt">📍 Numedalsveien 301, 3614 Kongsberg</span>
-              <a href="mailto:grizzly355@msn.com" class="topbar__punkt">✉️ grizzly355@msn.com</a>
-            </div>
-          </div>
-        </div>
-        <header class="topp">
-          <div class="container topp__indre">
-            <a href="index.html" class="merke" aria-label="Kongsberg Belegningsstein AS">
-              <span class="merke__ikon">KB</span><span class="merke__tekst"><span>Kongsberg Belegningsstein AS</span><span class="merke__under">Kongsberg · Org.nr 990 917 450</span></span>
-            </a>
-            <nav class="nav-desktop" aria-label="Hovedmeny">
-              <a href="index.html">Forside</a>
-              <a href="tjenester.html">Tjenester</a>
-              <a href="om-oss.html">Om bedriften</a>
-              <a href="kontakt.html">Kontakt</a>
-              <a href="kontakt.html#skjema" class="knapp">Be om befaring</a>
-            </nav>
-            <button type="button" class="mobil-meny-knapp" onclick="document.getElementById('mobilMeny').classList.toggle('aapen')" aria-label="Åpne meny">
-              Meny
-            </button>
-          </div>
-          <nav id="mobilMeny" class="mobil-meny" aria-label="Mobilmeny">
-            <a href="index.html">Forside</a>
-            <a href="tjenester.html">Tjenester</a>
-            <a href="om-oss.html">Om bedriften</a>
-            <a href="kontakt.html">Kontakt</a>
-            <a href="personvern.html">Personvern</a>
-          </nav>
-        </header>
-        
-  <main>
-    <section class="seksjon">
-      <div class="container">
-        <span class="merkelapp">Murmester, betong &amp; våtrom</span>
-        <h1>Tjenester levert av Kongsberg Belegningsstein AS</h1>
-        <p class="ingress">Oversikt over våre 4 kjerneområder for privatkunder, borettslag og næringsliv i Kongsberg.</p>
-        <div class="kort-rutenett">
-          
-                <article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/24b9dd0f5c1b.webp" alt="Mur-, puss- &amp; fasaderehabilitering – Kongsberg Belegningsstein AS" loading="lazy">
-                  </div>
-                  <div class="kort__innhold">
-                    <span class="kort__nr">01</span>
-                    <h3>Mur-, puss- &amp; fasaderehabilitering</h3>
-                    <p>Utbedring av murfasader, teglforblending, fiberpuss og kalkpuss som tåler frost og fukt.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-                
-
-                <article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/f9d0e295e01a.webp" alt="Flislegging &amp; komplette våtrom – Kongsberg Belegningsstein AS" loading="lazy">
-                  </div>
-                  <div class="kort__innhold">
-                    <span class="kort__nr">02</span>
-                    <h3>Flislegging &amp; komplette våtrom</h3>
-                    <p>Muring, fallbygging, membran og flislegging av bad, vaskerom og inngangspartier.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-                
-
-                <article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/6e931e1fa2a5.webp" alt="Peis, ildsted &amp; skorsteinsrehabilitering – Kongsberg Belegningsstein AS" loading="lazy">
-                  </div>
-                  <div class="kort__innhold">
-                    <span class="kort__nr">03</span>
-                    <h3>Peis, ildsted &amp; skorsteinsrehabilitering</h3>
-                    <p>Muring av peis, montering av vedovn og rehabilitering av pipe med godkjente røykrør.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-                
-
-                <article class="kort">
-                  <div class="kort__bilde">
-                    <img src="../assets/webp/26f7dfe9a1dd.webp" alt="Grunnmur, støttemur &amp; betongarbeid – Kongsberg Belegningsstein AS" loading="lazy">
-                  </div>
-                  <div class="kort__innhold">
-                    <span class="kort__nr">04</span>
-                    <h3>Grunnmur, støttemur &amp; betongarbeid</h3>
-                    <p>Oppføring av Leca- og betongmurer, såler, trapper og skiferarbeid utendørs.</p>
-                    <a href="kontakt.html#skjema" class="kort__lenke">Be om tilbud →</a>
-                  </div>
-                </article>
-                
+<body class="tpl-elektriker" data-template="elektriker">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Kongsberg Belegningsstein AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="el-header">
+  <div class="el-wrap el-header-bar">
+    <a href="index.html" class="el-brand"><span class="el-mark" aria-hidden="true">KB</span><span>Kongsberg Belegningsstein AS</span></a>
+    <nav class="el-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link active" aria-current="page">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn el-btn-amber">Be om tilbud</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html" aria-current="page">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="el-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Anleggsgartner, stein og grøntanlegg</p>
+      <h1>Tjenester fra Kongsberg Belegningsstein AS</h1>
+      <p>Kongsberg Belegningsstein AS leverer fagmessig arbeid innen mur og betong i Kongsberg og omegn. Bestill befaring eller be om pristilbud direkte.</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="el-wrap">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/hage/06-pergola-uterom.webp" alt="Skreddersydd uterom og terrasse integrert mot bolig" width="1024" height="683" loading="eager" fetchpriority="high" decoding="sync"></div><h2 style="font-size:1.35rem;">Belegningsstein og naturstein</h2><p style="color:var(--muted);">Gårdsplasser, gangstier, trapper og kantstein med godt fundament og presis legging.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Grundig bærelag mot tele</li><li>• Rene linjer og god drenering</li><li>• Slitesterke overflater</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/hage/03-gronn-plen-hageanlegg.webp" alt="Velstelt og frodig grønn plen badet i sollys" width="960" height="646" loading="lazy" decoding="async"></div><h2 style="font-size:1.35rem;">Hageanlegg og beplantning</h2><p style="color:var(--muted);">Etablering av plen, hekk, bed og grønne soner som gir liv og skjerming.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Hardføre vekster for norsk klima</li><li>• Ferdigplen eller såing</li><li>• Harmoni mellom sonene</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/hage/04-hekklipp-gangsti.webp" alt="Ryddig hellelagt gangsti innrammet av veltrimmede hekker" width="960" height="636" loading="lazy" decoding="async"></div><h2 style="font-size:1.35rem;">Støttemurer og nivåforskjeller</h2><p style="color:var(--muted);">Løsninger som utnytter skrånende tomter og skaper lune, brukbare uteplasser.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Solid oppbygging</li><li>• Integrerte trapper og belysning</li><li>• Naturlig overgang i terrenget</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><h2 style="font-size:1.35rem;">Vedlikehold og grøntstell</h2><p style="color:var(--muted);">Beskjæring, vårklargjøring og løpende stell for borettslag, bedrifter og private.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Faste besøk gjennom sesongen</li><li>• Sunne og velstelte planter</li><li>• Ryddig bortkjøring av hageavfall</li></ul></article>
+      </div>
+      <div style="margin-top:2.25rem;">
+        <a href="kontakt.html" class="btn el-btn-amber">Be om uforpliktende forslag</a>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="el-footer">
+  <div class="el-wrap">
+    <div class="el-footer-grid">
+      <div>
+        <h3>Kongsberg Belegningsstein AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Anleggsgartner, stein og grøntanlegg i Kongsberg.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="el-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
         </div>
       </div>
-    </section>
-    <section class="seksjon seksjon--alt">
-      <div class="container">
-        <h2>Kvalitetsgaranti og verdier</h2>
-        <div class="verdier">
-          
-                <div class="verdi">
-                  <h3>Tradisjonelt og moderne murfag</h3>
-                  <p>Vi behersker både klassisk mur- og pussteknikk og moderne våtroms- og betongsystemer.</p>
-                </div>
-                
-
-                <div class="verdi">
-                  <h3>Varige konstruksjoner</h3>
-                  <p>Riktig mørtel, armering og fuktsikring gir konstruksjoner som står seg i generasjoner.</p>
-                </div>
-                
-
-                <div class="verdi">
-                  <h3>Ryddig pris og fremdrift</h3>
-                  <p>Skriftlig tilbud etter befaring og avtalt ferdigstillelsesdato.</p>
-                </div>
-                
-
-                <div class="verdi">
-                  <h3>Lokal fagbedrift</h3>
-                  <p>Vi setter vår ære i godt håndverk og fornøyde oppdragsgivere i lokalmiljøet.</p>
-                </div>
-                
+      <div>
+        <h3>Kontakt</h3>
+        <div class="el-footer-links">
+          <span>Kongsberg</span>
+          <span>Numedalsveien 301, 3614 Kongsberg</span>
+          <a href="mailto:grizzly355@msn.com">grizzly355@msn.com</a>
+          <span>Org.nr. 990 917 450</span>
         </div>
       </div>
-    </section>
-  </main>
-  
-        <footer class="bunn">
-          <div class="container bunn__grid">
-            <div>
-              <strong style="color: var(--blekk); font-size: 1.1rem;">Kongsberg Belegningsstein AS</strong>
-              <p style="margin-top: 0.4rem;">Murmester, betong &amp; våtrom i Kongsberg og omegn.</p>
-              <p style="margin-top: 0.4rem;">Org.nr: 990917450 · Etablert 2006 · 7 ansatte</p>
-            </div>
-            <div>
-              <strong style="color: var(--blekk);">Kontaktinformasjon</strong>
-              <p style="margin-top: 0.4rem;">Adresse: Numedalsveien 301, 3614 Kongsberg</p>
-              <p>E-post: <a href="mailto:grizzly355@msn.com">grizzly355@msn.com</a></p>
-              <p>Daglig leder: Kjetil Grøterud</p>
-            </div>
-            <div>
-              <strong style="color: var(--blekk);">Sider</strong><br>
-              <a href="index.html">Forside</a> ·
-              <a href="tjenester.html">Tjenester</a> ·
-              <a href="om-oss.html">Om oss</a> ·
-              <a href="kontakt.html">Kontakt</a> ·
-              <a href="personvern.html">Personvern</a>
-            </div>
-          </div>
-        </footer>
-        
+    </div>
+    <div class="el-footer-bottom">
+      <span>© Kongsberg Belegningsstein AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
 </body>
 </html>

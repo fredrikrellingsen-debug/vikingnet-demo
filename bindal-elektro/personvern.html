@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personvern – Bindal Elektro AS</title>
+  <meta name="description" content="Personvernerklæring for Bindal Elektro AS.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --el-obsidian: #090D16;
+  --el-graphite: #111827;
+  --el-surface: #F8FAFC;
+  --el-amber: #F59E0B;
+  --el-amber-dark: #B45309;
+  --el-volt: #38BDF8;
+  --accent: #F59E0B;
+  --accent-ink: #090D16;
+  --focus-ring: #F59E0B;
+  --strip-bg: #04060B;
+  --strip-fg: #CBD5E1;
+  --strip-link: #F59E0B;
+  --hero-bg: #090D16;
+  --hero-ink: #F8FAFC;
+  --hero-muted: #CBD5E1;
+  --surface-card: #FFFFFF;
+  --ink: #0F172A;
+  --muted: #475569;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --tint: #FEF3C7;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-elektriker {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--el-surface);
+  color: var(--ink);
+}
+.tpl-elektriker h1, .tpl-elektriker h2, .tpl-elektriker h3 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.el-wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.el-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(9, 13, 22, 0.96); color: #F8FAFC;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+}
+.el-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+.el-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.08rem; }
+.el-mark { width: 38px; height: 38px; border-radius: 8px; background: #F59E0B; color: #090D16; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.el-nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.94rem; font-weight: 500; }
+.el-nav a { display: inline-flex; align-items: center; padding: 0.35rem 0.2rem; color: #E2E8F0; }
+.el-nav a:hover, .el-nav a.active { color: #F59E0B; }
+.el-btn-amber {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: #F59E0B; color: #090D16; font-weight: 700; padding: 0.8rem 1.45rem;
+  border-radius: 8px; border: 2px solid #F59E0B; transition: transform 0.15s ease, background 0.15s ease;
+}
+.el-btn-amber:hover { background: #FBBF24; transform: translateY(-1px); }
+.el-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: transparent; color: #F8FAFC; font-weight: 600; padding: 0.8rem 1.45rem;
+  border-radius: 8px; border: 1.5px solid rgba(248, 250, 252, 0.35);
+}
+.el-btn-ghost:hover { border-color: #F59E0B; color: #F59E0B; }
+.el-hero {
+  background: radial-gradient(circle at 80% 15%, rgba(56, 189, 248, 0.14), transparent 45%),
+              linear-gradient(145deg, #04060B 0%, #090D16 55%, #111827 100%);
+  color: #F8FAFC; padding: clamp(3rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+.el-hero-split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+.el-kicker { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #F59E0B; margin-bottom: 1rem; }
+.el-kicker::before { content: ""; width: 24px; height: 2px; background: #F59E0B; }
+.el-hero h1 { font-size: clamp(2.1rem, 4.3vw, 3.5rem); margin-bottom: 1.1rem; }
+.el-hero-lead { color: #CBD5E1; font-size: clamp(1rem, 1.4vw, 1.15rem); max-width: 56ch; margin-bottom: 1.8rem; }
+.el-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 2.2rem; }
+.el-hero-media { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45); }
+.el-hero-media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.el-hero-tag {
+  position: absolute; left: 1rem; bottom: 1rem; right: 1rem;
+  background: rgba(9, 13, 22, 0.9); color: #F8FAFC; padding: 0.8rem 1rem;
+  border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.35);
+  display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; font-size: 0.86rem;
+}
+.el-kpi-strip {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 1.5rem;
+}
+.el-kpi { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 1rem 1.15rem; }
+.el-kpi strong { display: block; color: #F59E0B; font-family: 'Space Grotesk', sans-serif; font-size: 1.12rem; }
+.el-kpi span { color: #CBD5E1; font-size: 0.88rem; }
+
+.el-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.el-section-dark { background: #111827; color: #F8FAFC; }
+.el-head { max-width: 720px; margin-bottom: 2.25rem; }
+.el-eyebrow { display: inline-block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #B45309; margin-bottom: 0.5rem; }
+.el-section-dark .el-eyebrow { color: #F59E0B; }
+.el-head h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); }
+.el-head p { color: var(--muted); }
+.el-section-dark .el-head p { color: #CBD5E1; }
+
+.el-services-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; }
+.el-srv-card {
+  background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #090D16;
+  border-radius: 14px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;
+}
+.el-srv-num { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; color: #B45309; margin-bottom: 0.5rem; }
+.el-srv-card h3 { font-size: 1.25rem; }
+.el-srv-card p { color: var(--muted); font-size: 0.95rem; }
+.el-bullets { display: grid; gap: 0.4rem; margin: 0.85rem 0 1.25rem; font-size: 0.9rem; color: #334155; }
+.el-bullets li::before { content: "▪ "; color: #B45309; font-weight: 700; }
+
+.el-gallery-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.el-gal-card { background: #090D16; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; overflow: hidden; }
+.el-gal-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.el-gal-body { padding: 1.35rem; }
+.el-gal-tag { display: inline-block; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #38BDF8; margin-bottom: 0.4rem; }
+.el-gal-body h3 { font-size: 1.15rem; color: #F8FAFC; }
+.el-gal-body p { color: #CBD5E1; font-size: 0.92rem; margin: 0; }
+
+.el-why-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+.el-why-item { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 1.4rem; }
+.el-why-item h3 { font-size: 1.05rem; color: #090D16; }
+.el-why-item p { font-size: 0.92rem; color: var(--muted); margin: 0; }
+
+.el-cta-band {
+  background: linear-gradient(120deg, #090D16 0%, #1E293B 100%);
+  color: #F8FAFC; border-radius: 18px; padding: clamp(2rem, 4vw, 3.25rem);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+.el-cta-band p { color: #CBD5E1; margin: 0; max-width: 54ch; }
+
+.el-footer { background: #04060B; color: #CBD5E1; padding: 3rem 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.el-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.el-footer h3 { color: #F8FAFC; font-size: 1rem; margin-bottom: 0.85rem; }
+.el-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.el-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.el-footer-links a:hover { color: #F59E0B; }
+.el-footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.25rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-elektriker .mobile-nav { background: #090D16; color: #F8FAFC; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+
+@media (max-width: 1080px) {
+  .el-hero-split { grid-template-columns: 1fr; }
+  .el-why-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .el-gallery-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .el-kpi-strip, .el-services-grid, .el-gallery-3, .el-why-4, .el-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="tpl-elektriker" data-template="elektriker">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Bindal Elektro AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="el-header">
+  <div class="el-wrap el-header-bar">
+    <a href="index.html" class="el-brand"><span class="el-mark" aria-hidden="true">BE</span><span>Bindal Elektro AS</span></a>
+    <nav class="el-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn el-btn-amber">Be om tilbud</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="el-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Personvern &amp; GDPR</p>
+      <h1>Personvernerklæring</h1>
+      <p>Slik behandler Bindal Elektro AS personopplysninger i tråd med norsk personopplysningslov og EUs personvernforordning (GDPR).</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="el-wrap">
+      <article class="prose-card">
+        <h2>1. Behandlingsansvarlig</h2>
+        <p>Bindal Elektro AS (Org.nr. 997 862 198) er behandlingsansvarlig for personopplysninger som samles inn ved kontakt og kundeforhold. Ved spørsmål kan du kontakte oss via post@bindalelektro.no.</p>
+        <h2>2. Hvilke opplysninger som behandles og formål</h2>
+        <ul>
+          <li>Kontaktopplysninger du selv oppgir i skjema, e-post eller telefon (navn, telefonnummer, e-post og melding) for å besvare forespørsler og gi tilbud.</li>
+          <li>Nødvendig oppdragsinformasjon for å oppfylle avtaler og lovpålagte plikter (f.eks. bokføringsloven).</li>
+        </ul>
+        <h2>3. Informasjonskapsler (cookies) og sporing</h2>
+        <p>Denne nettsiden bruker ikke reklamecookies eller tredjeparts sporingsskript. Det lagres ingen unødvendige informasjonskapsler i nettleseren din.</p>
+        <h2>4. Lagringstid og sikkerhet</h2>
+        <p>Personopplysninger lagres kun så lenge det er nødvendig for formålet de ble samlet inn for, eller så lenge lovgivningen krever det, og slettes deretter på en sikker måte.</p>
+        <h2>5. Dine rettigheter</h2>
+        <p>Du har rett til innsyn, retting, sletting og begrensning av behandlingen av dine personopplysninger, samt rett til å klage til Datatilsynet dersom du mener reglene ikke følges.</p>
+      </article>
+    </div>
+  </section>
+</main>
+  <footer class="el-footer">
+  <div class="el-wrap">
+    <div class="el-footer-grid">
+      <div>
+        <h3>Bindal Elektro AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Elektroinstallasjon og tekniske løsninger i Terråk.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="el-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="el-footer-links">
+          <span>Terråk</span>
+          <a href="tel:+4791695256">+47 91 69 52 56</a>
+          <a href="mailto:post@bindalelektro.no">post@bindalelektro.no</a>
+          <span>Org.nr. 997 862 198</span>
+        </div>
+      </div>
+    </div>
+    <div class="el-footer-bottom">
+      <span>© Bindal Elektro AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
+</body>
+</html>

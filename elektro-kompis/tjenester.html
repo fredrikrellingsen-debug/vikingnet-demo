@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tjenester – Elektro Kompis AS</title>
+  <meta name="description" content="Oversikt over tjenester fra Elektro Kompis AS i Strømmen.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --fy-petrol: #0F4C5C;
+  --fy-teal: #0F766E;
+  --fy-mint: #CCFBF1;
+  --fy-ice: #F1F5F9;
+  --accent: #0F4C5C;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #0F766E;
+  --strip-bg: #08222A;
+  --strip-fg: #E2E8F0;
+  --strip-link: #5EEAD4;
+  --hero-bg: #FFFFFF;
+  --hero-ink: #0B2E38;
+  --hero-muted: #3B5B66;
+  --surface-card: #FFFFFF;
+  --ink: #0B2E38;
+  --muted: #3B5B66;
+  --border: #DCE6EA;
+  --border-strong: #B6CAD2;
+  --tint: #ECFEFF;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+body.tpl-fysio {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #FFFFFF;
+  color: var(--ink);
+}
+.tpl-fysio h1, .tpl-fysio h2, .tpl-fysio h3 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.fy-wrap { width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.fy-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(255, 255, 255, 0.96); color: #0B2E38;
+  border-bottom: 1px solid #DCE6EA;
+}
+.fy-header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+.fy-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.08rem; }
+.fy-pulse { width: 36px; height: 36px; border-radius: 12px; background: #0F4C5C; color: #CCFBF1; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.88rem; }
+.fy-nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.94rem; font-weight: 600; }
+.fy-nav a { display: inline-flex; align-items: center; color: #3B5B66; }
+.fy-nav a:hover, .fy-nav a.active { color: #0F4C5C; }
+.fy-btn-petrol {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: #0F4C5C; color: #FFFFFF; font-weight: 600; padding: 0.82rem 1.5rem;
+  border-radius: 12px; border: 2px solid #0F4C5C;
+}
+.fy-btn-petrol:hover { background: #0B3A47; }
+.fy-btn-soft {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #F1F5F9; color: #0B2E38; font-weight: 600; padding: 0.82rem 1.5rem;
+  border-radius: 12px; border: 1.5px solid #CBD5E1;
+}
+
+/* Lys klinisk hero med avrundet portrett/miljøbilde til høyre */
+.fy-hero { padding: clamp(3rem, 6vw, 5rem) 0; background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%); }
+.fy-hero-split { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(2rem, 4.5vw, 4rem); align-items: center; }
+.fy-badge { display: inline-flex; align-items: center; gap: 0.45rem; background: #CCFBF1; color: #0F4C5C; font-weight: 700; font-size: 0.82rem; padding: 0.36rem 0.9rem; border-radius: 999px; margin-bottom: 1.1rem; }
+.fy-hero h1 { font-size: clamp(2.1rem, 4.2vw, 3.4rem); color: #0B2E38; margin-bottom: 1rem; }
+.fy-hero-lead { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.13rem); max-width: 54ch; margin-bottom: 1.75rem; }
+.fy-hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.8rem; }
+.fy-pills { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.fy-pills span { background: #F1F5F9; color: #0B2E38; font-size: 0.84rem; font-weight: 600; padding: 0.35rem 0.75rem; border-radius: 999px; }
+.fy-hero-portrait { border-radius: 28px; overflow: hidden; box-shadow: 0 24px 54px rgba(15, 76, 92, 0.14); border: 4px solid #FFFFFF; }
+.fy-hero-portrait img { width: 100%; aspect-ratio: 4 / 3.5; object-fit: cover; }
+
+.fy-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.fy-section-ice { background: #F1F5F9; }
+.fy-head { max-width: 700px; margin-bottom: 2.25rem; }
+.fy-eyebrow { display: block; color: #0F766E; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.45rem; }
+.fy-head h2 { font-size: clamp(1.75rem, 3vw, 2.45rem); }
+.fy-head p { color: var(--muted); }
+
+/* Ryddig 3-kolonners tjenestegrid med unike bilder */
+.fy-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.fy-srv-card { background: #FFFFFF; border: 1px solid #DCE6EA; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+.fy-srv-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.fy-srv-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.fy-srv-body h3 { font-size: 1.18rem; color: #0B2E38; }
+.fy-srv-body p { color: var(--muted); font-size: 0.93rem; }
+.fy-srv-body ul { display: grid; gap: 0.35rem; margin-top: auto; padding-top: 0.75rem; font-size: 0.88rem; color: #0F4C5C; font-weight: 500; }
+.fy-srv-body li::before { content: "✓ "; color: #0F766E; font-weight: 800; }
+
+/* FAQ-accordion */
+.fy-faq-split { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 2.5rem; align-items: start; }
+.fy-faq-list { display: grid; gap: 0.85rem; }
+.fy-faq-item { background: #FFFFFF; border: 1px solid #DCE6EA; border-radius: 14px; overflow: hidden; }
+.fy-faq-item summary {
+  padding: 1.1rem 1.35rem; font-weight: 700; color: #0B2E38; cursor: pointer;
+  list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.fy-faq-item summary::-webkit-details-marker { display: none; }
+.fy-faq-item summary::after { content: "+"; font-size: 1.3rem; color: #0F766E; font-weight: 700; }
+.fy-faq-item[open] summary::after { content: "−"; }
+.fy-faq-ans { padding: 0 1.35rem 1.2rem; color: var(--muted); font-size: 0.94rem; }
+
+.fy-cta-card {
+  background: #0F4C5C; color: #FFFFFF; border-radius: 22px; padding: clamp(2rem, 4.5vw, 3.25rem);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;
+}
+.fy-cta-card p { color: #CCFBF1; max-width: 54ch; margin: 0; }
+.fy-btn-mint { display: inline-flex; align-items: center; justify-content: center; background: #FFFFFF; color: #08222A; font-weight: 700; padding: 0.85rem 1.6rem; border-radius: 12px; }
+
+.fy-footer { background: #08222A; color: #CBD5E1; padding: 3rem 0 2rem; }
+.fy-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.fy-footer h3 { color: #FFFFFF; font-size: 1rem; margin-bottom: 0.8rem; }
+.fy-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.fy-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.fy-footer-links a:hover { color: #5EEAD4; }
+.fy-footer-end { border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-fysio .mobile-nav { background: #FFFFFF; color: #0B2E38; border-top: 1px solid #DCE6EA; }
+
+@media (max-width: 1080px) {
+  .fy-hero-split, .fy-faq-split { grid-template-columns: 1fr; }
+  .fy-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .fy-grid-3, .fy-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="tpl-fysio" data-template="fysio">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Elektro Kompis AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="fy-header">
+  <div class="fy-wrap fy-header-row">
+    <a href="index.html" class="fy-brand"><span class="fy-pulse" aria-hidden="true">EK</span><span>Elektro Kompis AS</span></a>
+    <nav class="fy-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link active" aria-current="page">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn fy-btn-petrol">Bestill samtale</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html" aria-current="page">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="fy-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Elektroinstallasjon og tekniske løsninger</p>
+      <h1>Tjenester fra Elektro Kompis AS</h1>
+      <p>Elektro Kompis AS leverer fagmessige elektroinstallasjoner, feilsøking, belysning og moderne energiløsninger med fokus på sikkerhet og ryddig dokumentasjon.</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="fy-wrap">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/elektro/05-belysning-takarmatur.webp" alt="Installatør på stige som monterer LED-belysning i tak" width="1024" height="683" loading="eager" fetchpriority="high" decoding="sync"></div><h2 style="font-size:1.35rem;">Elbillader og sikringsskap</h2><p style="color:var(--muted);">Sikker montering av hjemmeladere, lastbalansering og oppgradering av eldre sikringsskap.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Gjennomgang av kapasitet</li><li>• Montering med overspenningsvern</li><li>• Tydelig sluttdokumentasjon</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/elektro/02-elbillader-tilkobling.webp" alt="Ladekabel koblet til moderne elbil ved ladestasjon" width="1200" height="798" loading="lazy" decoding="async"></div><h2 style="font-size:1.35rem;">Belysning og smarthus</h2><p style="color:var(--muted);">Energieffektive LED-løsninger, utebelysning og enkel styring av lys og varme.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Lysplan tilpasset rommene</li><li>• Dimming og sonestyring</li><li>• Lavere strømforbruk i hverdagen</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/elektro/03-montering-stikkontakt.webp" alt="Elektriker med vernehjelm som monterer ny stikkontakt" width="960" height="639" loading="lazy" decoding="async"></div><h2 style="font-size:1.35rem;">Nybygg og rehabilitering</h2><p style="color:var(--muted);">Komplett elektrisk anlegg ved oppussing av kjøkken, bad, tilbygg eller ny bolig.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• God planlegging med øvrige fag</li><li>• Skjult og ryddig føringsvei</li><li>• Leveranse til avtalt tid</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><h2 style="font-size:1.35rem;">Service, feilsøking og næring</h2><p style="color:var(--muted);">Løpende service, feilretting og kontroll av elektriske anlegg for bedrifter og borettslag.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Rask kartlegging av feil</li><li>• Forebyggende gjennomgang</li><li>• Fast kontaktperson</li></ul></article>
+      </div>
+      <div style="margin-top:2.25rem;">
+        <a href="kontakt.html" class="btn fy-btn-petrol">Be om uforpliktende forslag</a>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="fy-footer">
+  <div class="fy-wrap">
+    <div class="fy-footer-grid">
+      <div>
+        <h3>Elektro Kompis AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Elektroinstallasjon og tekniske løsninger i Strømmen.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="fy-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="fy-footer-links">
+          <span>Strømmen</span>
+          <a href="tel:+4740018910">+47 40 01 89 10</a>
+          <a href="mailto:post@elektrokompis.no">post@elektrokompis.no</a>
+          <span>Org.nr. 927 532 174</span>
+        </div>
+      </div>
+    </div>
+    <div class="fy-footer-end">
+      <span>© Elektro Kompis AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
+</body>
+</html>

@@ -1,822 +1,474 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personvern – Cb Partner Tromsø AS</title>
+  <meta name="description" content="Personvernerklæring for Cb Partner Tromsø AS.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap">
   <style>
-    :root {
-      --bakgrunn: #FAF7F2;
-      --bakgrunn-alt: #F1ECE1;
-      --kort-bg: #FFFFFF;
-      --blekk: #18181B;
-      --dempet: #52525B;
-      --aksent: #B45309;
-      --aksent-mork: #92400E;
-      --aksent-myk: #FEF3C7;
-      --topp-bg: #18181B;
-      --topp-blekk: #FAF7F2;
-      --seksjon-mork: #18181B;
-      --font-overskrift: 'Plus Jakarta Sans', sans-serif;
-      --font-brodtekst: 'Inter', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
-    body {
-      background-color: var(--bakgrunn);
-      color: var(--blekk);
-      font-family: var(--font-brodtekst);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    :focus-visible {
-      outline: 3px solid var(--aksent);
-      outline-offset: 3px;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-    .container {
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-    /* Top utility bar */
-    .topbar {
-      background-color: #090D14;
-      color: #CBD5E1;
-      font-size: 0.82rem;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .topbar__indre {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-    .topbar__venstre, .topbar__hoyre {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1.1rem;
-    }
-    .topbar__punkt {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.01em;
-    }
-    .topbar__prikk {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: #22C55E;
-      box-shadow: 0 0 8px #22C55E;
-    }
-    /* Sticky Header (.topp) with guaranteed contrast >= 70 */
-    .topp {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background-color: var(--topp-bg);
-      color: var(--topp-blekk);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 0.85rem 0;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
-    }
-    .topp__indre {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .merke {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.08rem, 1.8vw, 1.35rem);
-      font-weight: 700;
-      color: var(--topp-blekk);
-      letter-spacing: -0.02em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      min-height: 44px;
-    }
-    .merke__ikon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--aksent), var(--aksent-mork));
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.92rem;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-    .merke__tekst {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-    }
-    .merke__under {
-      font-family: var(--font-brodtekst);
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: #94A3B8;
-      letter-spacing: 0.02em;
-      margin-top: 2px;
-    }
-    .nav-desktop {
-      display: none;
-      align-items: center;
-      gap: 1.35rem;
-    }
-    .nav-desktop a:not(.knapp) {
-      color: var(--topp-blekk);
-      font-weight: 500;
-      font-size: 0.95rem;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.35rem;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-    }
-    .nav-desktop a:not(.knapp):hover, .nav-desktop a[aria-current="page"] {
-      color: #FFFFFF;
-      border-bottom-color: var(--aksent);
-    }
-    .knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      min-height: 46px;
-      min-width: 46px;
-      padding: 0.78rem 1.45rem;
-      border-radius: 10px;
-      background-color: var(--aksent);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 0.98rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-      transition: transform 0.15s ease, background-color 0.15s ease;
-    }
-    .knapp:hover { background-color: var(--aksent-mork); transform: translateY(-1px); }
-    .knapp--sekundar {
-      background-color: var(--kort-bg);
-      color: var(--blekk);
-      border: 1.5px solid rgba(15, 23, 42, 0.22);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-    .knapp--sekundar:hover {
-      background-color: var(--bakgrunn-alt);
-      border-color: var(--aksent);
-    }
-    .mobil-meny-knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 44px;
-      min-height: 44px;
-      padding: 0.5rem 0.9rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--topp-blekk);
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .mobil-meny {
-      display: none;
-      background-color: var(--topp-bg);
-      color: var(--topp-blekk);
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .mobil-meny.aapen { display: flex; flex-direction: column; gap: 0.45rem; }
-    .mobil-meny a {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      color: var(--topp-blekk);
-      font-weight: 500;
-    }
-    /* Hero */
-    .hero {
-      padding: clamp(2.5rem, 5.5vw, 5rem) 0;
-      background: radial-gradient(circle at 85% 15%, var(--aksent-myk) 0%, transparent 45%), linear-gradient(180deg, var(--bakgrunn-alt) 0%, var(--bakgrunn) 100%);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.09);
-    }
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-    .merkelapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.38rem 0.9rem;
-      border-radius: 999px;
-      background-color: var(--aksent);
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 1.1rem;
-    }
-    h1 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(2rem, 4vw, 3.35rem);
-      line-height: 1.12;
-      letter-spacing: -0.025em;
-      text-wrap: balance;
-      margin-bottom: 1.15rem;
-      color: var(--blekk);
-    }
-    h2 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      line-height: 1.18;
-      letter-spacing: -0.02em;
-      text-wrap: balance;
-      margin-bottom: 0.85rem;
-      color: var(--blekk);
-    }
-    h3 {
-      font-family: var(--font-overskrift);
-      font-size: clamp(1.15rem, 1.7vw, 1.35rem);
-      line-height: 1.28;
-      margin-bottom: 0.5rem;
-      color: var(--blekk);
-    }
-    .seksjon-etikett {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--aksent);
-      margin-bottom: 0.5rem;
-    }
-    .ingress {
-      font-size: clamp(1.02rem, 1.3vw, 1.18rem);
-      color: var(--dempet);
-      margin-bottom: 1.65rem;
-      max-width: 62ch;
-    }
-    .hero__knapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      margin-bottom: 1.65rem;
-    }
-    .hero__tillit {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem 1.35rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(15, 23, 42, 0.1);
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--blekk);
-    }
-    .hero__tillit li {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-    .hero__tillit svg {
-      width: 18px;
-      height: 18px;
-      color: var(--aksent);
-      flex-shrink: 0;
-    }
-    .hero__ramme {
-      position: relative;
-    }
-    .hero__bilde {
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
-      border: 4px solid var(--kort-bg);
-      aspect-ratio: 16 / 11;
-      background-color: var(--bakgrunn-alt);
-    }
-    .hero__bilde img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero__flyt {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-      color: #F8FAFC;
-      padding: 0.85rem 1.1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      font-size: 0.86rem;
-    }
-    .hero__flyt strong {
-      display: block;
-      font-size: 0.95rem;
-      color: #FFFFFF;
-    }
-    .hero__flyt-kode {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      background: var(--aksent);
-      color: #FFFFFF;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    /* Fakta-stripe */
-    .fakta-stripe {
-      padding: 1.85rem 0;
-      background-color: var(--kort-bg);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .fakta-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    .fakta-boks {
-      padding: 1.15rem 1.35rem;
-      border-radius: 14px;
-      background-color: var(--bakgrunn);
-      border: 1px solid rgba(15, 23, 42, 0.09);
-      border-top: 3px solid var(--aksent);
-    }
-    .fakta-boks__etikett {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--aksent);
-      margin-bottom: 0.25rem;
-      display: block;
-    }
-    .fakta-boks strong {
-      display: block;
-      font-family: var(--font-overskrift);
-      font-size: 1.25rem;
-      color: var(--blekk);
-      margin-bottom: 0.15rem;
-    }
-    .fakta-boks span {
-      font-size: 0.88rem;
-      color: var(--dempet);
-    }
-    /* Seksjoner & 4 tjenestekort */
-    .seksjon {
-      padding: clamp(3.2rem, 6vw, 5.5rem) 0;
-    }
-    .seksjon--alt {
-      background-color: var(--bakgrunn-alt);
-      border-top: 1px solid rgba(15, 23, 42, 0.07);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.07);
-    }
-    .seksjon--mork {
-      background-color: var(--seksjon-mork);
-      color: #F8FAFC;
-    }
-    .seksjon--mork h2, .seksjon--mork h3 {
-      color: #FFFFFF;
-    }
-    .seksjon--mork .ingress {
-      color: #CBD5E1;
-    }
-    .kort-rutenett {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .kort:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.11);
-    }
-    .kort__bilde {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background-color: var(--bakgrunn-alt);
-    }
-    .kort__bilde img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-    .kort:hover .kort__bilde img {
-      transform: scale(1.04);
-    }
-    .kort__nr {
-      position: absolute;
-      top: 0.85rem;
-      left: 0.85rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.3rem 0.65rem;
-      border-radius: 8px;
-      background-color: rgba(15, 23, 42, 0.86);
-      color: #FFFFFF;
-      backdrop-filter: blur(6px);
-    }
-    .kort__innhold {
-      padding: 1.45rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-    .kort__innhold p {
-      color: var(--dempet);
-      font-size: 0.95rem;
-      margin-bottom: 1.25rem;
-      flex-grow: 1;
-      max-width: 60ch;
-    }
-    .kort__lenke {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      min-height: 44px;
-      font-weight: 700;
-      font-size: 0.93rem;
-      color: var(--aksent);
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      padding-top: 0.75rem;
-    }
-    /* 4 distinkte verdier (.verdier) i mørk kontrastseksjon */
-    .verdier {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-      margin-top: 2rem;
-    }
-    .verdi {
-      background-color: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 16px;
-      padding: 1.55rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-    .verdi__ikon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background-color: var(--aksent);
-      color: #FFFFFF;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 0.88rem;
-      margin-bottom: 0.35rem;
-    }
-    .seksjon--mork .verdi p { color: #CBD5E1; font-size: 0.94rem; }
-    .verdi p { color: var(--dempet); font-size: 0.94rem; }
-    /* Prosess-seksjon (3 steg) */
-    .prosess-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.35rem;
-      margin-top: 2rem;
-    }
-    .prosess-kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      padding: 1.55rem;
-      position: relative;
-    }
-    .prosess-kort__steg {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--aksent);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.4rem;
-      display: block;
-    }
-    /* Interaktiv pris-/prosjektvelger */
-    .kalkulator {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
-      margin-top: 1.75rem;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
-    }
-    .kalkulator__valg {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.85rem;
-      margin: 1.25rem 0;
-    }
-    .kalk-knapp {
-      text-align: left;
-      padding: 1rem 1.25rem;
-      min-height: 50px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(15, 23, 42, 0.15);
-      background: var(--bakgrunn);
-      color: var(--blekk);
-      font-weight: 600;
-      font-size: 0.98rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .kalk-knapp:hover {
-      border-color: var(--aksent);
-    }
-    .kalk-knapp.aktiv {
-      border-color: var(--aksent);
-      background-color: var(--aksent);
-      color: #ffffff;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
-    }
-    .kalk-resultat {
-      padding: 1.2rem 1.4rem;
-      border-radius: 12px;
-      background-color: var(--bakgrunn-alt);
-      border-left: 4px solid var(--aksent);
-      font-weight: 600;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    /* Kontaktskjema */
-    .skjema-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.25rem;
-      margin-top: 1.5rem;
-      align-items: start;
-    }
-    .kontakt-kort {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-top: 1.25rem;
-      display: grid;
-      gap: 0.85rem;
-    }
-    .kontakt-kort__rad {
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    }
-    .kontakt-kort__rad:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .kontakt-kort__etikett {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      color: var(--aksent);
-      display: block;
-    }
-    .skjema {
-      background-color: var(--kort-bg);
-      border: 1px solid rgba(15, 23, 42, 0.12);
-      border-radius: 18px;
-      padding: clamp(1.5rem, 3vw, 2.35rem);
-      display: grid;
-      gap: 1.1rem;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
-    }
-    .skjema label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.93rem;
-      margin-bottom: 0.35rem;
-    }
-    .skjema input, .skjema select, .skjema textarea {
-      width: 100%;
-      min-height: 46px;
-      padding: 0.78rem 0.95rem;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--blekk);
-      background-color: var(--bakgrunn);
-      border: 1.5px solid rgba(15, 23, 42, 0.18);
-      border-radius: 10px;
-    }
-    .skjema input:focus, .skjema select:focus, .skjema textarea:focus {
-      border-color: var(--aksent);
-      outline: none;
-    }
-    .bunn {
-      padding: 3.5rem 0 2.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      background-color: var(--topp-bg);
-      color: #CBD5E1;
-      font-size: 0.94rem;
-    }
-    .bunn__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .bunn strong {
-      color: #FFFFFF;
-    }
-    .bunn a {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      color: #E2E8F0;
-      font-weight: 500;
-    }
-    .bunn a:hover { color: #FFFFFF; text-decoration: underline; }
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
 
-    /* 1. Mobil (320px - 640px) */
-    @media (max-width: 640px) {
-      .topbar { display: none; }
-      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg, .prosess-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-desktop { display: none; }
-      .hero__flyt { position: static; margin-top: 0.75rem; }
-    }
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
 
-    /* 2. Nettbrett / Pad (641px - 1024px) */
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .container { padding: 0 1.75rem; }
-      .kort-rutenett, .verdier, .fakta-grid, .kalkulator__valg {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .prosess-grid { grid-template-columns: repeat(3, 1fr); }
-      .bunn__grid { grid-template-columns: repeat(2, 1fr); }
-    }
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
 
-    /* 3. PC / Laptop (1025px - 1920px) */
-    @media (min-width: 1025px) {
-      .nav-desktop { display: flex; }
-      .mobil-meny-knapp { display: none; }
-      .hero__grid { grid-template-columns: 1.08fr 0.92fr; }
-      .fakta-grid { grid-template-columns: repeat(4, 1fr); }
-      .kort-rutenett { grid-template-columns: repeat(4, 1fr); }
-      .verdier { grid-template-columns: repeat(4, 1fr); }
-      .prosess-grid { grid-template-columns: repeat(3, 1fr); }
-      .kalkulator__valg { grid-template-columns: repeat(2, 1fr); }
-      .skjema-grid { grid-template-columns: 1fr 1.15fr; }
-      .bunn__grid { grid-template-columns: 1.4fr 1fr 1fr; }
-    }
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
 
-    /* 4. TV / 4K / Storskjerm (1920px+) */
-    @media (min-width: 1920px) {
-      .container {
-        max-width: 1540px;
-        margin: 0 auto;
-        padding: 0 2.5rem;
-      }
-      body { font-size: clamp(1.05rem, 1.1vw, 1.22rem); }
-    }
-    </style>
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --rb-night: #111A2B;
+  --rb-deep: #090D16;
+  --rb-gold: #D49B42;
+  --rb-gold-light: #E8C48A;
+  --rb-parchment: #FAF8F5;
+  --accent: #D49B42;
+  --accent-ink: #090D16;
+  --focus-ring: #E8C48A;
+  --strip-bg: #090D16;
+  --strip-fg: #E7E2D8;
+  --strip-link: #E8C48A;
+  --hero-bg: #111A2B;
+  --hero-ink: #FAF8F5;
+  --hero-muted: #CBD5E1;
+  --surface-card: #FFFFFF;
+  --ink: #162033;
+  --muted: #475569;
+  --border: #E7E2D8;
+  --border-strong: #D4CBB8;
+  --tint: #F5EFE6;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-restaurant-bistro {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--rb-parchment);
+  color: var(--ink);
+}
+.tpl-restaurant-bistro h1, .tpl-restaurant-bistro h2, .tpl-restaurant-bistro h3, .rb-serif {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.rb-wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.rb-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(17, 26, 43, 0.97); color: #FAF8F5;
+  border-bottom: 1px solid rgba(212, 155, 66, 0.32);
+}
+.rb-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px; }
+.rb-brand { font-family: 'Fraunces', Georgia, serif; font-size: 1.32rem; font-weight: 600; color: #FAF8F5; display: inline-flex; align-items: center; gap: 0.65rem; }
+.rb-diamond { width: 12px; height: 12px; background: #D49B42; transform: rotate(45deg); flex-shrink: 0; }
+.rb-nav { display: flex; align-items: center; gap: 1.65rem; font-size: 0.92rem; font-weight: 500; }
+.rb-nav a { display: inline-flex; align-items: center; color: #E7E2D8; }
+.rb-nav a:hover, .rb-nav a.active { color: #E8C48A; }
+.rb-btn-gold {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #D49B42; color: #090D16; font-weight: 700; padding: 0.82rem 1.55rem;
+  border-radius: 6px; border: 2px solid #D49B42;
+}
+.rb-btn-gold:hover { background: #E8C48A; border-color: #E8C48A; }
+.rb-btn-outline {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; color: #FAF8F5; font-weight: 600; padding: 0.82rem 1.55rem;
+  border-radius: 6px; border: 1px solid rgba(232, 196, 138, 0.55);
+}
+
+/* Stemningsfull mørk editorial-hero */
+.rb-hero {
+  background: linear-gradient(160deg, #090D16 0%, #111A2B 60%, #1B2942 100%);
+  color: #FAF8F5; padding: clamp(3.25rem, 6.5vw, 5.75rem) 0;
+}
+.rb-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 4.5vw, 4rem); align-items: center; }
+.rb-kicker { display: block; color: #E8C48A; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; margin-bottom: 1rem; }
+.rb-hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); line-height: 1.09; margin-bottom: 1.15rem; }
+.rb-rule { width: 64px; height: 2px; background: #D49B42; margin-bottom: 1.25rem; }
+.rb-hero-lead { color: #CBD5E1; font-size: 1.06rem; max-width: 52ch; margin-bottom: 1.85rem; }
+.rb-hero-btns { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+.rb-hero-photo { border-radius: 14px; overflow: hidden; border: 1px solid rgba(212, 155, 66, 0.4); box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45); }
+.rb-hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Vekslende bilde/tekst-seksjoner (zigzag) */
+.rb-section { padding: clamp(3.25rem, 6vw, 5.25rem) 0; }
+.rb-zigzag-list { display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); }
+.rb-zigzag-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
+.rb-zigzag-row.is-reverse .rb-zz-media { order: 2; }
+.rb-zz-media { border-radius: 14px; overflow: hidden; border: 1px solid #E7E2D8; box-shadow: 0 16px 36px rgba(17, 26, 43, 0.08); }
+.rb-zz-media img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; }
+.rb-zz-tag { display: inline-block; color: #8F5C16; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 0.55rem; }
+.rb-zz-copy h2 { font-size: clamp(1.65rem, 2.8vw, 2.3rem); color: #162033; }
+.rb-zz-copy p { color: var(--muted); font-size: 1.02rem; }
+
+/* Framhevet sitat/løfte i nattblå + gull */
+.rb-quote-band {
+  background: #111A2B; color: #FAF8F5; padding: clamp(3rem, 6vw, 5rem) 0;
+  text-align: center; border-top: 2px solid #D49B42; border-bottom: 2px solid #D49B42;
+}
+.rb-quote-band blockquote {
+  margin: 0 auto 1.25rem; max-width: 34ch;
+  font-family: 'Fraunces', Georgia, serif; font-style: italic;
+  font-size: clamp(1.45rem, 2.8vw, 2.2rem); line-height: 1.35; color: #FAF8F5;
+}
+.rb-quote-attr { color: #E8C48A; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; }
+
+.rb-menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.rb-menu-item { background: #FFFFFF; border: 1px solid #E7E2D8; border-radius: 12px; padding: 1.6rem; }
+.rb-menu-item h3 { font-size: 1.3rem; color: #162033; }
+.rb-menu-item p { color: var(--muted); font-size: 0.94rem; margin: 0; }
+
+.rb-footer { background: #090D16; color: #CBD5E1; padding: 3rem 0 2rem; }
+.rb-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.rb-footer h3 { color: #E8C48A; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.9rem; }
+.rb-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.rb-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.rb-footer-links a:hover { color: #E8C48A; }
+.rb-footer-end { border-top: 1px solid rgba(212, 155, 66, 0.25); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-restaurant-bistro .mobile-nav { background: #111A2B; color: #FAF8F5; border-top: 1px solid rgba(212, 155, 66, 0.3); }
+
+@media (max-width: 1080px) {
+  .rb-hero-grid, .rb-zigzag-row { grid-template-columns: 1fr; }
+  .rb-zigzag-row.is-reverse .rb-zz-media { order: 0; }
+}
+@media (max-width: 768px) {
+  .rb-menu-grid, .rb-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
 </head>
-<body>
-  
-        <div class="topbar">
-          <div class="container topbar__indre">
-            <div class="topbar__venstre">
-              <span class="topbar__punkt"><span class="topbar__prikk"></span> GODKJENT TØMRER- & BYGGMESTERBEDRIFT</span>
-              <span class="topbar__punkt">ORG.NR 916 161 581</span>
-            </div>
-            <div class="topbar__hoyre">
-              <span class="topbar__punkt">📍 Breivangvegen 9, 9010 Tromsø</span>
-              <a href="mailto:rlilleng@online.no" class="topbar__punkt">✉️ rlilleng@online.no</a>
-            </div>
-          </div>
-        </div>
-        <header class="topp">
-          <div class="container topp__indre">
-            <a href="index.html" class="merke" aria-label="Cb Partner Tromsø AS">
-              <span class="merke__ikon">CP</span><span class="merke__tekst"><span>Cb Partner Tromsø AS</span><span class="merke__under">Tromsø · Org.nr 916 161 581</span></span>
-            </a>
-            <nav class="nav-desktop" aria-label="Hovedmeny">
-              <a href="index.html">Forside</a>
-              <a href="tjenester.html">Tjenester</a>
-              <a href="om-oss.html">Om bedriften</a>
-              <a href="kontakt.html">Kontakt</a>
-              <a href="kontakt.html#skjema" class="knapp">Be om befaring</a>
-            </nav>
-            <button type="button" class="mobil-meny-knapp" onclick="document.getElementById('mobilMeny').classList.toggle('aapen')" aria-label="Åpne meny">
-              Meny
-            </button>
-          </div>
-          <nav id="mobilMeny" class="mobil-meny" aria-label="Mobilmeny">
-            <a href="index.html">Forside</a>
-            <a href="tjenester.html">Tjenester</a>
-            <a href="om-oss.html">Om bedriften</a>
-            <a href="kontakt.html">Kontakt</a>
-            <a href="personvern.html">Personvern</a>
-          </nav>
-        </header>
-        
-  <main>
-    <section class="seksjon">
-      <div class="container">
-        <h1>Personvernerklæring for Cb Partner Tromsø AS</h1>
-        <p class="ingress">Slik behandler Cb Partner Tromsø AS (org.nr. 916161581) kontaktopplysninger ved forespørsler via nettsiden.</p>
-        <div class="verdier">
-          <div class="verdi">
-            <h3>Behandlingsansvarlig</h3>
-            <p>Cb Partner Tromsø AS, Breivangvegen 9, 9010 Tromsø. Kontakt: rlilleng@online.no.</p>
-          </div>
-          <div class="verdi">
-            <h3>Formål med innsamling</h3>
-            <p>Opplysninger som sendes inn via kontaktskjema brukes kun til å besvare din forespørsel og utarbeide tilbud.</p>
-          </div>
-          <div class="verdi">
-            <h3>Ingen tredjepartsdeling</h3>
-            <p>Vi selger eller videreformidler aldri dine kontaktopplysninger til utenforstående aktører.</p>
-          </div>
-          <div class="verdi">
-            <h3>Innsyn og sletting</h3>
-            <p>Du kan når som helst kontakte oss på rlilleng@online.no for innsyn i eller sletting av innsendt informasjon.</p>
-          </div>
+<body class="tpl-restaurant-bistro" data-template="restaurant-bistro">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Cb Partner Tromsø AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="rb-header">
+  <div class="rb-wrap rb-header-bar">
+    <a href="index.html" class="rb-brand"><span class="rb-diamond" aria-hidden="true"></span><span>Cb Partner Tromsø AS</span></a>
+    <nav class="rb-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn rb-btn-gold">Kontakt oss</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="rb-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Personvern &amp; GDPR</p>
+      <h1>Personvernerklæring</h1>
+      <p>Slik behandler Cb Partner Tromsø AS personopplysninger i tråd med norsk personopplysningslov og EUs personvernforordning (GDPR).</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="rb-wrap">
+      <article class="prose-card">
+        <h2>1. Behandlingsansvarlig</h2>
+        <p>Cb Partner Tromsø AS (Org.nr. 916 161 581) er behandlingsansvarlig for personopplysninger som samles inn ved kontakt og kundeforhold. Ved spørsmål kan du kontakte oss via rlilleng@online.no.</p>
+        <h2>2. Hvilke opplysninger som behandles og formål</h2>
+        <ul>
+          <li>Kontaktopplysninger du selv oppgir i skjema, e-post eller telefon (navn, telefonnummer, e-post og melding) for å besvare forespørsler og gi tilbud.</li>
+          <li>Nødvendig oppdragsinformasjon for å oppfylle avtaler og lovpålagte plikter (f.eks. bokføringsloven).</li>
+        </ul>
+        <h2>3. Informasjonskapsler (cookies) og sporing</h2>
+        <p>Denne nettsiden bruker ikke reklamecookies eller tredjeparts sporingsskript. Det lagres ingen unødvendige informasjonskapsler i nettleseren din.</p>
+        <h2>4. Lagringstid og sikkerhet</h2>
+        <p>Personopplysninger lagres kun så lenge det er nødvendig for formålet de ble samlet inn for, eller så lenge lovgivningen krever det, og slettes deretter på en sikker måte.</p>
+        <h2>5. Dine rettigheter</h2>
+        <p>Du har rett til innsyn, retting, sletting og begrensning av behandlingen av dine personopplysninger, samt rett til å klage til Datatilsynet dersom du mener reglene ikke følges.</p>
+      </article>
+    </div>
+  </section>
+</main>
+  <footer class="rb-footer">
+  <div class="rb-wrap">
+    <div class="rb-footer-grid">
+      <div>
+        <h3>Cb Partner Tromsø AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Strategi, ledelse og forretningsrådgivning i Tromsø.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="rb-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
         </div>
       </div>
-    </section>
-  </main>
-  
-        <footer class="bunn">
-          <div class="container bunn__grid">
-            <div>
-              <strong style="color: var(--blekk); font-size: 1.1rem;">Cb Partner Tromsø AS</strong>
-              <p style="margin-top: 0.4rem;">Byggmester &amp; entreprenør i Tromsø og omegn.</p>
-              <p style="margin-top: 0.4rem;">Org.nr: 916161581 · Etablert 2015 · 7 ansatte</p>
-            </div>
-            <div>
-              <strong style="color: var(--blekk);">Kontaktinformasjon</strong>
-              <p style="margin-top: 0.4rem;">Adresse: Breivangvegen 9, 9010 Tromsø</p>
-              <p>E-post: <a href="mailto:rlilleng@online.no">rlilleng@online.no</a></p>
-              <p>Daglig leder: Ronny Lilleng</p>
-            </div>
-            <div>
-              <strong style="color: var(--blekk);">Sider</strong><br>
-              <a href="index.html">Forside</a> ·
-              <a href="tjenester.html">Tjenester</a> ·
-              <a href="om-oss.html">Om oss</a> ·
-              <a href="kontakt.html">Kontakt</a> ·
-              <a href="personvern.html">Personvern</a>
-            </div>
-          </div>
-        </footer>
-        
+      <div>
+        <h3>Kontakt</h3>
+        <div class="rb-footer-links">
+          <span>Tromsø</span>
+          <span>Breivangvegen 9, 9010 Tromsø</span>
+          <a href="mailto:rlilleng@online.no">rlilleng@online.no</a>
+          <span>Org.nr. 916 161 581</span>
+        </div>
+      </div>
+    </div>
+    <div class="rb-footer-end">
+      <span>© Cb Partner Tromsø AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
 </body>
 </html>

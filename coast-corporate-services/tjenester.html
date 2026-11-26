@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tjenester – Coast Corporate Services AS</title>
+  <meta name="description" content="Oversikt over tjenester fra Coast Corporate Services AS i Måløy.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap">
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, picture { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+h1, h2, h3, h4 { margin: 0 0 0.7rem; line-height: 1.16; overflow-wrap: break-word; }
+p { margin: 0 0 1rem; overflow-wrap: break-word; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Tastatur- og TV-fjernkontrollfokus */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink, #ffffff);
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus { left: 1rem; }
+
+/* Demo-topplinje */
+.demo-strip {
+  font-size: 0.84rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  background: var(--strip-bg, #090d16);
+  color: var(--strip-fg, #e2e8f0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.demo-strip strong { color: #ffffff; }
+.demo-strip a {
+  display: inline-block;
+  margin-left: 0.45rem;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--strip-link, #fbbf24);
+}
+
+/* Minimum 44x44px berøringsmål på mobil/pad/TV */
+.tap-target, .btn, .nav-link, .menu-toggle, summary {
+  min-height: 44px;
+}
+.menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mobile-nav {
+  display: none;
+  padding: 1rem 1.25rem 1.5rem;
+}
+.mobile-nav.is-open {
+  display: grid;
+  gap: 0.5rem;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Felles skjema- og underside-stiler som bruker hver mals tokens */
+.form-card {
+  background: var(--surface-card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm, 8px);
+  border: 1.5px solid var(--border-strong, var(--border));
+  background: var(--input-bg, #ffffff);
+  color: var(--input-ink, #0f172a);
+  font-size: 16px;
+}
+.form-field textarea { min-height: 120px; resize: vertical; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.form-feedback {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  font-weight: 600;
+}
+.form-feedback.is-visible { display: block; }
+
+.subpage-hero {
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0;
+  background: var(--subhero-bg, var(--hero-bg));
+  color: var(--subhero-ink, var(--hero-ink));
+  border-bottom: 1px solid var(--border);
+}
+.subpage-hero p {
+  max-width: 64ch;
+  color: var(--subhero-muted, var(--hero-muted));
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+}
+.prose-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  max-width: 860px;
+}
+.prose-card h2 { font-size: clamp(1.25rem, 2vw, 1.55rem); margin-top: 1.6rem; }
+.prose-card h2:first-child { margin-top: 0; }
+.prose-card p, .prose-card li { color: var(--muted); }
+.prose-card ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 1rem; display: grid; gap: 0.4rem; }
+
+.contact-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+.info-stack { display: grid; gap: 1rem; }
+.info-tile {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.2rem 1.35rem;
+}
+.info-tile strong { display: block; margin-bottom: 0.25rem; color: var(--ink); }
+.info-tile span, .info-tile a { color: var(--muted); font-size: 0.95rem; }
+
+/* TV (1920x1080+): skalerbar lesbar typografi >= 18px og sentrert beholder */
+@media (min-width: 1800px) {
+  html { font-size: 112.5%; }
+}
+
+/* Pad (<= 1080px) */
+@media (max-width: 1080px) {
+  .contact-split { grid-template-columns: 1fr; }
+}
+
+/* Mobil (<= 768px) */
+@media (max-width: 768px) {
+  .desktop-nav, .header-cta-desktop { display: none !important; }
+  .menu-toggle { display: inline-flex !important; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --vvs-deep: #060D17;
+  --vvs-navy: #0B192C;
+  --vvs-fjord: #13263E;
+  --vvs-copper: #F59E0B;
+  --vvs-copper-dark: #B45309;
+  --accent: #0B192C;
+  --accent-ink: #FFFFFF;
+  --focus-ring: #D97706;
+  --strip-bg: #060D17;
+  --strip-fg: #CBD5E1;
+  --strip-link: #FBBF24;
+  --hero-bg: #0B192C;
+  --hero-ink: #FFFFFF;
+  --hero-muted: #CBD5E1;
+  --surface-card: #FFFFFF;
+  --ink: #0B192C;
+  --muted: #334E68;
+  --border: #D9E2EC;
+  --border-strong: #9FB3C8;
+  --tint: #F0F4F8;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+body.tpl-vvs {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #FFFFFF;
+  color: var(--ink);
+}
+.tpl-vvs h1, .tpl-vvs h2, .tpl-vvs h3 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+.vvs-wrap { width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2rem); }
+.vvs-header {
+  position: sticky; top: 0; z-index: 60;
+  background: #060D17; color: #FFFFFF;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.vvs-header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+.vvs-brand { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.08rem; }
+.vvs-badge-icon { width: 38px; height: 38px; border-radius: 50%; background: #13263E; border: 2px solid #F59E0B; color: #F59E0B; display: inline-flex; align-items: center; justify-content: center; font-size: 0.88rem; font-weight: 800; }
+.vvs-nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.94rem; font-weight: 500; }
+.vvs-nav a { display: inline-flex; align-items: center; color: #E2E9F2; }
+.vvs-nav a:hover, .vvs-nav a.active { color: #FBBF24; }
+.vvs-btn-copper {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: #F59E0B; color: #060D17; font-weight: 700; padding: 0.82rem 1.45rem;
+  border-radius: 10px; border: 2px solid #F59E0B;
+}
+.vvs-btn-copper:hover { background: #FBBF24; }
+.vvs-btn-glass {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.08); color: #FFFFFF; font-weight: 600;
+  padding: 0.82rem 1.45rem; border-radius: 10px; border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.vvs-hero {
+  background: linear-gradient(155deg, #060D17 0%, #0B192C 55%, #13263E 100%);
+  color: #FFFFFF; padding: clamp(3rem, 6vw, 5.25rem) 0;
+}
+.vvs-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+.vvs-kicker { display: inline-block; background: rgba(245, 158, 11, 0.16); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.4); font-size: 0.8rem; font-weight: 700; padding: 0.34rem 0.85rem; border-radius: 999px; margin-bottom: 1rem; }
+.vvs-hero h1 { font-size: clamp(2.1rem, 4.1vw, 3.35rem); margin-bottom: 1rem; }
+.vvs-hero-lead { color: #CBD5E1; font-size: clamp(1rem, 1.4vw, 1.14rem); max-width: 56ch; margin-bottom: 1.75rem; }
+.vvs-hero-cta { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+.vvs-hero-img { border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4); }
+.vvs-hero-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.vvs-trust-line { background: #F0F4F8; border-bottom: 1px solid #D9E2EC; padding: 1.15rem 0; }
+.vvs-trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.vvs-trust-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; font-weight: 600; color: #0B192C; }
+.vvs-trust-dot { width: 10px; height: 10px; border-radius: 50%; background: #B45309; flex-shrink: 0; }
+
+.vvs-section { padding: clamp(3rem, 6vw, 5rem) 0; }
+.vvs-section-tint { background: #F0F4F8; }
+.vvs-head { max-width: 720px; margin-bottom: 2.25rem; }
+.vvs-eyebrow { display: block; color: #B45309; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.45rem; }
+.vvs-head h2 { font-size: clamp(1.7rem, 3vw, 2.45rem); }
+.vvs-head p { color: var(--muted); }
+
+/* Rene hvite tjenestekort med tydelig blå venstrekant */
+.vvs-cards-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.45rem; }
+.vvs-card {
+  background: #FFFFFF; border: 1px solid #D9E2EC; border-left: 5px solid #0B192C;
+  border-radius: 12px; padding: 1.7rem; box-shadow: 0 8px 24px rgba(11, 25, 44, 0.05);
+}
+.vvs-card h3 { font-size: 1.22rem; color: #0B192C; }
+.vvs-card p { color: var(--muted); font-size: 0.95rem; }
+.vvs-card ul { display: grid; gap: 0.35rem; margin-top: 0.85rem; font-size: 0.9rem; color: #1E3A5F; }
+.vvs-card li::before { content: "→ "; color: #B45309; font-weight: 700; }
+
+/* 3-stegs prosess med unike bilder */
+.vvs-steps-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.vvs-step { background: #FFFFFF; border: 1px solid #D9E2EC; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.vvs-step img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.vvs-step-body { padding: 1.45rem; }
+.vvs-step-num { display: inline-block; background: #0B192C; color: #FCD34D; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 6px; margin-bottom: 0.65rem; }
+.vvs-step-body h3 { font-size: 1.15rem; }
+.vvs-step-body p { color: var(--muted); font-size: 0.92rem; margin: 0; }
+
+.vvs-navy-band { background: #0B192C; color: #FFFFFF; padding: clamp(2.75rem, 5vw, 4.25rem) 0; }
+.vvs-why-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; margin-bottom: 2.25rem; }
+.vvs-why-box { background: #13263E; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; padding: 1.35rem; }
+.vvs-why-box h3 { color: #FFFFFF; font-size: 1.06rem; }
+.vvs-why-box p { color: #CBD5E1; font-size: 0.9rem; margin: 0; }
+.vvs-cta-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; padding-top: 1.75rem; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.vvs-cta-strip p { color: #CBD5E1; margin: 0; }
+
+.vvs-footer { background: #060D17; color: #CBD5E1; padding: 3rem 0 2rem; }
+.vvs-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.vvs-footer h3 { color: #FFFFFF; font-size: 1rem; margin-bottom: 0.8rem; }
+.vvs-footer-links { display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.vvs-footer-links a { display: inline-flex; align-items: center; min-height: 36px; }
+.vvs-footer-links a:hover { color: #FBBF24; }
+.vvs-footer-end { border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 1.2rem; font-size: 0.86rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.tpl-vvs .mobile-nav { background: #060D17; color: #FFFFFF; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+
+@media (max-width: 1080px) {
+  .vvs-hero-grid { grid-template-columns: 1fr; }
+  .vvs-trust-grid, .vvs-why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vvs-steps-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .vvs-trust-grid, .vvs-cards-grid, .vvs-steps-3, .vvs-why-grid, .vvs-footer-grid { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="tpl-vvs" data-template="vvs">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+  <div class="demo-strip" role="note">Forhåndsvisning utarbeidet for <strong>Coast Corporate Services AS</strong>. <a href="kontakt.html">Ønsker dere å gå videre med løsningen?</a></div>
+  <header class="vvs-header">
+  <div class="vvs-wrap vvs-header-row">
+    <a href="index.html" class="vvs-brand"><span class="vvs-badge-icon" aria-hidden="true">CC</span><span>Coast Corporate Services AS</span></a>
+    <nav class="vvs-nav desktop-nav" aria-label="Hovedmeny"><a href="index.html" class="nav-link">Forside</a>
+<a href="tjenester.html" class="nav-link active" aria-current="page">Tjenester</a>
+<a href="om-oss.html" class="nav-link">Om oss</a>
+<a href="kontakt.html" class="nav-link">Kontakt</a></nav>
+    <div class="header-cta-desktop"><a href="kontakt.html" class="btn vvs-btn-copper">Ta kontakt</a></div>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Åpne meny">Meny ☰</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobilmeny"><a href="index.html">Forside</a>
+<a href="tjenester.html" aria-current="page">Tjenester</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt</a><a href="personvern.html">Personvern</a></nav>
+</header>
+  <main id="main-content">
+  <section class="subpage-hero">
+    <div class="vvs-wrap">
+      <p style="text-transform:uppercase;letter-spacing:0.09em;font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;">Regnskap, lønn og økonomirådgivning</p>
+      <h1>Tjenester fra Coast Corporate Services AS</h1>
+      <p>Coast Corporate Services AS gir deg oppdaterte tall, ryddig lønn og praktisk økonomisk sparring – slik at du kan bruke tiden på kundene og kjernevirksomheten.</p>
+    </div>
+  </section>
+  <section style="padding:clamp(2.75rem,5vw,4.5rem) 0;">
+    <div class="vvs-wrap">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/regnskap/03-finansrapport-oversikt.webp" alt="Økonomirapport med stolpediagram, kalkulator og tastatur" width="960" height="640" loading="eager" fetchpriority="high" decoding="sync"></div><h2 style="font-size:1.35rem;">Løpende regnskap og mva</h2><p style="color:var(--muted);">Nøyaktig bokføring, avstemming og rapportering til offentlige frister.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Effektiv digital bilagsflyt</li><li>• Kontroll på fradrag og mva</li><li>• Periodiske resultatrapporter</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/regnskap/08-kalkulator-naerbilde.webp" alt="Detaljbilde av bordkalkulator på ryddig kontorpult" width="960" height="640" loading="lazy" decoding="async"></div><h2 style="font-size:1.35rem;">Lønn og personaladministrasjon</h2><p style="color:var(--muted);">Korrekt lønnskjøring, a-melding, feriepenger og oppfølging av reiseregninger.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Trygg håndtering av frister</li><li>• Oversiktlige lønnsslipper</li><li>• Råd om satser og rutiner</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><div style="border-radius:12px;overflow:hidden;margin-bottom:1.1rem;"><img src="../assets/curated/regnskap/01-regnskapsforer-kalkulator.webp" alt="Regnskapsfører som arbeider med kalkulator og regneark på PC" width="960" height="638" loading="lazy" decoding="async"></div><h2 style="font-size:1.35rem;">Årsoppgjør og skattemelding</h2><p style="color:var(--muted);">Helhetlig utarbeidelse av årsregnskap, noter og næringsspesifikasjon.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• God planlegging før årsskiftet</li><li>• Kvalitetssikret dokumentasjon</li><li>• Tydelig gjennomgang med eier</li></ul></article>
+<article class="info-tile" style="padding:1.6rem;"><h2 style="font-size:1.35rem;">Økonomisk rådgivning og budsjett</h2><p style="color:var(--muted);">Likviditetsstyring, budsjettering og beslutningsstøtte ved investeringer og vekst.</p><ul style="display:grid;gap:0.35rem;color:var(--ink);font-size:0.92rem;margin-top:0.8rem;"><li>• Klarspråk uten unødig fagsjargong</li><li>• Realistiske prognoser</li><li>• Fast sparringspartner</li></ul></article>
+      </div>
+      <div style="margin-top:2.25rem;">
+        <a href="kontakt.html" class="btn vvs-btn-copper">Be om uforpliktende forslag</a>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="vvs-footer">
+  <div class="vvs-wrap">
+    <div class="vvs-footer-grid">
+      <div>
+        <h3>Coast Corporate Services AS</h3>
+        <p style="max-width:44ch;font-size:0.92rem;margin:0;">Regnskap, lønn og økonomirådgivning i Måløy.</p>
+      </div>
+      <div>
+        <h3>Sider</h3>
+        <div class="vvs-footer-links">
+          <a href="index.html">Forside</a>
+          <a href="tjenester.html">Tjenester</a>
+          <a href="om-oss.html">Om oss</a>
+          <a href="kontakt.html">Kontakt</a>
+          <a href="personvern.html">Personvern</a>
+        </div>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <div class="vvs-footer-links">
+          <span>Måløy</span>
+          <a href="mailto:sales@coast.no">sales@coast.no</a>
+          <span>Org.nr. 980 392 198</span>
+        </div>
+      </div>
+    </div>
+    <div class="vvs-footer-end">
+      <span>© Coast Corporate Services AS</span>
+      <span><a href="personvern.html">Personvernerklæring</a></span>
+    </div>
+  </div>
+</footer>
+  <script>
+(function () {
+  var toggles = document.querySelectorAll('[data-menu-toggle]');
+  toggles.forEach(function (btn) {
+    var targetId = btn.getAttribute('aria-controls');
+    var drawer = targetId ? document.getElementById(targetId) : null;
+    if (!drawer) return;
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && drawer.classList.contains('is-open')) {
+        drawer.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  });
+
+  var forms = document.querySelectorAll('form[data-demo-form]');
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var hp = form.querySelector('input[name="website_url"]');
+      if (hp && hp.value.trim() !== '') return;
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+      var box = form.querySelector('[data-form-feedback]');
+      if (box) {
+        var company = form.getAttribute('data-company') || 'bedriften';
+        box.textContent = 'Takk for henvendelsen! Dette er en interaktiv forhåndsvisning for ' + company + '. I produksjon sendes meldingen direkte til deres e-post.';
+        box.classList.add('is-visible');
+        box.setAttribute('tabindex', '-1');
+        box.focus();
+      }
+      form.reset();
+      window.setTimeout(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      }, 900);
+    });
+  });
+})();
+  </script>
+</body>
+</html>
